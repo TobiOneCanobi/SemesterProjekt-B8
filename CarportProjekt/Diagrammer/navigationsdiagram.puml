@@ -1,0 +1,40 @@
+@startuml
+
+[*]--> forside : start
+state forside
+forside --> login
+forside --> admin_oversigt
+forside --> bruger_oversigt
+forside --> design_din_egen
+forside --> carport_visning
+
+
+state login
+login --> forside
+login --> sign_up
+
+state sign_up
+sign_up --> login
+
+state carport_visning
+carport_visning --> forside
+
+state design_din_egen
+design_din_egen --> forside
+design_din_egen --> bruger_oversigt
+
+state bruger_oversigt
+bruger_oversigt --> forside
+bruger_oversigt --> [*] : slut
+
+state admin_oversigt
+admin_oversigt --> forside
+admin_oversigt --> admin_edit
+
+
+state admin_edit
+admin_edit --> forside
+admin_edit --> admin_oversigt
+
+
+@enduml

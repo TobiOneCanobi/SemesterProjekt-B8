@@ -1,0 +1,166 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+Class Main{
++main()
+}
+
+package persistence
+{
+    Class ConnenctionPool{
+        {static}+ConnenctionPool instance
+        {static}+HikariDataSource
+        -ConnenctionPool()
+        +ConnenctionPool getInstance()
+        +synchronized Connection getConnection()
+         {static}+HikariDataSource createHikariConnectionPool()
+        }
+
+        Class materialMapper{
+        {static}+List<Material> loadMaterials()
+        }
+
+        Class userMapper{
+        {static}+User logIn()
+        {static}+Void createUser()
+        {static}+Boolean emailExist()
+        }
+
+        Class orderMapper{
+        {static}+List<Order> loadOrdersForAdmin()
+        {static}+List<Order> loadOrdersForCustomer()
+        {static}+Void createOrder()
+        {static}+Void createOrderItem()
+        }
+
+}
+
+package exceptions
+{
+    Class DatabseException< extends Exception>{
+    + DatabaseException()
+    + DatabaseException()
+    }
+}
+
+package entities
+{
+Class Material{
+    -int materialId
+    -String description
+    -int length
+    -int height
+    -int width
+    -int quantity
+    -String unit
+    -String type
+
+    +Material()
+    +int getMaterialId()
+    +String getDescription()
+    +int getLength()
+    +int getHeight()
+    +int getWidth()
+    +int getQuantity()
+    +String getUnit()
+    +String getType()
+    +String toString()
+    }
+
+Class Order{
+    - int orderId
+    -int totalPrice
+    -boolean installationFee
+    -String status
+    -int userId
+
+    +Order()
+    +int getOrderId()
+    +int getTotalPrice()
+    +boolean getInstallationFee()
+    +String getStatus()
+    +int getUserId()
+    +String toString()
+}
+
+Class User {
+    -int userId
+    -String email
+    -String firstName
+    -String lastName
+    -int phoneNumber
+    -String address
+    -String city
+    -String zipCode
+
+    +User()
+    +int getUserId()
+    +String getEmail()
+    +String getFirstName()
+    +String getLastName()
+    +int getPhoneNumber()
+    +String getAddress()
+    +String getCity()
+    +String getZipCode()
+    +String toString()
+    }
+
+Class orderItem{
+    -int orderItemId
+    -String description
+    -int orderId
+    -int materialId
+
+    +orderItem()
+    +int getOrderItemId()
+    +String getDescription()
+    +int getOrderId()
+    +int getMaterialId()
+    +String toString()
+    }
+
+}
+
+package controllers
+{
+    Class MaterialController{
+    {static}+addRoutes()
+
+    }
+
+    Class OrderController{
+    {static}+addRoutes()
+    {static}+orderOverviewAdmin()
+    {static}+orderOverviewCustomer()
+    {static}+createOrderItem()
+    {static}+createOrder()
+    {static}+calculateTotalPrice()
+    }
+
+    Class UserController{
+    {static}+addRoutes()
+    {static}+logIn()
+    {static}+createUser()
+    {static}+logOut()
+    }
+}
+
+package config
+{
+    Class SessionConfig{
+    {static}+TemplateEngine templateEngine()
+    }
+
+    Class ThymeleafConfig{
+    {static}+SessionHandler sessionConfig()
+    }
+}
+
+
+
+
+
+
+@enduml

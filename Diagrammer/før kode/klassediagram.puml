@@ -16,6 +16,9 @@ Class Main{
          {static}+HikariDataSource createHikariConnectionPool()
         }
 
+        class GenerateOffer {
+        }
+
 package persistence
 {
 

@@ -7,8 +7,6 @@ Class Main{
 +main()
 }
 
-package persistence
-{
     Class ConnenctionPool{
         {static}+ConnenctionPool instance
         {static}+HikariDataSource
@@ -17,6 +15,10 @@ package persistence
         +synchronized Connection getConnection()
          {static}+HikariDataSource createHikariConnectionPool()
         }
+
+package persistence
+{
+
 
         Class MaterialMapper{
         {static}+List<Material> loadMaterials()
@@ -158,23 +160,26 @@ package config
     }
 }
 
-Main <|-- ConnenctionPool
-Main <|-- ThymeleafConfig
-Main <|-- SessionConfig
 
-UserMapper <|-- ConnenctionPool
-OrderMapper <|-- ConnenctionPool
-MaterialMapper <|-- ConnenctionPool
 
-User <|-- UserMapper
-Order <|-- OrderMapper
-OrderItem <|-- OrderMapper
-Material <|-- MaterialMapper
+UserController o-- Main
+OrderController o-- Main
+MaterialController o-- Main
 
-UserController <|-- User
-OrderController <|-- Order
-OrderController <|-- OrderItem
-MaterialController <|-- Material
+User *-- UserMapper
+Order *-- OrderMapper
+OrderItem *-- OrderMapper
+Material *-- MaterialMapper
+
+User *-- UserController
+Order *-- OrderController
+OrderItem *-- OrderController
+Material *-- MaterialController
+
+OrderMapper *-- OrderController
+MaterialMapper *-- MaterialController
+UserMapper *-- UserController
+
 
 
 

@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.UserMapper;
@@ -14,21 +15,22 @@ public class UserController
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.post("createuser", ctx -> createuser(ctx, connectionPool));
-        app.get("homepage", ctx -> ctx.render("homepage.html"));
+        app.get("backtomain", ctx -> ctx.render("index.html"));
+        app.get("loginpage", ctx -> ctx.render("loginpage.html"));
 
     }
 
     public static void login(Context ctx, ConnectionPool connectionPool)
     {
-        String email = ctx.formParam("eMail");
-        String password = ctx.formParam("passWord");
+        String email = ctx.formParam("email");
+        String password = ctx.formParam("password");
         try
         {
-            User user = UserMapper.login(eMail, passWord, connectionPool);
+            User user = UserMapper.loginRetriever(email, password, connectionPool);
             if (user != null)
             {
                 ctx.sessionAttribute("currentUser", user);
-                ctx.sessionAttribute("userEmail", eMail);
+                ctx.sessionAttribute("userEmail", email);
                 ctx.sessionAttribute("userRole", user.getRole());
 
                 ctx.redirect("/index");

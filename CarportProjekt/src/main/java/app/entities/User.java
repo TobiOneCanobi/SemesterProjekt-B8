@@ -2,7 +2,7 @@ package app.entities;
 
 public class User {
 
-    private String userId;
+    private int userId;
     private String firstName;
     private String lastName;
     private String address;
@@ -14,7 +14,7 @@ public class User {
     private String role;
 
 
-    public User(String userId, String firstName, String lastName, String address, int zipCode, String city, int phoneNumber, String email, String password, String role)
+    public User(int userId, String firstName, String lastName, String address, int zipCode, String city, int phoneNumber, String email, String password, String role)
     {
         this.userId = userId;
         this.firstName = firstName;
@@ -29,7 +29,15 @@ public class User {
 
     }
 
-    public String getUserId()
+    public User(int userId, String email, String password, String role)
+    {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public int getUserId()
     {
         return userId;
     }

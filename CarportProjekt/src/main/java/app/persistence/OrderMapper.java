@@ -17,7 +17,7 @@ public class OrderMapper
                 "    u.first_name,\n" +
                 "    u.last_name,\n" +
                 "\tu.email,\n" +
-                "    u.phone,\n" +
+                "    u.phone_number,\n" +
                 "\tu.address,\n" +
                 "    u.zip_code,\n" +
                 "\to.total_price,\n" +
@@ -36,12 +36,12 @@ public class OrderMapper
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
-                String phone = rs.getString("phone");
+                String phoneNumber = rs.getString("phone_number");
                 String address = rs.getString("address");
                 int zipCode = rs.getInt("zip_code");
                 int totalPrice = rs.getInt("total_price");
                 String status = rs.getString("status");
-                Order order = new Order(orderId, firstName, lastName, email, phone, address, zipCode, totalPrice, status);
+                Order order = new Order(orderId, firstName, lastName, email, phoneNumber, address, zipCode, totalPrice, status);
                 loadOrdersForAdminList.add(order);
             }
         } catch (SQLException e)

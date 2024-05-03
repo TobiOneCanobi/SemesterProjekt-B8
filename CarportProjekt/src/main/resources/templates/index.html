@@ -9,9 +9,16 @@
 
 <body>
 
-<h1>Welcome to the Javalin / Thymeleaf demo</h1>
+<h1>Index side</h1>
 
 <p>This is your first web application in this world</p>
+
+<div>
+    <form th:action="@{/login}" method="get">
+        <button class="text-margin" type="submit">Login</button>
+    </form>
+</div>
+
 
 </body>
 </html>

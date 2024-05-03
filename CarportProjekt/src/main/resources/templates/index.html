@@ -19,6 +19,21 @@
     </form>
 </div>
 
+<br>
+
+<div th:if="${session.userRole == 'admin'}">
+    <form th:action="@{/adminoverview}" method="get">
+        <button class="text-margin" type="submit">Admin oversigt</button>
+    </form>
+</div>
+
+<br>
+
+<div th:if="${session.userRole == 'customer'}">
+    <form th:action="@{/customeroverview}" method="get">
+        <button class="text-margin" type="submit">Kunde overblik</button>
+    </form>
+</div>
 
 </body>
 </html>

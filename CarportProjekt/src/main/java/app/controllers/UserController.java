@@ -15,8 +15,13 @@ public class UserController
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
         app.post("createuser", ctx -> createuser(ctx, connectionPool));
-        app.get("backtomain", ctx -> ctx.render("index.html"));
+        app.get("backtoindex", ctx -> ctx.render("index.html"));
         app.get("loginpage", ctx -> ctx.render("loginpage.html"));
+        app.get("createuserpage", ctx -> ctx.render("createuserpage.html"));
+        app.get("backtologin", ctx -> ctx.render("loginpage.html"));
+        app.get("adminoverview", ctx -> ctx.render("adminoverview.html"));
+        app.get("customeroverview", ctx -> ctx.render("customeroverview.html"));
+
 
     }
 
@@ -33,7 +38,7 @@ public class UserController
                 ctx.sessionAttribute("userEmail", email);
                 ctx.sessionAttribute("userRole", user.getRole());
 
-                ctx.redirect("/index");
+                ctx.render("index.html");
             } else
             {
                 ctx.attribute("message", "noget er gået galt");

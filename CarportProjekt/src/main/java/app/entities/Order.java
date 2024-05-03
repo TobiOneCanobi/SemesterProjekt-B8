@@ -17,6 +17,12 @@ public class Order
     private String address;
     private int zipCode;
 
+    public Order(int orderId, int userId)
+    {
+        this.orderId = orderId;
+        this.userId = userId;
+    }
+
     public Order(int orderId, String firstName, String lastName, String email, String phone, String address, int zipCode, int totalPrice, String status)
     {
         this.orderId = orderId;

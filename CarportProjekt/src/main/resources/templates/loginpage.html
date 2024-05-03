@@ -2,15 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
+
+    <div>
+        <form th:action="@{/backtomain}" method="get">
+            <button class="" type="submit">Tilbage</button>
+        </form>
+    </div>
 </head>
 <body>
 
+<p style="font-family: Brush Script Std; font-weight: lighter; font-size: 50px;">Velkommen</p>
+<h3>Vær venling at logge ind</h3>
+
 <div>
-    <form th:action="@{/createuser}" method="get">
-        <button class="text-margin" type="submit">Opret bruger</button>
+    <form action="/login" method="post">
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email" placeholder="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder="password"><br><br>
+        <button class="loginbottom" type="submit">Login</button>
+        <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
     </form>
 </div>
+
+<div>
+    <form th:action="@{/createuserpage}" method="get">
+        <button class="" type="submit">Opret bruger</button>
+    </form>
+</div>
+
 
 </body>
 </html>

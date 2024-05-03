@@ -10,9 +10,9 @@ import java.sql.SQLException;
 public class UserMapper
 {
 
-    public static User login(String eMail, passWord, ConnectionPool connectionPool) throws DatabaseException
+    public static User login(String eMail, int passWord, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "select * from users where eMail=? and passWord=?";
+        String sql = "select * from users where email=? and passwords=?";
 
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql))
         {
@@ -28,6 +28,7 @@ public class UserMapper
                 String Address = rs.getString(address);
                 String phoneNumber = rs.getString(phone);
                 int zipCode = rs.getInt("zip_code");
+                return new User(userId, eMail, passWord);
             } else
             {
                 throw new DatabaseException("Fejl i login. Prøv venligst igen");
@@ -37,7 +38,5 @@ public class UserMapper
             throw new DatabaseException("Database fejl", e.getMessage());
         }
     }
-
-
 
 }

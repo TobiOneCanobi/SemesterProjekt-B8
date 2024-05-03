@@ -3,9 +3,14 @@ package app;
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
 import app.controllers.UserController;
+import app.entities.Order;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
+
+import java.util.List;
 
 public class Main
 {
@@ -16,7 +21,7 @@ public class Main
     private static final String DB = "carport";
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws DatabaseException
     {
         // Initializing Javalin and Jetty webserver
 
@@ -31,5 +36,18 @@ public class Main
 
         app.get("/", ctx -> ctx.render("index.html"));
         UserController.addRoutes(app, connectionPool);
+
+System.out.println("Orders for admin");
+           List<Order> ordersForAdmin = OrderMapper.loadOrdersForAdmin(connectionPool);
+           for (Order order1 : ordersForAdmin)
+               System.out.println(order1);
+
+        System.out.println("\n");
+
+System.out.println("Orders for customer 1");
+        List<Order> orderscustoomer = OrderMapper.loadOrdersForCustomer(connectionPool, 1);
+        for (Order order2 : orderscustoomer)
+            System.out.println(order2);
+
     }
 }

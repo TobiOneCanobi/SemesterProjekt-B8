@@ -93,6 +93,7 @@ Class Order{
 Class User {
     -int userId
     -String email
+    -String password
     -String firstName
     -String lastName
     -int phoneNumber
@@ -103,6 +104,7 @@ Class User {
     +User()
     +int getUserId()
     +String getEmail()
+    +String getpassword()
     +String getFirstName()
     +String getLastName()
     +int getPhoneNumber()

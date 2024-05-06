@@ -76,15 +76,15 @@ public class UserController
         if (!email.contains("@"))
         {
             ctx.attribute("message", "Din email skal indeholde '@'! Prøv igen.");
-            ctx.render("createuser.html");
+            ctx.render("createuserpage.html");
         } else if (!password1.equals(password2))
         {
             ctx.attribute("message", "Dine to passwords matcher ikke! Prøv igen");
-            ctx.render("createuser.html");
+            ctx.render("createuserpage.html");
         } else if (!Pattern.matches(".*[\\p{Lu}\\p{N}æøåÆØÅ].*",password1) || password1.length() < 4)
         {
             ctx.attribute("message", " Kun bogstaver og tal, skal mindst være 4 bogstaver langt");
-            ctx.render("createuser.html");
+            ctx.render("createuserpage.html");
 
         } else if (password1.equals(password2))
         {
@@ -97,12 +97,12 @@ public class UserController
             } catch (DatabaseException e)
             {
                 ctx.attribute("message", "Dit email er allerede i brug. Prøv igen, eller log ind");
-                ctx.render("createuser.html");
+                ctx.render("createuserpage.html");
             }
         } else
         {
             ctx.attribute("Noget gik galt - Udfyld det forfra");
-            ctx.render("createuser.html");
+            ctx.render("createuserpage.html");
         }
     }
 

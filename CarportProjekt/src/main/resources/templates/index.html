@@ -11,28 +11,35 @@
 
 <h1>Index side</h1>
 
-<p>This is your first web application in this world</p>
+<p>flotte fog carporte</p>
+<div class="login_or_out">
+    <div class="login" th:if="${session.currentUser == null}">
+        <form th:action="@{/loginpage}" method="get">
+            <button class="text-margin" type="submit">Login</button>
+        </form>
+    </div>
 
-<div>
-    <form th:action="@{/loginpage}" method="get">
-        <button class="text-margin" type="submit">Login</button>
-    </form>
+    <div class="logout" th:if="${session.currentUser != null}">
+        <form th:action="@{/logout}" method="get">
+            <button class="text-margin" type="submit">Log ud</button>
+        </form>
+    </div>
 </div>
 
 <br>
 
-<div th:if="${session.userRole == 'admin'}">
-    <form th:action="@{/adminoverview}" method="get">
-        <button class="text-margin" type="submit">Admin oversigt</button>
-    </form>
-</div>
+<div class="panel_overview">
+    <div class="admin_panel" th:if="${session.userRole == 'admin'}">
+        <form th:action="@{/adminoverview}" method="get">
+            <button class="text-margin" type="submit">Admin oversigt</button>
+        </form>
+    </div>
 
-<br>
-
-<div th:if="${session.userRole == 'customer'}">
-    <form th:action="@{/customeroverview}" method="get">
-        <button class="text-margin" type="submit">Kunde overblik</button>
-    </form>
+    <div class="customer_panel" th:if="${session.userRole == 'customer'}">
+        <form th:action="@{/customeroverview}" method="get">
+            <button class="text-margin" type="submit">Kunde overblik</button>
+        </form>
+    </div>
 </div>
 
 </body>

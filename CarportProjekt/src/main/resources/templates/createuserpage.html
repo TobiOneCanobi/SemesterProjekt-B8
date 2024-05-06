@@ -34,14 +34,14 @@ action="loginpage.html" th:action="@{/backtologin}">
         <label for="address">Indtast din adresse:</label><br>
         <input type="text" id="address" name="address" placeholder="Adresse"><br><br>
 
+        <label for="phonenumber">Indtast dit telefonnummer:</label><br>
+        <input type="text" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"><br><br>
+
         <label for="zipcode">Indtast dit postnummer:</label><br>
         <input type="text" id="zipcode" name="zipcode" placeholder="Postnummer"><br><br>
 
         <label for="city">Indtast din by:</label><br>
         <input type="text" id="city" name="city" placeholder="By"><br><br>
-
-        <label for="phonenumber">Indtast dit telefonnummer:</label><br>
-        <input type="text" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"><br><br>
 
         <button type="submit" formaction="/createuser">Opret bruger</button>
         <div><p th:text="${message}"></p></div>

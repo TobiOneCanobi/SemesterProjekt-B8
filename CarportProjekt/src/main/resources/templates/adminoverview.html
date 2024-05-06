@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Overblik</title>
+
+    <div class="login_or_out">
+        <div class="logout" th:if="${session.currentUser != null}">
+            <form th:action="@{/logout}" method="get">
+                <button class="text-margin" type="submit">Log ud</button>
+            </form>
+        </div>
+    </div>
 </head>
 <body>
 

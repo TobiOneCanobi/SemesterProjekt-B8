@@ -10,8 +10,9 @@ public class Material
     private int quantity;
     private String unit;
     private String type;
+    private int price;
 
-    public Material(int materialId, String description, String length, String height, String width, int quantity, String unit, String type)
+    public Material(int materialId, String description, String length, String height, String width, int quantity, String unit, String type, int price)
     {
         this.materialId = materialId;
         this.description = description;
@@ -21,7 +22,9 @@ public class Material
         this.quantity = quantity;
         this.unit = unit;
         this.type = type;
+        this.price = price;
     }
+
 
     public int getMaterialId()
     {
@@ -63,9 +66,14 @@ public class Material
         return type;
     }
 
+    public int getPrice()
+    {
+        return price;
+    }
+
     @Override
     public String toString()
     {
-        return "Material{" + "materialId=" + materialId + ", description='" + description + '\'' + ", length='" + length + '\'' + ", height='" + height + '\'' + ", width='" + width + '\'' + ", quantity=" + quantity + ", unit='" + unit + '\'' + ", type='" + type + '\'' + '}';
+        return "Material{" + "materialId=" + materialId + ", description='" + description + '\'' + ", length='" + length + '\'' + ", height='" + height + '\'' + ", width='" + width + '\'' + ", quantity=" + quantity + ", unit='" + unit + '\'' + ", type='" + type + '\'' + ", price=" + price + '}';
     }
 }

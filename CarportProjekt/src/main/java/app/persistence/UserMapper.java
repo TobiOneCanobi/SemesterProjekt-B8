@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class UserMapper
 {
 
-    public static User loginRetriever(String email, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT * FROM users WHERE email=? AND passwords=?";
 
@@ -34,6 +34,63 @@ public class UserMapper
         } catch (SQLException e)
         {
             throw new DatabaseException("Database fejl", e.getMessage());
+        }
+    }
+
+    public static boolean emailExists(String email, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "SELECT COUNT(*) AS COUNT FROM users WHERE email = ?";
+
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql))
+        {
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return rs.getInt("count") > 0;
+            }
+        } catch (SQLException e)
+        {
+            throw new DatabaseException("Database error", e.getMessage());
+        }
+        return false;
+    }
+
+    public static void createUser(String firstName, String lastName, String address, int zipCode, String city, int phoneNumber, String email, String password, String role, ConnectionPool connectionPool) throws DatabaseException
+    {
+        if (emailExists(email, connectionPool))
+        {
+            throw new DatabaseException("Email bliver allerede brugt. Log på eller vælg en anden.");
+        }
+        String sql = "INSERT INTO users (first_name, last_name, address, zip_code, city, phone_number, email, passwords, role) VALUES (?,?,?,?,?,?,?,?,?)";
+
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql))
+        {
+
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setString(3, address);
+            ps.setInt(4, zipCode);
+            ps.setString(5, city);
+            ps.setInt(6, phoneNumber);
+            ps.setString(7, email);
+            ps.setString(8, password);
+            ps.setString(9, role);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected == 0)
+            {
+                throw new DatabaseException("Fejl ved oprettelse af bruger. Nogle felter er ikke udfyldt");
+            }
+        } catch (SQLException e)
+        {
+            String msg = "Der er sket en fejl. Data er ikke indtastet korrekt";
+            if (e.getMessage().startsWith("ERROR: duplicate key value "))
+            {
+                msg = "Værdien er allerede brugt. Skriv noget andet";
+            }
+            throw new DatabaseException(msg, e.getMessage());
         }
     }
 

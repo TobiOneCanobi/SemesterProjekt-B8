@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.entities.Material;
 import app.entities.Order;
+import app.entities.OrderItem;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
@@ -87,6 +88,7 @@ public class OrderController
 
     public static void addOrderItems(Context ctx, int orderId, ConnectionPool connectionPool) throws SQLException
     {
+        //Material list eller orderitem list?
         List<Material> materialslist = ctx.sessionAttribute("Materialslist");
 
         if (materialslist != null)
@@ -100,16 +102,16 @@ public class OrderController
 
     public static int calculateTotalPrice(Context ctx)
     {
-        List<Material> materialsList = ctx.sessionAttribute("materialsList");
-        if (materialsList == null)
+        List<OrderItem> orderItemList = ctx.sessionAttribute("orderItemList");
+        if (orderItemList == null)
         {
             return 0;
         }
         int totalPrice = 0;
-        for (Material material : materialsList)
+        for (OrderItem orderItem : orderItemList)
         {
-            int materialsListTotal = material.getQuantity() * material.getPrice();
-            totalPrice += materialsListTotal;
+            int orderItemsListTotal = orderItem.getMaterial().getQuantity() * orderItem.getMaterial().getPrice();
+            totalPrice += orderItemsListTotal;
         }
         return totalPrice;
     }

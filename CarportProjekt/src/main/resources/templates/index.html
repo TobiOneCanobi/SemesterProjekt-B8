@@ -49,6 +49,11 @@
     </a>
 </div>
 
+<div th:if="${session.currentUser != null}">
+    logget ind som
+    <div th:text="${session.userEmail}">
+    </div>
+</div>
 
 </body>
 </html>

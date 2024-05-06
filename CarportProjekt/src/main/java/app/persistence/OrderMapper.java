@@ -9,7 +9,8 @@ import java.util.List;
 
 public class OrderMapper
 {
-    public static List<Order> loadOrdersForAdmin(ConnectionPool connectionPool) throws DatabaseException {
+    public static List<Order> loadOrdersForAdmin(ConnectionPool connectionPool) throws DatabaseException
+    {
         List<Order> loadOrdersForAdminList = new ArrayList<>();
         String sql = "SELECT \n" +
                 "    o.order_id,\n" +
@@ -26,9 +27,11 @@ public class OrderMapper
                 "JOIN \n" +
                 "    public.users u ON o.user_id = u.user_id;\n";
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+             PreparedStatement ps = connection.prepareStatement(sql))
+        {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 int orderId = rs.getInt("order_id");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
@@ -41,7 +44,8 @@ public class OrderMapper
                 Order order = new Order(orderId, firstName, lastName, email, phoneNumber, address, zipCode, totalPrice, status);
                 loadOrdersForAdminList.add(order);
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
             throw new DatabaseException("Fejl ved indlæsning af ordrer.", e.getMessage());
         }
@@ -49,7 +53,8 @@ public class OrderMapper
     }
 
 
-    public static List<Order> loadOrdersForCustomer(ConnectionPool connectionPool, int userId) throws DatabaseException {
+    public static List<Order> loadOrdersForCustomer(ConnectionPool connectionPool, int userId) throws DatabaseException
+    {
         List<Order> loadOrdersForCustomerList = new ArrayList<>();
         String sql = "SELECT\n" +
                 "    users.user_id,\n" +
@@ -70,10 +75,12 @@ public class OrderMapper
                 "WHERE\n" +
                 "    users.user_id = ?";
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+             PreparedStatement ps = connection.prepareStatement(sql))
+        {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 int orderId = rs.getInt("order_id");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
@@ -87,7 +94,8 @@ public class OrderMapper
                 Order order = new Order(orderId, firstName, lastName, email, phoneNumber, address, zipCode, totalPrice, status);
                 loadOrdersForCustomerList.add(order);
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
             throw new DatabaseException("Fejl ved indlæsning af ordrer.", e.getMessage());
         }
@@ -124,14 +132,14 @@ public class OrderMapper
         return newOrder;
     }
 
-    public static void createOrderItem(ConnectionPool connectionPool, String description, int orderId, int materialId) throws SQLException
+    public static void createOrderItem(ConnectionPool connectionPool, int orderId, String description, int materialId) throws SQLException
     {
         String insertOrderLineSQL = "INSERT INTO public.orderline (description, order_id, material_id) VALUES (?, ?, ?, ?);";
         try (Connection conn = connectionPool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(insertOrderLineSQL))
         {
-            pstmt.setString(1, description);
-            pstmt.setInt(2, orderId);
+            pstmt.setInt(1, orderId);
+            pstmt.setString(2, description);
             pstmt.setInt(3, materialId);
             pstmt.executeUpdate();
         } catch (SQLException e)

@@ -40,7 +40,7 @@ public class UserController
                 ctx.sessionAttribute("userEmail", email);
                 ctx.sessionAttribute("userRole", user.getRole());
 
-                ctx.redirect("/index");
+                ctx.render("index.html");
             } else
             {
                 ctx.attribute("message", "noget er gået galt");
@@ -68,7 +68,6 @@ public class UserController
         String lastName = ctx.formParam("lastname");
         String address = ctx.formParam("address");
         int zipCode = Integer.parseInt(ctx.formParam("zipcode"));
-        String city = ctx.formParam("city");
         int phoneNumber = Integer.parseInt(ctx.formParam("phonenumber"));
         String email = ctx.formParam("email");
         String password1 = ctx.formParam("password1");
@@ -90,7 +89,7 @@ public class UserController
         {
             try
             {
-                UserMapper.createUser(firstName, lastName, address, zipCode, city, phoneNumber, email, password1, "customer", connectionPool);
+                UserMapper.createUser(firstName, lastName, address, zipCode, phoneNumber, email, password1, "customer", connectionPool);
                 ctx.attribute("message", "Du er hermed oprettet med email: " + email +
                         ". Nu kan du logge på.");
                 ctx.render("loginpage.html");

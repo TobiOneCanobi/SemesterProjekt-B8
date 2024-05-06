@@ -57,13 +57,13 @@ public class UserMapper
         return false;
     }
 
-    public static void createUser(String firstName, String lastName, String address, int zipCode, String city, int phoneNumber, String email, String password, String role, ConnectionPool connectionPool) throws DatabaseException
+    public static void createUser(String firstName, String lastName, String address, int zipCode, int phoneNumber, String email, String password, String role, ConnectionPool connectionPool) throws DatabaseException
     {
         if (emailExists(email, connectionPool))
         {
             throw new DatabaseException("Email bliver allerede brugt. Log på eller vælg en anden.");
         }
-        String sql = "INSERT INTO users (first_name, last_name, address, zip_code, city, phone_number, email, passwords, role) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO users (first_name, last_name, address, zip_code, phone_number, email, passwords, role) VALUES (?,?,?,?,?,?,?,?)";
 
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql))
         {
@@ -72,11 +72,10 @@ public class UserMapper
             ps.setString(2, lastName);
             ps.setString(3, address);
             ps.setInt(4, zipCode);
-            ps.setString(5, city);
-            ps.setInt(6, phoneNumber);
-            ps.setString(7, email);
-            ps.setString(8, password);
-            ps.setString(9, role);
+            ps.setInt(5, phoneNumber);
+            ps.setString(6, email);
+            ps.setString(7, password);
+            ps.setString(8, role);
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected == 0)

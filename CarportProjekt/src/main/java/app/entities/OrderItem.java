@@ -6,6 +6,7 @@ public class OrderItem
     private String description;
     private int orderId;
     private int materialId;
+    private Material material;
 
     public OrderItem(int orderItemId, String description, int orderId, int materialId)
     {
@@ -35,9 +36,14 @@ public class OrderItem
         return materialId;
     }
 
+    public Material getMaterial()
+    {
+        return material;
+    }
+
     @Override
     public String toString()
     {
-        return "OrderItem{" + "orderItemId=" + orderItemId + ", description='" + description + '\'' + ", orderId=" + orderId + ", materialId=" + materialId + '}';
+        return "OrderItem{" + "orderItemId=" + orderItemId + ", description='" + description + '\'' + ", orderId=" + orderId + ", materialId=" + materialId + ", material=" + material + '}';
     }
 }

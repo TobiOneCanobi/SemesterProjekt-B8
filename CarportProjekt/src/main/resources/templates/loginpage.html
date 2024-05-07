@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
     <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
-<body>
 
-<header>
-    <div class="return">
-        <form th:action="@{/backtoindex}" method="get">
-            <button class="" type="submit">Tilbage</button>
-        </form>
+<body class="login-form">
+
+    <div class="login-box">
+
+        <div class="return">
+            <form th:action="@{/backtoindex}" method="get">
+                <button type="submit">Tilbage</button>
+            </form>
+        </div>
+
+        <h2>Sign in</h2>
+
+        <div class="login-input">
+            <form action="login" method="post">
+                <label for="email">Indtast din email</label> <br>
+                <input type="text" id="email" name="email" placeholder="email"><br>
+
+                <label for="password">Password</label> <br>
+                <input type="password" id="password" name="password" placeholder="password"><br><br>
+
+                <button class="loginbottom" type="submit">Login</button>
+                <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
+            </form>
+
+            <div class="create-user-button">
+                <form th:action="@{/createuserpage}" method="get">
+                    <button type="submit">Opret bruger</button>
+                </form>
+            </div>
+        </div>
     </div>
-</header>
-
-
-<p style="font-family: Brush Script Std; font-weight: lighter; font-size: 50px;">Velkommen</p>
-<h3>Vær venling at logge ind</h3>
-
-<div class="login_input">
-    <form action="login" method="post">
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" placeholder="email"><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" placeholder="password"><br><br>
-
-        <button class="loginbottom" type="submit">Login</button>
-        <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
-    </form>
-
-    <div class="create_user_button">
-        <form th:action="@{/createuserpage}" method="get">
-            <button class="" type="submit">Opret bruger</button>
-        </form>
-    </div>
-</div>
 
 </body>
 </html>

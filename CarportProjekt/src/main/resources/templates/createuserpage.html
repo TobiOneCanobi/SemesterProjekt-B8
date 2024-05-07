@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
+    <title>Opret Bruger</title>
     <meta charset="UTF-8">
-    <title>Opret bruger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
 
 <header>
     <div class="return">
-        <form action="loginpage.html" th:action="@{/backtologin}">
-            <button class="text-margin" type="submit">Log ud</button>
+        <form th:action="@{/backtologin}">
+            <button class="text-margin" type="submit">Tilbage</button>
         </form>
     </div>
 </header>
@@ -21,6 +23,7 @@
 
         <label for="email">Indtast din email:</label><br>
         <input type="text" id="email" name="email" placeholder="Email"><br><br>
+<!-- th:value="${session.createUser.email}" note til createuser session -->
 
         <label for="password1"> Indtast dit password:</label><br>
         <input type="password" id="password1" name="password1" placeholder="Password"><br><br>

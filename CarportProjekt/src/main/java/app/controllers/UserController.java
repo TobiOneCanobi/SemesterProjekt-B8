@@ -108,6 +108,13 @@ public class UserController
             return;
         }
 
+        if(!Validation.validateFourNumbersOnly(zipCode))
+        {
+            ctx.attribute("message", "Dit postnummer må kun indeholde 4 tal");
+            ctx.render("createuserpage.html");
+            return;
+        }
+
 
 
 

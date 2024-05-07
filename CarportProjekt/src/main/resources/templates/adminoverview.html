@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Overblik</title>
+</head>
+
+<body>
+<header>
+    <div class="return">
+        <form th:action="@{/backtoindex}" method="get">
+            <button class="" type="submit">Tilbage</button>
+        </form>
+    </div>
+
+    <div class="user_email_bar"
+         th:if="${session.currentUser != null}" th:text="${session.userEmail}">
+    </div>
 
     <div class="login_or_out">
         <div class="logout" th:if="${session.currentUser != null}">
@@ -11,15 +24,10 @@
             </form>
         </div>
     </div>
-</head>
-<body>
+</header>
 
-<form
-        action="index.html" th:action="@{/backtoindex}">
-    <button class="webform" type="submit" style="background: #71f70b; max-height: 45px;">Tilbage</button>
-</form>
 
-<h2> <b> <i> Du er nu på admin Overblik siden.</i> </b> </h2>
+<h2><b> <i> Du er nu på admin Overblik siden.</i> </b></h2>
 
 </body>
 </html>

@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-  <div>
-    <form th:action="@{/backtoindex}" method="get">
-      <button class="" type="submit">Tilbage</button>
-    </form>
-  </div>
+</head>
+<body>
+
+<header>
+
+    <div class="return">
+        <form th:action="@{/backtoindex}" method="get">
+            <button class="" type="submit">Tilbage</button>
+        </form>
+    </div>
+
+    <div class="user_email_bar"
+         th:if="${session.currentUser != null}" th:text="${session.userEmail}">
+    </div>
 
     <div class="login_or_out">
         <div class="login" th:if="${session.currentUser == null}">
@@ -24,12 +33,11 @@
         </div>
     </div>
 
-</head>
-<body>
+</header>
 <h3>her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
 
 
-<div>
+<div class="design_input">
     <form action="designcarport" method="post">
         <label for="length">Længde:</label><br>
         <input type="text" id="length" name="length" placeholder="Længde"><br>

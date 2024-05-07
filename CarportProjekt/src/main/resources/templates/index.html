@@ -10,49 +10,50 @@
 <body>
 
 <h1>Index side</h1>
+<header>
+
+    <div class="user_email_bar"
+         th:if="${session.currentUser != null}" th:text="${session.userEmail}">
+    </div>
+
+    <div class="panel_overview">
+        <div class="admin_panel" th:if="${session.userRole == 'admin'}">
+            <form th:action="@{/adminoverview}" method="get">
+                <button class="text-margin" type="submit">Admin oversigt</button>
+            </form>
+        </div>
+
+        <div class="customer_panel" th:if="${session.userRole == 'customer'}">
+            <form th:action="@{/customeroverview}" method="get">
+                <button class="text-margin" type="submit">Kunde overblik</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="login_or_out">
+        <div class="login" th:if="${session.currentUser == null}">
+            <form th:action="@{/loginpage}" method="get">
+                <button class="text-margin" type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="logout" th:if="${session.currentUser != null}">
+            <form th:action="@{/logout}" method="get">
+                <button class="text-margin" type="submit">Log ud</button>
+            </form>
+        </div>
+    </div>
+</header>
 
 <p>flotte fog carporte</p>
-<div class="login_or_out">
-    <div class="login" th:if="${session.currentUser == null}">
-        <form th:action="@{/loginpage}" method="get">
-            <button class="text-margin" type="submit">Login</button>
-        </form>
-    </div>
-
-    <div class="logout" th:if="${session.currentUser != null}">
-        <form th:action="@{/logout}" method="get">
-            <button class="text-margin" type="submit">Log ud</button>
-        </form>
-    </div>
-</div>
 
 <br>
 
-<div class="panel_overview">
-    <div class="admin_panel" th:if="${session.userRole == 'admin'}">
-        <form th:action="@{/adminoverview}" method="get">
-            <button class="text-margin" type="submit">Admin oversigt</button>
-        </form>
-    </div>
-
-    <div class="customer_panel" th:if="${session.userRole == 'customer'}">
-        <form th:action="@{/customeroverview}" method="get">
-            <button class="text-margin" type="submit">Kunde overblik</button>
-        </form>
-    </div>
-</div>
-
-<div>
+<div class="fog_carport_link">
     <p>For færdigbygget carporte.</p>
     <a href="https://www.johannesfog.dk/have-fritid/carporte">
         <img src="../public/images/CarportLogo.png" th:src="@{/images/CarportLogo.png}" width="117" height="95"/>
     </a>
-</div>
-
-<div th:if="${session.currentUser != null}">
-    logget ind som
-    <div th:text="${session.userEmail}">
-    </div>
 </div>
 
 </body>

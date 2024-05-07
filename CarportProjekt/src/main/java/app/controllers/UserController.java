@@ -24,7 +24,6 @@ public class UserController
         app.get("adminoverview", ctx -> ctx.render("adminoverview.html"));
         app.get("customeroverview", ctx -> ctx.render("customeroverview.html"));
 
-
     }
 
     public static void login(Context ctx, ConnectionPool connectionPool)

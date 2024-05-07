@@ -6,14 +6,17 @@
 </head>
 <body>
 
-<form
-action="loginpage.html" th:action="@{/backtologin}">
-    <button class="webform" type="submit" style="background: #71f70b; max-height: 45px;">Tilbage</button>
-</form>
+<header>
+    <div class="return">
+        <form action="loginpage.html" th:action="@{/backtologin}">
+            <button class="text-margin" type="submit">Log ud</button>
+        </form>
+    </div>
+</header>
 
-<form method="post">
 
-    <div class="center">
+<div class="create_user_input">
+    <form method="post">
         <h2>Opret din bruger her</h2>
 
         <label for="email">Indtast din email:</label><br>
@@ -45,8 +48,8 @@ action="loginpage.html" th:action="@{/backtologin}">
 
         <button type="submit" formaction="/createuser">Opret bruger</button>
         <div><p th:text="${message}"></p></div>
-    </div>
-</form>
+    </form>
+</div>
 
 
 </body>

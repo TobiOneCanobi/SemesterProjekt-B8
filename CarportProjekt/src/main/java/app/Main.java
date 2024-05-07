@@ -4,18 +4,13 @@ import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
 import app.controllers.OrderController;
 import app.controllers.UserController;
-import app.entities.Order;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.OrderMapper;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
-import java.util.List;
-
 public class Main
 {
-
     private static final String USER = "postgres";
     private static final String PASSWORD = "1234";
     private static final String URL = "jdbc:postgresql://159.65.120.138:5432/%s?currentSchema=public";

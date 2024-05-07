@@ -3,6 +3,7 @@ package app;
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
 import app.controllers.OrderController;
+import app.controllers.OrderControllerJohn;
 import app.controllers.UserController;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
@@ -34,6 +35,8 @@ public class Main
         UserController.addRoutes(app, connectionPool);
         OrderController.addRoutes(app, connectionPool);
 
+        //SVGTest
+        OrderControllerJohn.addRoutes(app, connectionPool);
 
     }
 }

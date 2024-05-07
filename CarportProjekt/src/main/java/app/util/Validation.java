@@ -13,4 +13,17 @@ public class Validation
         return text.matches("^[\\p{N}a-zA-ZæøåÆØÅ.\\s-]+$");
 
     }
+
+    public static boolean validateFourNumbersOnly(int number){
+
+        String numberString = String.valueOf(number);
+
+        if(numberString.length() != 4){
+
+            return false;
+        }
+
+        return numberString.matches("^[\\p{N}]+$");
+
+    }
 }

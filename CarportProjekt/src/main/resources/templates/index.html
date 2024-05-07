@@ -26,7 +26,14 @@
         <div class="customer_panel" th:if="${session.userRole == 'customer'}">
             <form th:action="@{/customeroverview}" method="get">
                 <button class="text-margin" type="submit">Kunde overblik</button>
+
             </form>
+
+            <!-- SVG tegning test-->
+            <form th:action="@{/designcarport}" href="designcarport.html">
+                <button class="text-margin" type="submit">Design Carport</button>
+            </form>
+
         </div>
     </div>
 
@@ -45,8 +52,6 @@
     </div>
 </header>
 
-<!-- SVG tegning test-->
-<a th:href="@{showOrder}" href="showOrder.html">Show order</a>
 
 <p>flotte fog carporte</p>
 

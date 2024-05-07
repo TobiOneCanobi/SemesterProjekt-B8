@@ -13,4 +13,19 @@ public class Validation
         return text.matches("^[\\p{N}a-zA-ZæøåÆØÅ.\\s-]+$");
 
     }
+
+    public static boolean validateEightNumbersOnly(int number){
+
+        String numberString = String.valueOf(number);
+
+        if(numberString.length() != 8)
+        {
+            System.out.println("Der skal være 8 cifre i dit telefon nr");
+            return false;
+        }
+
+        return numberString.matches("^[\\p{N}]+$");
+
+    }
+
 }

@@ -21,4 +21,12 @@ class ValidationTest {
         assertTrue(Validation.validateLetterAndSelectSymbolsOnly("lyngby-vej 50"));
         assertFalse(Validation.validateLetterAndSelectSymbolsOnly("Virumgade 25%"));
     }
+
+    @Test
+    void validateEightNumbersOnly()
+    {
+        assertTrue(Validation.validateEightNumbersOnly(12345678));
+        assertFalse(Validation.validateEightNumbersOnly(5555));
+        assertFalse(Validation.validateEightNumbersOnly(999999999));
+    }
 }

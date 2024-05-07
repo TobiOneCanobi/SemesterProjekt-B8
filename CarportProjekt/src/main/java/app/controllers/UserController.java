@@ -100,6 +100,14 @@ public class UserController
             return;
         }
 
+        //CRITERIA FOR PHONE NUMBERS
+        if(!Validation.validateEightNumbersOnly(phoneNumber))
+        {
+            ctx.attribute("message", "Dit telefon nummer må ikke indholde symboler og bogstaver");
+            ctx.render("createuserpage.html");
+            return;
+        }
+
 
 
 

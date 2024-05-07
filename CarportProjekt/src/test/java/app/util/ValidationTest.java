@@ -23,6 +23,14 @@ class ValidationTest {
     }
 
     @Test
+    void validateFourNumbersOnly()
+    {
+        assertTrue(Validation.validateFourNumbersOnly(3436));
+        assertFalse(Validation.validateFourNumbersOnly(444));
+
+    }
+
+    @Test
     void validateEightNumbersOnly()
     {
         assertTrue(Validation.validateEightNumbersOnly(12345678));

@@ -14,6 +14,19 @@ public class Validation
 
     }
 
+    public static boolean validateFourNumbersOnly(int number){
+
+        String numberString = String.valueOf(number);
+
+        if(numberString.length() != 4){
+
+            return false;
+        }
+
+        return numberString.matches("^[\\p{N}]+$");
+
+    }
+
     public static boolean validateEightNumbersOnly(int number){
 
         String numberString = String.valueOf(number);

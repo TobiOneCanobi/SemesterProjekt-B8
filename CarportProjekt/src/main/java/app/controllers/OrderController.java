@@ -7,12 +7,14 @@ import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderMapper;
+import app.services.CarportSvg;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderController
 {
@@ -21,6 +23,7 @@ public class OrderController
         app.get("orderoverviewadmin", ctx -> orderOverviewAdmin(ctx, connectionPool));
         app.get("orderoverviewcustomer", ctx -> orderOverviewCustomer(ctx, connectionPool));
         app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
+        app.get("designcarport", ctx -> showCarport(ctx));
     }
 
 
@@ -115,4 +118,15 @@ public class OrderController
         }
         return totalPrice;
     }
+
+    public static void showCarport(Context ctx)
+    {
+        // TODO: Create a SVG Drawing and inject into the showOrder.html template as a String
+        Locale.setDefault(new Locale("US"));
+        CarportSvg svg = new CarportSvg(600, 780);
+
+        ctx.attribute("svg", svg.toString());
+        ctx.render("designcarport.html");
+    }
+
 }

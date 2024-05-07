@@ -78,19 +78,28 @@ public class UserController
         String capitalizedFirstName = firstLetter + restOfName;
         firstName = capitalizedFirstName;
 
+//CRITERIA TO FIRSTNAME
         if(!Validation.validateLetterOnly(firstName))
         {
             ctx.attribute("message", "Dit fornavn må ikke indholde tal eller symboler, udover '-'");
             ctx.render("createuserpage.html");
             return;
         }
-
+//CRITERIA TO LASTNAME
         if(!Validation.validateLetterOnly(lastName))
         {
             ctx.attribute("message", "Dit efternavn må ikke indholde tal eller symboler, udover '-'");
             ctx.render("createuserpage.html");
             return;
         }
+//CRITERIA TO ADDRESS
+        if(!Validation.validateLetterAndSelectSymbolsOnly(address))
+        {
+            ctx.attribute("message", "Din addresse må ikke indholde symboler, udover '. -'");
+            ctx.render("createuserpage.html");
+            return;
+        }
+
 
 
 

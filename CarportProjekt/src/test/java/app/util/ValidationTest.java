@@ -9,9 +9,16 @@ class ValidationTest {
     @Test
     void validateLetterOnly()
     {
-        assertTrue(Validation.validateLetterOnly("adsfkjdasf"));
-        assertFalse(Validation.validateLetterOnly("hansi5"));
-        assertTrue(Validation.validateLetterOnly("adsfkjdasfÅ"));
+        assertTrue(Validation.validateLetterOnly("Jørgen"));
+        assertFalse(Validation.validateLetterOnly("Hans5"));
 
+
+    }
+
+    @Test
+    void validateLetterAndSelectSymbolsOnly()
+    {
+        assertTrue(Validation.validateLetterAndSelectSymbolsOnly("lyngby-vej 50"));
+        assertFalse(Validation.validateLetterAndSelectSymbolsOnly("Virumgade 25%"));
     }
 }

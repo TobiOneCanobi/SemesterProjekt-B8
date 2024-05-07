@@ -7,4 +7,10 @@ public class Validation
         return text.matches("^[a-zA-ZæøåÆØÅ]+$");
 
     }
+
+    public static boolean validateLetterAndSelectSymbolsOnly(String text){
+
+        return text.matches("^[\\p{N}a-zA-ZæøåÆØÅ.\\s-]+$");
+
+    }
 }

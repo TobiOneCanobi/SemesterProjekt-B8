@@ -80,8 +80,14 @@ public class UserController
 
         if(!Validation.validateLetterOnly(firstName))
         {
+            ctx.attribute("message", "Dit fornavn må ikke indholde tal eller symboler, udover '-'");
+            ctx.render("createuserpage.html");
+            return;
+        }
 
-            ctx.attribute("message", "Dit navn må ikke indholde tal eller symboler, udover '-'");
+        if(!Validation.validateLetterOnly(lastName))
+        {
+            ctx.attribute("message", "Dit efternavn må ikke indholde tal eller symboler, udover '-'");
             ctx.render("createuserpage.html");
             return;
         }

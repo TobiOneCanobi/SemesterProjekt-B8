@@ -4,6 +4,7 @@ import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.UserMapper;
+import app.util.Validation;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -72,7 +73,23 @@ public class UserController
         String email = ctx.formParam("email");
         String password1 = ctx.formParam("password1");
         String password2 = ctx.formParam("password2");
-        if (!email.contains("@"))
+
+        String firstLetter = firstName.substring(0, 1).toUpperCase();
+        String restOfName = firstName.substring(1);
+        String capitalizedFirstName = firstLetter + restOfName;
+        firstName = capitalizedFirstName;
+
+        if(!Validation.validateLetterOnly(firstName))
+        {
+
+            ctx.attribute("message", "Dit navn må ikke indholde tal eller symboler, udover '-'");
+            ctx.render("createuserpage.html");
+            return;
+        }
+
+
+
+         if (!email.contains("@"))
         {
             ctx.attribute("message", "Din email skal indeholde '@'! Prøv igen.");
             ctx.render("createuserpage.html");

@@ -78,47 +78,46 @@ public class UserController
         String capitalizedFirstName = firstLetter + restOfName;
         firstName = capitalizedFirstName;
 
-//CRITERIA TO FIRSTNAME
-        if(!Validation.validateLetterOnly(firstName))
+        //CRITERIA TO FIRSTNAME
+        if (!Validation.validateLetterOnly(firstName))
         {
             ctx.attribute("message", "Dit fornavn må ikke indholde tal eller symboler, udover '-'");
             ctx.render("createuserpage.html");
             return;
         }
-//CRITERIA TO LASTNAME
-        if(!Validation.validateLetterOnly(lastName))
+        //CRITERIA TO LASTNAME
+        if (!Validation.validateLetterOnly(lastName))
         {
             ctx.attribute("message", "Dit efternavn må ikke indholde tal eller symboler, udover '-'");
             ctx.render("createuserpage.html");
             return;
         }
-//CRITERIA TO ADDRESS
-        if(!Validation.validateLetterAndSelectSymbolsOnly(address))
+        //CRITERIA TO ADDRESS
+        if (!Validation.validateLetterAndSelectSymbolsOnly(address))
         {
             ctx.attribute("message", "Din addresse må ikke indholde symboler, udover '. -'");
             ctx.render("createuserpage.html");
             return;
         }
+        //CRITERIA TO ZIP CODE
 
-        //CRITERIA FOR PHONE NUMBERS
-        if(!Validation.validateEightNumbersOnly(phoneNumber))
-        {
-            ctx.attribute("message", "Dit telefon nummer må ikke indholde symboler og bogstaver");
-            ctx.render("createuserpage.html");
-            return;
-        }
-
-        if(!Validation.validateFourNumbersOnly(zipCode))
+        if (!Validation.validateFourNumbersOnly(zipCode))
         {
             ctx.attribute("message", "Dit postnummer må kun indeholde 4 tal");
             ctx.render("createuserpage.html");
             return;
         }
 
+        //CRITERIA FOR PHONE NUMBERS
+        if (!Validation.validateEightNumbersOnly(phoneNumber))
+        {
+            ctx.attribute("message", "Dit telefon nummer må ikke indholde symboler og bogstaver");
+            ctx.render("createuserpage.html");
+            return;
+        }
 
 
-
-         if (!email.contains("@"))
+        if (!email.contains("@"))
         {
             ctx.attribute("message", "Din email skal indeholde '@'! Prøv igen.");
             ctx.render("createuserpage.html");
@@ -126,7 +125,7 @@ public class UserController
         {
             ctx.attribute("message", "Dine to passwords matcher ikke! Prøv igen");
             ctx.render("createuserpage.html");
-        } else if (!Pattern.matches(".*[\\p{Lu}\\p{N}æøåÆØÅ].*",password1) || password1.length() < 4)
+        } else if (!Pattern.matches(".*[\\p{Lu}\\p{N}æøåÆØÅ].*", password1) || password1.length() < 4)
         {
             ctx.attribute("message", " Kun bogstaver og tal, skal mindst være 4 bogstaver langt");
             ctx.render("createuserpage.html");

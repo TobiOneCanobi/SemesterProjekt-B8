@@ -18,6 +18,9 @@ public class Svg
 
     private static final String SVG_RECT_TEMPLATE = "<rect x=\"%.2f\" y=\"%.2f\" height=\"%f\" width=\"%f\" style=\"%s\" />";
 
+    private static final String SVG_LINE_TEMPLATE = "<line x=\"%.2f\" y=\"%.2f\" height=\"%f\" width=\"%f\" style=\"%s\" />";
+
+
     private StringBuilder svg = new StringBuilder();
 
     public Svg(int x, int y, String viewBox, String width)
@@ -35,15 +38,18 @@ public class Svg
 
     public void addLine(int x1, int y1, int x2, int y2, String style)
     {
+        svg.append(String.format(SVG_LINE_TEMPLATE, x1, y1, x2, y2, style ));
     }
 
     public void addArrow(int x1, int y1, int x2, int y2, String style)
     {
         // Kald addLine med en style der indeholder pilehoveder
+        svg.append(String.format("<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"%s marker-end: url(#endArrow); marker-start: url(#beginArrow);\" />", x1, y1, x2, y2, style));
     }
 
     public void addText(int x, int y, int rotation, String text)
     {
+        svg.append(String.format("<text x=\"%d\" y=\"%d\" transform=\"rotate(%d %d,%d)\">%s</text>", x, y, rotation, x, y, text));
     }
 
     public void addSvg(Svg innerSvg)

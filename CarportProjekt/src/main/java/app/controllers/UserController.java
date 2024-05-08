@@ -166,7 +166,7 @@ public class UserController
                 }
 
                 //password must be 4 letters long
-                if (!(password1.length() < 4))
+                if (!(password1.length() >= 4))
                 {
                     ctx.attribute("message", " Password skal mindst være 4 bogstaver langt");
                     ctx.render("createuserpage.html");

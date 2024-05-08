@@ -133,7 +133,7 @@ public class UserController
                 //CRITERIA FOR PHONE NUMBERS
                 if (!Validation.validateEightNumbersOnly(phoneNumber))
                 {
-                    ctx.attribute("message", "Dit telefon nummer må ikke indholde symboler og bogstaver");
+                    ctx.attribute("message", "Dit telefon nummer må kun indeholde 8 tal");
                     ctx.render("createuserpage.html");
                     inputWrong = true;
                     return;

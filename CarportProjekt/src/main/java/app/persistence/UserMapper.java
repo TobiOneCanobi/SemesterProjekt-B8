@@ -78,6 +78,9 @@ public class UserMapper
             ps.setString(8, role);
 
             int rowsAffected = ps.executeUpdate();
+
+
+
             if (rowsAffected == 0)
             {
                 throw new DatabaseException("Fejl ved oprettelse af bruger. Nogle felter er ikke udfyldt");
@@ -91,6 +94,7 @@ public class UserMapper
             }
             throw new DatabaseException(msg, e.getMessage());
         }
+
     }
 
 }

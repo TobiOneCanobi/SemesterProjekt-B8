@@ -22,8 +22,10 @@
         <h2>Opret din bruger her</h2>
 
         <label for="email">Indtast din email:</label><br>
-        <input type="text" id="email" name="email" placeholder="Email"><br><br>
-<!-- th:value="${session.createUser.email}" note til createuser session -->
+        <input type="text" id="email" name="email" placeholder="Email"
+               th:value="${session.currentCreateUser != null ? session.currentCreateUser.email : ''}">
+        <br><br>
+
 
         <label for="password1"> Indtast dit password:</label><br>
         <input type="password" id="password1" name="password1" placeholder="Password"><br><br>
@@ -32,19 +34,29 @@
         <input type="password" id="password2" name="password2" placeholder="Password"><br><br>
 
         <label for="firstname">Indtast dit fornavn:</label><br>
-        <input type="text" id="firstname" name="firstname" placeholder="Fornavn"><br><br>
+        <input type="text" id="firstname" name="firstname" placeholder="Fornavn"
+               th:value="${session.currentCreateUser != null ? session.currentCreateUser.firstname : ''}">
+        <br><br>
 
         <label for="lastname">Indtast dit efternavn:</label><br>
-        <input type="text" id="lastname" name="lastname" placeholder="Efternavn"><br><br>
+        <input type="text" id="lastname" name="lastname" placeholder="Efternavn"
+               th:value="${session.currentCreateUser != null ? session.currentCreateUser.lastname : ''}">
+        <br><br>
 
         <label for="address">Indtast din adresse:</label><br>
-        <input type="text" id="address" name="address" placeholder="Adresse"><br><br>
+        <input type="text" id="address" name="address" placeholder="Adresse"
+               th:value="${session.currentCreateUser != null ? session.currentCreateUser.address : ''}">
+        <br><br>
 
         <label for="phonenumber">Indtast dit telefonnummer:</label><br>
-        <input type="text" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"><br><br>
+        <input type="text" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"
+               th:value="${session.currentCreateUser != null ? session.currentCreateUser.phonenumber : ''}">
+        <br><br>
 
         <label for="zipcode">Indtast dit postnummer:</label><br>
-        <input type="text" id="zipcode" name="zipcode" placeholder="Postnummer"><br><br>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Postnummer"
+               th:value="${session.currentCreateUser != null ? session.currentCreateUser.zipcode : ''}">
+        <br><br>
 
         <button type="submit" formaction="/createuser">Opret bruger</button>
         <div><p th:text="${message}"></p></div>

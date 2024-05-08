@@ -73,6 +73,10 @@ public class UserController
         String password1 = ctx.formParam("password1");
         String password2 = ctx.formParam("password2");
 
+        User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
+        ctx.sessionAttribute("currentCreateUser", guest);
+
+
         String firstLetter = firstName.substring(0, 1).toUpperCase();
         String restOfName = firstName.substring(1);
         String capitalizedFirstName = firstLetter + restOfName;
@@ -135,8 +139,10 @@ public class UserController
             try
             {
                 UserMapper.createUser(firstName, lastName, address, zipCode, phoneNumber, email, password1, "customer", connectionPool);
+
                 ctx.attribute("message", "Du er hermed oprettet med email: " + email +
                         ". Nu kan du logge på.");
+
                 ctx.render("loginpage.html");
             } catch (DatabaseException e)
             {

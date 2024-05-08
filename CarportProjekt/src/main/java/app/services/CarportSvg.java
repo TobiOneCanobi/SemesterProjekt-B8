@@ -14,6 +14,9 @@ public class CarportSvg
         carportSvg.addRectangle(0,0,600, 780, "stroke-width:1px; stroke:#000000; fill: #ffffff");
         addBeams();
         addRafters();
+        addPost();
+        addArrow();
+        addText();
     }
 
     //Bjælker
@@ -32,8 +35,29 @@ public class CarportSvg
 
     //Stolper
     private void addPost(){
+        for (double i = 80; i < 780; i+= 200)
+        {
+            carportSvg.addRectangle(i, 32.5, 10, 10,"stroke:#000000; fill: #000000" );
+        }
 
+        for (double i = 80; i < 780; i+= 200)
+        {
+            carportSvg.addRectangle(i, 562.3, 10, 10,"stroke:#000000; fill: #000000" );
+        }
     }
+
+    public void addArrow()
+    {
+        carportSvg.addArrow(800, 0, 800, 600, "stroke:#000000; fill: #000000");
+        carportSvg.addArrow(0, 620, 785, 620, "stroke:#000000; fill: #000000");
+    }
+
+    public void addText()
+    {
+        carportSvg.addText(300, 805, 90, "600");
+        carportSvg.addText(0, 0, 0, "780");
+    }
+
 
     @Override
     public String toString()

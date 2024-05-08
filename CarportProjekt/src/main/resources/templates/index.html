@@ -41,7 +41,7 @@
     <div class="login_or_out">
         <div class="login" th:if="${session.currentUser == null}">
             <form th:action="@{/loginpage}" method="get">
-                <button class="text-margin" type="submit">Login</button>
+                <button class="login-button-index" type="submit">Login</button>
             </form>
         </div>
 
@@ -54,12 +54,22 @@
 </header>
 
 
-<p>flotte fog carporte</p>
+<h4>Flotte fog carporte</h4>
+
+<a href="https://www.johannesfog.dk/have-fritid/carporte/dobbelt-carporte/dobbelt-carport-6-00x4-80-m-car01du-00821">
+    <img src="../public/images/CarPort1.png" th:src="@{/images/CarPort1.png}" width="117" height="95"/>
+</a>
+<a href="https://www.johannesfog.dk/have-fritid/carporte/enkelt-carporte/enkelt-carport-6-00x5-40-m-car01dr-00822">
+    <img src="../public/images/CarPort2.png" th:src="@{/images/CarPort2.png}" width="117" height="95"/>
+</a>
+<a href="https://www.johannesfog.dk/have-fritid/carporte/dobbelt-carporte/dobbelt-carport-6-00x7-80-m-cp01dur-00823">
+    <img src="../public/images/Carport3.png" th:src="@{/images/Carport3.png}" width="117" height="95"/>
+</a>
 
 <br>
 
 <div class="fog_carport_link">
-    <p>For færdigbygget carporte.</p>
+    <h4>For færdigbygget carporte.</h4>
     <a href="https://www.johannesfog.dk/have-fritid/carporte">
         <img src="../public/images/CarportLogo.png" th:src="@{/images/CarportLogo.png}" width="117" height="95"/>
     </a>

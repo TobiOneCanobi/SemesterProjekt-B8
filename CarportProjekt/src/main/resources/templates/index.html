@@ -20,13 +20,13 @@
     <div class="panel_overview">
         <div class="admin_panel" th:if="${session.userRole == 'admin'}">
             <form th:action="@{/adminoverview}" method="get">
-                <button class="text-margin" type="submit">Admin oversigt</button>
+                <button class="text-margin" type="submit">Kunde oversigt</button>
             </form>
         </div>
 
         <div class="customer_panel" th:if="${session.userRole == 'customer'}">
             <form th:action="@{/customeroverview}" method="get">
-                <button class="text-margin" type="submit">Kunde overblik</button>
+                <button class="text-margin" type="submit">Mit overblik</button>
 
             </form>
 

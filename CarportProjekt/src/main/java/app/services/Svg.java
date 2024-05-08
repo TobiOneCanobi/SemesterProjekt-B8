@@ -49,7 +49,7 @@ public class Svg
 
     public void addText(int x, int y, int rotation, String text)
     {
-        svg.append(String.format("<text x=\"%d\" y=\"%d\" transform=\"rotate(%d %d,%d)\">%s</text>", x, y, rotation, x, y, text));
+        svg.append(String.format("<text x=\"%d\" y=\"%d\" transform=\"rotate(%d %d,%d)\">%s</text> ", x, y, rotation, x, y, text));
     }
 
     public void addSvg(Svg innerSvg)

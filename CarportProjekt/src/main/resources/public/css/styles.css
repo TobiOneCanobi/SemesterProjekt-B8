@@ -17,10 +17,42 @@ header {
     padding: 10px 20px;
 }
 
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #251400;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #251400;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+button[type=submit] {
+    width: 100%;
+    color: black;
+    background-color: #296ec6;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .login-or-out {
 display: flex;
 }
-
 
 
 body.login-form {
@@ -56,9 +88,16 @@ body.login-form {
     text-decoration: underline;
 }
 
+
+.login-input input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 /* SVG */
 .carport-svg-topview
 {
     max-width: 600px;
 }
+
+
 

@@ -86,12 +86,12 @@ public class UserController
             zipCode = Integer.parseInt(zipCodeString);
             phoneNumber = Integer.parseInt(phoneNumberString);
 
-        User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
-        ctx.sessionAttribute("currentCreateUser", guest);
+            User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
+            ctx.sessionAttribute("currentCreateUser", guest);
 
-        firstName = Caps.firstLetterToUppercase(firstName);
-        lastName = Caps.firstLetterToUppercase(lastName);
-        address = Caps.firstLetterToUppercase(address);
+            firstName = Caps.firstLetterToUppercase(firstName);
+            lastName = Caps.firstLetterToUppercase(lastName);
+            address = Caps.firstLetterToUppercase(address);
 
 
             if (!inputWrong)
@@ -176,6 +176,8 @@ public class UserController
 
         } catch (NumberFormatException n)
         {
+            User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
+            ctx.sessionAttribute("currentCreateUser", guest);
             ctx.attribute("message", "alle felter skal være udført");
             ctx.render("createuserpage.html");
             inputWrong = true;

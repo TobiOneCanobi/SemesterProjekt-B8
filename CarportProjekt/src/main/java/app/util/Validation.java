@@ -18,8 +18,8 @@ public class Validation
 
         String numberString = String.valueOf(number);
 
-        if(numberString.length() != 4){
-
+        if(numberString.length() != 4)
+        {
             return false;
         }
 
@@ -33,7 +33,6 @@ public class Validation
 
         if(numberString.length() != 8)
         {
-            System.out.println("Der skal være 8 cifre i dit telefon nr");
             return false;
         }
 

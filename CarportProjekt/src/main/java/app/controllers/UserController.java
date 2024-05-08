@@ -4,6 +4,7 @@ import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.UserMapper;
+import app.util.Caps;
 import app.util.Validation;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -76,11 +77,9 @@ public class UserController
         User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
         ctx.sessionAttribute("currentCreateUser", guest);
 
-
-        String firstLetter = firstName.substring(0, 1).toUpperCase();
-        String restOfName = firstName.substring(1);
-        String capitalizedFirstName = firstLetter + restOfName;
-        firstName = capitalizedFirstName;
+        firstName = Caps.firstLetterToUppercase(firstName);
+        lastName = Caps.firstLetterToUppercase(lastName);
+        address = Caps.firstLetterToUppercase(address);
 
         //CRITERIA TO FIRSTNAME
         if (!Validation.validateLetterOnly(firstName))

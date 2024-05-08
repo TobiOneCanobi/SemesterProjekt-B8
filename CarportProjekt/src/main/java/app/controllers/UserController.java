@@ -142,7 +142,7 @@ public class UserController
 
                 ctx.attribute("message", "Du er hermed oprettet med email: " + email +
                         ". Nu kan du logge på.");
-
+                ctx.req().getSession().invalidate();
                 ctx.render("loginpage.html");
             } catch (DatabaseException e)
             {

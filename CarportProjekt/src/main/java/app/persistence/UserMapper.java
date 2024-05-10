@@ -61,7 +61,7 @@ public class UserMapper
     {
         if (emailExists(email, connectionPool))
         {
-            throw new DatabaseException("Email bliver allerede brugt. Log på eller vælg en anden.");
+            throw new DatabaseException("Email bliver allerede brugt.");
         }
         String sql = "INSERT INTO users (first_name, last_name, address, zip_code, phone_number, email, passwords, role) VALUES (?,?,?,?,?,?,?,?)";
 

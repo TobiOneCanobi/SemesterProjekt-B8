@@ -8,7 +8,8 @@ import app.util.Caps;
 import app.util.Validation;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class UserController
@@ -44,7 +45,7 @@ public class UserController
                 ctx.render("index.html");
             } else
             {
-                ctx.attribute("message", "noget er gået galt");
+                ctx.attribute("message", "Noget er gået galt");
                 ctx.render("loginpage.html");
             }
         } catch (DatabaseException e)
@@ -63,6 +64,8 @@ public class UserController
 
     private static void createUser(Context ctx, ConnectionPool connectionPool)
     {
+        Map<String, String> errorMessages = new HashMap<>();
+
         String firstName = null;
         String lastName = null;
         String address = null;
@@ -71,7 +74,7 @@ public class UserController
         String email = null;
         String password1 = null;
         String password2 = null;
-        boolean inputWrong = false;
+
         try
         {
             firstName = ctx.formParam("firstname");
@@ -93,84 +96,62 @@ public class UserController
             lastName = Caps.firstLetterToUppercase(lastName);
             address = Caps.firstLetterToUppercase(address);
 
-
-            if (!inputWrong)
             {
                 //CRITERIA TO FIRSTNAME
                 if (!Validation.validateLetterOnly(firstName))
                 {
-                    ctx.attribute("message", "Dit fornavn må ikke indholde tal eller symboler, udover '-'");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
-                    return;
+                    errorMessages.put("firstnamemsg", "Dit fornavn må ikke indholde tal eller symboler, udover '-'");
                 }
                 //CRITERIA TO LASTNAME
                 if (!Validation.validateLetterOnly(lastName))
                 {
-                    ctx.attribute("message", "Dit efternavn må ikke indholde tal eller symboler, udover '-'");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
-                    return;
+                    errorMessages.put("lastnamemsg", "Dit efternavn må ikke indholde tal eller symboler, udover '-'");
                 }
                 //CRITERIA TO ADDRESS
                 if (!Validation.validateLetterAndSelectSymbolsOnly(address))
                 {
-                    ctx.attribute("message", "Din addresse må ikke indholde symboler, udover '. -'");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
-                    return;
+                    errorMessages.put("addressmsg", "Din addresse må ikke indholde symboler, udover '. -'");
                 }
                 //CRITERIA TO ZIP CODE
-
                 if (!Validation.validateFourNumbersOnly(zipCode))
                 {
-                    ctx.attribute("message", "Dit postnummer må kun indeholde 4 tal");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
-                    return;
+                    errorMessages.put("zipcodemsg", "Dit postnummer må kun indeholde 4 tal");
                 }
-
                 //CRITERIA FOR PHONE NUMBERS
                 if (!Validation.validateEightNumbersOnly(phoneNumber))
                 {
-                    ctx.attribute("message", "Dit telefon nummer må kun indeholde 8 tal");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
-                    return;
+                    errorMessages.put("phonenumbermsg", "Dit telefon nummer må kun indeholde 8 tal");
                 }
-
                 // email must have a @
                 if (!email.contains("@"))
                 {
-                    ctx.attribute("message", "Din email skal indeholde '@'! Prøv igen.");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
-                    return;
+                   errorMessages.put("emailmsg", "Din email skal indeholde '@'! Prøv igen");
                 }
 
-                // both passwords must match
+               if(UserMapper.emailExists(email, connectionPool))
+               {
+                   errorMessages.put("emailmsg", "Email er i brug");
+               }
+               // both passwords must match
                 if (!password1.equals(password2))
                 {
-                    ctx.attribute("message", "Dine to passwords matcher ikke! Prøv igen");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
-                    return;
+                    errorMessages.put("passwordmsg", "Dine to passwords matcher ikke! Prøv igen");
                 }
-
                 // password must consist standard letter
                 if (!Pattern.matches(".*[\\p{Lu}\\p{N}æøåÆØÅ].*", password1))
                 {
-                    ctx.attribute("message", " Password skal bestå af standard bogstaver");
-                    ctx.render("createuserpage.html");
-                    inputWrong = true;
+                    errorMessages.put("passwordmsg", "Password skal bestå af standard bogstaver");
                 }
-
                 //password must be 4 letters long
                 if (!(password1.length() >= 4))
                 {
-                    ctx.attribute("message", " Password skal mindst være 4 bogstaver langt");
+                    errorMessages.put("passwordmsg", "Password skal mindst være 4 bogstaver langt");
+                }
+                if(!errorMessages.isEmpty())
+                {
+                    ctx.attribute("errormessages", errorMessages);
                     ctx.render("createuserpage.html");
-                    inputWrong = true;
+                    return;
                 }
             }
 
@@ -178,17 +159,15 @@ public class UserController
         {
             User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
             ctx.sessionAttribute("currentCreateUser", guest);
-            ctx.attribute("message", "alle felter skal være udført");
+            ctx.attribute("message", "Alle felter skal være udført");
             ctx.render("createuserpage.html");
-            inputWrong = true;
+
         } catch (Exception e)
         {
             ctx.attribute("message", "noget gik galt prøve igen");
             ctx.render("createuserpage.html");
-            inputWrong = true;
         }
 
-        if (!inputWrong)
         {
             try
             {
@@ -199,7 +178,7 @@ public class UserController
                 ctx.render("loginpage.html");
             } catch (DatabaseException e)
             {
-                ctx.attribute("message", "Din email er allerede i brug. Prøv igen, eller log ind");
+                ctx.attribute("message", "Alle felter skal være udfyldt");
                 ctx.render("createuserpage.html");
             }
         }

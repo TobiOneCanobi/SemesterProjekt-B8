@@ -25,16 +25,16 @@
         </div>
 
         <div class="customer_panel" th:if="${session.userRole == 'customer'}">
-            <form th:action="@{/customeroverview}" method="get">
-                <button class="text-margin" type="submit">Mit overblik</button>
+            <div class="button-container">
+                <form th:action="@{/customeroverview}" method="get">
+                    <button class="text-margin" type="submit">Mit overblik</button>
+                </form>
 
-            </form>
-
-            <!-- SVG tegning test-->
-            <form th:action="@{/designcarport}" href="designcarport.html">
-                <button class="text-margin" type="submit">Design Carport</button>
-            </form>
-
+                <!-- SVG tegning test-->
+                <form th:action="@{/designcarport}" href="designcarport.html">
+                    <button class="text-margin" type="submit">Design Carport</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
         </div>
 
         <div class="logout" th:if="${session.currentUser != null}">
-            <form th:action="@{/logout}" method="get">
+                <form th:action="@{/logout}" method="get">
                 <button class="text-margin" type="submit">Log ud</button>
             </form>
         </div>

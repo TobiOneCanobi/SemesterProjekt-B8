@@ -112,6 +112,28 @@ body.login-form {
     margin-bottom: 5px;
 }
 
+.user_email_bar {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #296ec6;
+    border-radius: 5px;
+    max-width: 300px;
+    color: #000;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.text-margin {
+    margin: 0;
+}
+
+
+
 /* SVG */
 .carport-svg-topview {
     max-width: 600px;

@@ -20,7 +20,6 @@ public class CarportSvg
         addRafters();
         addPost();
         outerSvg.addSvg(innerSvg);
-
     }
 
     //Bjælker
@@ -33,7 +32,7 @@ public class CarportSvg
     private void addRafters(){
         for (double i = 0; i < 780; i+= 55.714)
         {
-            innerSvg.addRectangle(i, 0.0, 600, 4.5,"stroke:#000000; fill: #ffffff" );
+            innerSvg.addRafters(i, 0.0, 600, 4.5,"stroke:#000000; fill: #ffffff" );
         }
     }
 
@@ -41,12 +40,12 @@ public class CarportSvg
     private void addPost(){
         for (double i = 80; i < 780; i+= 200)
         {
-            innerSvg.addRectangle(i, 32.5, 10, 10,"stroke:#000000; fill: #000000" );
+            innerSvg.addPosts(i, 32.5, 10, 10,"stroke:#000000; fill: #000000" );
         }
 
         for (double i = 80; i < 780; i+= 200)
         {
-            innerSvg.addRectangle(i, 562.3, 10, 10,"stroke:#000000; fill: #000000" );
+            innerSvg.addPosts(i, 562.3, 10, 10,"stroke:#000000; fill: #000000" );
         }
     }
 
@@ -61,9 +60,6 @@ public class CarportSvg
         outerSvg.addText(815, 300, 90, "600");
         outerSvg.addText(390, 650, 0, "780");
     }
-
-
-
 
     @Override
     public String toString()

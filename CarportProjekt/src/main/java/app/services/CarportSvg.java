@@ -7,7 +7,7 @@ public class CarportSvg
     private Svg innerSvg;
     private Svg outerSvg;
 
-    public CarportSvg(int width, int height)
+    public CarportSvg(int width, int length)
     {
         this.width = width;
         this.length = length;
@@ -32,7 +32,7 @@ public class CarportSvg
     private void addRafters(){
         for (double i = 0; i < 780; i+= 55.714)
         {
-            innerSvg.addRafters(i, 0.0, 600, 4.5,"stroke:#000000; fill: #ffffff" );
+            innerSvg.addRectangle(i, 0.0, 600, 4.5,"stroke:#000000; fill: #ffffff" );
         }
     }
 
@@ -40,12 +40,12 @@ public class CarportSvg
     private void addPost(){
         for (double i = 80; i < 780; i+= 200)
         {
-            innerSvg.addPosts(i, 32.5, 10, 10,"stroke:#000000; fill: #000000" );
+            innerSvg.addRectangle(i, 32.5, 10, 10,"stroke:#000000; fill: #000000" );
         }
 
         for (double i = 80; i < 780; i+= 200)
         {
-            innerSvg.addPosts(i, 562.3, 10, 10,"stroke:#000000; fill: #000000" );
+            innerSvg.addRectangle(i, 562.3, 10, 10,"stroke:#000000; fill: #000000" );
         }
     }
 

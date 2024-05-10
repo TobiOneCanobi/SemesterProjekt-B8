@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class UserMapper
 {
-
     public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT * FROM users WHERE email=? AND passwords=?";
@@ -36,7 +35,6 @@ public class UserMapper
             throw new DatabaseException("Database fejl", e.getMessage());
         }
     }
-
     public static boolean emailExists(String email, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT COUNT(*) AS COUNT FROM users WHERE email = ?";
@@ -78,9 +76,6 @@ public class UserMapper
             ps.setString(8, role);
 
             int rowsAffected = ps.executeUpdate();
-
-
-
             if (rowsAffected == 0)
             {
                 throw new DatabaseException("Fejl ved oprettelse af bruger. Nogle felter er ikke udfyldt");

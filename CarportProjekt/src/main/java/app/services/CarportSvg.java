@@ -52,14 +52,14 @@ public class CarportSvg
 
     public void addArrow()
     {
-        outerSvg.addArrow(800, 0, 800, 600, "stroke:#000000; fill: #000000");
-        outerSvg.addArrow(0, 620, 785, 620, "stroke:#000000; fill: #000000");
+        outerSvg.addArrow(750, 20, 750, 550, "stroke:#000000; fill: #000000");
+        outerSvg.addArrow(40, 570, 735, 570, "stroke:#000000; fill: #000000");
     }
 
     public void addText()
     {
-        outerSvg.addText(815, 300, 90, "600");
-        outerSvg.addText(390, 650, 0, "780");
+        outerSvg.addText(760, 300, 90, "600");
+        outerSvg.addText(390, 590, 0, "780");
     }
 
 

@@ -21,19 +21,19 @@
     <div class="panel_overview">
         <div class="admin_panel" th:if="${session.userRole == 'admin'}">
             <form th:action="@{/adminoverview}" method="get">
-                <button class="text-margin" type="submit">Kundeoversigt</button>
+                <button class="text-margin button-blue" type="submit">Kundeoversigt</button>
             </form>
         </div>
 
         <div class="customer_panel" th:if="${session.userRole == 'customer'}">
             <div class="button-container">
                 <form th:action="@{/customeroverview}" method="get">
-                    <button class="text-margin" type="submit">Mit overblik</button>
+                    <button class="text-margin button-blue" type="submit">Mit overblik</button>
                 </form>
 
                 <!-- SVG tegning test-->
                 <form th:action="@{/designcarport}" href="designcarport.html">
-                    <button class="text-margin" type="submit">Design carport</button>
+                    <button class="text-margin button-blue" type="submit">Design carport</button>
                 </form>
             </div>
         </div>
@@ -42,13 +42,13 @@
     <div class="login_or_out">
         <div class="login" th:if="${session.currentUser == null}">
             <form th:action="@{/loginpage}" method="get">
-                <button class="login-button-index" type="submit">Login</button>
+                <button class="login-button-index button button-blue" type="submit">Login</button>
             </form>
         </div>
 
         <div class="logout" th:if="${session.currentUser != null}">
                 <form th:action="@{/logout}" method="get">
-                <button class="text-margin" type="submit">Log ud</button>
+                <button class="text-margin button-red" type="submit">Log ud</button>
             </form>
         </div>
     </div>

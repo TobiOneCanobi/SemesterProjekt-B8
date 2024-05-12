@@ -12,7 +12,7 @@
 
     <div class="return">
         <form th:action="@{/backtoindex}" method="get">
-            <button class="" type="submit">Tilbage</button>
+            <button class="button-blue" type="submit">Tilbage</button>
         </form>
     </div>
 
@@ -23,13 +23,13 @@
     <div class="login_or_out">
         <div class="login" th:if="${session.currentUser == null}">
             <form th:action="@{/loginpage}" method="get">
-                <button class="text-margin" type="submit">Login</button>
+                <button class="text-margin button-blue" type="submit">Login</button>
             </form>
         </div>
 
         <div class="logout" th:if="${session.currentUser != null}">
             <form th:action="@{/logout}" method="get">
-                <button class="text-margin" type="submit">Log ud</button>
+                <button class="text-margin button-red" type="submit">Log ud</button>
             </form>
         </div>
     </div>
@@ -44,7 +44,7 @@
         <input type="text" id="length" name="length" placeholder="Længde"><br>
         <label for="width">Carportens bredde:</label><br>
         <input type="text" id="width" name="width" placeholder="Bredde"><br><br>
-        <button type="submit">Generér carport</button>
+        <button type="submit" class="button-green">Generér carport</button>
         <p class="error" th:if="${message != null}" th:text="${message}"></p>
     </form>
 </div>

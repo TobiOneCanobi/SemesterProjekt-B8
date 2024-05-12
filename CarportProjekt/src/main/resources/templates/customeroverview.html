@@ -12,7 +12,7 @@
 <header>
     <div class="return">
         <form th:action="@{/backtoindex}" method="get">
-            <button class="" type="submit">Tilbage</button>
+            <button class="button-blue" type="submit">Tilbage</button>
         </form>
     </div>
 
@@ -22,7 +22,7 @@
     <div class="login_or_out">
         <div class="logout" th:if="${session.currentUser != null}">
             <form th:action="@{/logout}" method="get">
-                <button class="text-margin" type="submit">Log ud</button>
+                <button class="text-margin button-red" type="submit">Log ud</button>
             </form>
         </div>
     </div>

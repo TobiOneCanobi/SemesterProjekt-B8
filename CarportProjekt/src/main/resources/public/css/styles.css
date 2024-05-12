@@ -56,8 +56,6 @@ input[type=password] {
 
 button[type=submit] {
     width: 100%;
-    color: black;
-    background-color: #296ec6;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
@@ -65,6 +63,21 @@ button[type=submit] {
     cursor: pointer;
 }
 
+.button-blue {
+    background-color: #296ec6;
+    color: black;
+}
+
+.button-green {
+    background-color: #378a43;
+    color: #ffffff;
+
+}
+
+.button-red {
+    background-color: #a13737;
+    color: black;
+}
 
 field-error {
     border-radius: 2px;

@@ -18,7 +18,7 @@
 
     <div class="return">
         <form th:action="@{/backtoindex}" method="get">
-            <button type="submit">Tilbage</button>
+            <button type="submit" class="button-blue">Tilbage</button>
         </form>
     </div>
 
@@ -34,13 +34,13 @@
             <label for="password">Indtast dit password</label> <br>
             <input type="password" id="password" name="password" placeholder="Password"><br><br>
 
-            <button class="loginbottom" type="submit">Login</button>
+            <button class="loginbottom button-green" type="submit">Login</button>
             <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
         </form>
 
         <div class="create-user-button">
             <form th:action="@{/createuserpage}" method="get">
-                <button type="submit">Opret bruger</button>
+                <button type="submit" class="button-green">Opret bruger</button>
             </form>
         </div>
     </div>

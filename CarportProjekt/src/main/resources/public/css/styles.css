@@ -82,10 +82,10 @@ button[type=submit] {
 field-error {
     border-radius: 2px;
     color: red;
+}
 
 .login-or-out {
     display: flex;
-
 }
 
 
@@ -111,6 +111,19 @@ field-error {
     align-items: center;
 }
 
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.center-two {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
 .return {
     display: flex;
     flex-direction: column;
@@ -118,8 +131,6 @@ field-error {
     position: absolute;
     top: 10px;
     left: 10px;
-}
-
 }
 
 .login button:hover {
@@ -184,6 +195,5 @@ body.create-user-form {
     height: 100vh;
     margin-bottom: 20vh;
     margin-top: 20vh;
-
     padding: 0;
 }

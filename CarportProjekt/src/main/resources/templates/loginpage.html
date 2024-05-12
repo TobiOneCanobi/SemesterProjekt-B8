@@ -10,16 +10,15 @@
 
 <body class="login-form">
 
+<div class="return">
+    <form th:action="@{/backtoindex}" method="get">
+        <button type="submit" class="button-red">Tilbage</button>
+    </form>
+</div>
 
 <div class="login-box">
     <div class="login-logo">
         <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
-    </div>
-
-    <div class="return">
-        <form th:action="@{/backtoindex}" method="get">
-            <button type="submit" class="button-blue">Tilbage</button>
-        </form>
     </div>
 
 
@@ -37,6 +36,8 @@
             <button class="loginbottom button-green" type="submit">Login</button>
             <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
         </form>
+
+        <h3>Eller</h3>
 
         <div class="create-user-button">
             <form th:action="@{/createuserpage}" method="get">

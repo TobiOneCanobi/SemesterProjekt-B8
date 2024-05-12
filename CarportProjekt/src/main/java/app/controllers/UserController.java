@@ -8,6 +8,7 @@ import app.util.Caps;
 import app.util.Validation;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -26,7 +27,6 @@ public class UserController
         app.get("backtologin", ctx -> ctx.render("loginpage.html"));
         app.get("adminoverview", ctx -> ctx.render("adminoverview.html"));
         app.get("customeroverview", ctx -> ctx.render("customeroverview.html"));
-
     }
 
     public static void login(Context ctx, ConnectionPool connectionPool)
@@ -125,14 +125,14 @@ public class UserController
                 // email must have a @
                 if (!email.contains("@"))
                 {
-                   errorMessages.put("emailmsg", "Din email skal indeholde '@'! Prøv igen");
+                    errorMessages.put("emailmsg", "Din email skal indeholde '@'! Prøv igen");
                 }
                 // email already in use
-               if(UserMapper.emailExists(email, connectionPool))
-               {
-                   errorMessages.put("emailmsg", "Email er i brug");
-               }
-               // both passwords must match
+                if (UserMapper.emailExists(email, connectionPool))
+                {
+                    errorMessages.put("emailmsg", "Email er i brug");
+                }
+                // both passwords must match
                 if (!password1.equals(password2))
                 {
                     errorMessages.put("passwordmsg", "Dine to passwords matcher ikke! Prøv igen");
@@ -147,7 +147,7 @@ public class UserController
                 {
                     errorMessages.put("passwordmsg", "Password skal mindst være 4 bogstaver langt");
                 }
-                if(!errorMessages.isEmpty())
+                if (!errorMessages.isEmpty())
                 {
                     ctx.attribute("errormessages", errorMessages);
                     ctx.render("createuserpage.html");
@@ -168,6 +168,8 @@ public class UserController
             ctx.render("createuserpage.html");
         }
 
+
+        if (errorMessages.isEmpty())
         {
             try
             {

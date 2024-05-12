@@ -6,70 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
-<body>
+<body class="create-user-form">
 
-<header>
+
+<div class="create-user-box">
     <div class="return">
         <form th:action="@{/backtologin}">
             <button class="text-margin" type="submit">Tilbage</button>
         </form>
     </div>
-</header>
-
-<div class="create_user_input">
-    <form  method="post">
-        <h2>Opret din bruger her</h2>
-
-        <label for="email">Indtast din email:</label><br>
-        <input type="text" id="email" name="email" placeholder="Email"
-               th:value="${session.currentCreateUser != null ? session.currentCreateUser.email : ''}">
-        <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'emailmsg'}" th:text="${entry.value}"></p>
-
-        <br><br>
-
-        <label for="password1"> Indtast dit password:</label><br>
-        <input type="password" id="password1" name="password1" placeholder="Password"><br><br>
-        <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'passwordmsg'}" th:text="${entry.value}"></p>
-
-        <label for="password2"> Indtast dit password igen:</label><br>
-        <input type="password" id="password2" name="password2" placeholder="Password"><br><br>
 
 
-        <label for="firstname">Indtast dit fornavn:</label><br>
-        <input type="text" id="firstname" name="firstname" placeholder="Fornavn"
-               th:value="${session.currentCreateUser != null ? session.currentCreateUser.firstname : ''}">
-        <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'firstnamemsg'}" th:text="${entry.value}"></p>
+    <div class="create_user_input">
+        <form method="post">
+            <h2>Opret din bruger her</h2>
 
-        <br><br>
+            <label for="email">Indtast din email:</label><br>
+            <input type="text" id="email" name="email" placeholder="Email"
+                   th:value="${session.currentCreateUser != null ? session.currentCreateUser.email : ''}">
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'emailmsg'}"
+               th:text="${entry.value}"></p>
+            <br><br>
 
-        <label for="lastname">Indtast dit efternavn:</label><br>
-        <input type="text" id="lastname" name="lastname" placeholder="Efternavn"
-               th:value="${session.currentCreateUser != null ? session.currentCreateUser.lastname : ''}">
-        <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'lastnamemsg'}" th:text="${entry.value}"></p>
-        <br><br>
 
-        <label for="address">Indtast din adresse:</label><br>
-        <input type="text" id="address" name="address" placeholder="Adresse"
-               th:value="${session.currentCreateUser != null ? session.currentCreateUser.address : ''}">
-        <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'addressmsg'}" th:text="${entry.value}"></p>
-        <br><br>
+            <label for="password1"> Indtast dit password:</label><br>
+            <input type="password" id="password1" name="password1" placeholder="Password">
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'passwordmsg'}"
+               th:text="${entry.value}"></p>
+            <br><br>
 
-        <label for="phonenumber">Indtast dit telefonnummer:</label><br>
-        <input type="text" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"
-               th:value="${session.currentCreateUser != null ? session.currentCreateUser.phonenumber : ''}">
-        <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'phonenumbermsg'}" th:text="${entry.value}"></p>
-        <br><br>
+            <label for="password2"> Indtast dit password igen:</label><br>
+            <input type="password" id="password2" name="password2" placeholder="Password">
+            <br><br>
 
-        <label for="zipcode">Indtast dit postnummer:</label><br>
-        <input type="text" id="zipcode" name="zipcode" placeholder="Postnummer"
-               th:value="${session.currentCreateUser != null ? session.currentCreateUser.zipcode : ''}">
-        <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'zipcodemsg'}" th:text="${entry.value}"></p>
-        <br><br>
 
-        <button type="submit" formaction="/createuser">Opret bruger</button>
-        <div><p th:text="${message}"></p></div>
+            <label for="firstname">Indtast dit fornavn:</label><br>
+            <input type="text" id="firstname" name="firstname" placeholder="Fornavn"
+                   th:value="${session.currentCreateUser != null ? session.currentCreateUser.firstname : ''}">
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'firstnamemsg'}"
+               th:text="${entry.value}"></p>
+            <br><br>
 
-    </form>
+            <label for="lastname">Indtast dit efternavn:</label><br>
+            <input type="text" id="lastname" name="lastname" placeholder="Efternavn"
+                   th:value="${session.currentCreateUser != null ? session.currentCreateUser.lastname : ''}">
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'lastnamemsg'}"
+               th:text="${entry.value}"></p>
+            <br><br>
+
+            <label for="address">Indtast din adresse:</label><br>
+            <input type="text" id="address" name="address" placeholder="Adresse"
+                   th:value="${session.currentCreateUser != null ? session.currentCreateUser.address : ''}">
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'addressmsg'}"
+               th:text="${entry.value}"></p>
+            <br><br>
+
+            <label for="phonenumber">Indtast dit telefonnummer:</label><br>
+            <input type="text" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"
+                   th:value="${session.currentCreateUser != null ? session.currentCreateUser.phonenumber : ''}">
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'phonenumbermsg'}"
+               th:text="${entry.value}"></p>
+            <br><br>
+
+            <label for="zipcode">Indtast dit postnummer:</label><br>
+            <input type="text" id="zipcode" name="zipcode" placeholder="Postnummer"
+                   th:value="${session.currentCreateUser != null ? session.currentCreateUser.zipcode : ''}">
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'zipcodemsg'}"
+               th:text="${entry.value}"></p>
+            <br><br>
+
+            <button type="submit" formaction="/createuser">Opret bruger</button>
+            <div><p th:text="${message}"></p></div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

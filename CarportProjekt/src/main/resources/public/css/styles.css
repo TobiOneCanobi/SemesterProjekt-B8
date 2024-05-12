@@ -79,6 +79,12 @@ button[type=submit] {
     color: black;
 }
 
+.button-same-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 field-error {
     border-radius: 2px;
     color: red;
@@ -160,7 +166,7 @@ field-error {
 }
 
 .text-margin {
-    margin: 0;
+    margin: 100px;
 }
 
 

@@ -127,7 +127,7 @@ public class UserController
                 {
                    errorMessages.put("emailmsg", "Din email skal indeholde '@'! Prøv igen");
                 }
-
+                // email already in use
                if(UserMapper.emailExists(email, connectionPool))
                {
                    errorMessages.put("emailmsg", "Email er i brug");

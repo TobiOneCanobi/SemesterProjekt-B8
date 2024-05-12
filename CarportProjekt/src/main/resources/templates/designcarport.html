@@ -35,16 +35,16 @@
     </div>
 
 </header>
-<h3>her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
+<h3>Her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
 
 
 <div class="design_input">
     <form action="designcarport" method="get">
-        <label for="length">Længde:</label><br>
+        <label for="length">Carportens længde:</label><br>
         <input type="text" id="length" name="length" placeholder="Længde"><br>
-        <label for="width">Bredde:</label><br>
+        <label for="width">Carportens bredde:</label><br>
         <input type="text" id="width" name="width" placeholder="Bredde"><br><br>
-        <button type="submit">Se din Carport</button>
+        <button type="submit">Generér carport</button>
         <p class="error" th:if="${message != null}" th:text="${message}"></p>
     </form>
 </div>

@@ -66,6 +66,9 @@ button[type=submit] {
 }
 
 
+field-error {
+    border-radius: 2px;
+    color: red;
 
 .login-or-out {
     display: flex;
@@ -73,7 +76,7 @@ button[type=submit] {
 }
 
 
-body.login-form {
+.login-form {
     background-color: #013d7a;
     display: flex;
     justify-content: center;
@@ -104,6 +107,7 @@ body.login-form {
     left: 10px;
 }
 
+}
 
 .login button:hover {
     text-decoration: underline;

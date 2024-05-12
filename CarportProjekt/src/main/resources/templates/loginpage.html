@@ -26,13 +26,13 @@
 
     <div class="login-input">
         <form action="login" method="post">
-            <h2>Sign in</h2>
+            <h2>Log på</h2>
 
             <label for="email">Indtast din email</label> <br>
-            <input type="text" id="email" name="email" placeholder="email"><br>
+            <input type="text" id="email" name="email" placeholder="Email"><br>
 
-            <label for="password">Password</label> <br>
-            <input type="password" id="password" name="password" placeholder="password"><br><br>
+            <label for="password">Indtast dit password</label> <br>
+            <input type="password" id="password" name="password" placeholder="Password"><br><br>
 
             <button class="loginbottom" type="submit">Login</button>
             <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>

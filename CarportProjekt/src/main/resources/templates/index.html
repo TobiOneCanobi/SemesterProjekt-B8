@@ -10,7 +10,8 @@
 
 <body>
 
-<h1>Index side</h1>
+
+<h1>Fog</h1>
 <header>
 
     <div class="user_email_bar"
@@ -20,7 +21,7 @@
     <div class="panel_overview">
         <div class="admin_panel" th:if="${session.userRole == 'admin'}">
             <form th:action="@{/adminoverview}" method="get">
-                <button class="text-margin" type="submit">Kunde oversigt</button>
+                <button class="text-margin" type="submit">Kundeoversigt</button>
             </form>
         </div>
 
@@ -32,7 +33,7 @@
 
                 <!-- SVG tegning test-->
                 <form th:action="@{/designcarport}" href="designcarport.html">
-                    <button class="text-margin" type="submit">Design Carport</button>
+                    <button class="text-margin" type="submit">Design carport</button>
                 </form>
             </div>
         </div>
@@ -69,7 +70,7 @@
 <br>
 
 <div class="fog_carport_link">
-    <h4>For færdigbygget carporte.</h4>
+    <h4>Køb din færdigbyggede carporte her</h4>
     <a href="https://www.johannesfog.dk/have-fritid/carporte">
         <img src="../public/images/CarportLogo.png" th:src="@{/images/CarportLogo.png}" width="117" height="95"/>
     </a>

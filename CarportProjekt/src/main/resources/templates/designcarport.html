@@ -42,22 +42,17 @@
     <form action="designcarport" method="get">
         <label for="length">Længde:</label><br>
         <input type="text" id="length" name="length" placeholder="Længde"><br>
-        <label for="height">Højde:</label><br>
-        <input type="height" id="height" name="height" placeholder="Højde"><br><br>
-        <label for="width">Brede:</label><br>
-        <input type="width" id="width" name="width" placeholder="Brede"><br><br>
-        <button class="" type="submit">Se din Carport</button>
-        <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
+        <label for="width">Bredde:</label><br>
+        <input type="text" id="width" name="width" placeholder="Bredde"><br><br>
+        <button type="submit">Se din Carport</button>
+        <p class="error" th:if="${message != null}" th:text="${message}"></p>
     </form>
 </div>
-
 
 <p>Din Carport:</p>
 <div class="carport-svg-topview">
     <div th:utext="${svg}"></div>
 </div>
-
-
 
 </body>
 </html>

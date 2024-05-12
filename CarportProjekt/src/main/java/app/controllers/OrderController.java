@@ -119,14 +119,18 @@ public class OrderController
         return totalPrice;
     }
 
-    public static void showCarport(Context ctx)
-    {
-        // TODO: Create a SVG Drawing and inject into the showOrder.html template as a String
-        Locale.setDefault(new Locale("US"));
-        CarportSvg svg = new CarportSvg(600, 780);
-
-        ctx.attribute("svg", svg.toString());
+    public static void showCarport(Context ctx) {
+        Locale.setDefault(Locale.US);
+        try {
+            int length = Integer.parseInt(ctx.queryParam("length"));
+            int width = Integer.parseInt(ctx.queryParam("width"));
+            CarportSvg svg = new CarportSvg(width,length);
+            ctx.attribute("svg", svg.toString());
+        } catch (NumberFormatException e) {
+            ctx.attribute("message", "Ugyldig længde eller bredde. Indtast venligst gyldige tal.");
+            ctx.attribute("svg", "");
+        }
+        // Render the HTML template
         ctx.render("designcarport.html");
     }
-
 }

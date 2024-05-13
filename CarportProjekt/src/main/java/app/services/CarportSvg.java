@@ -41,14 +41,14 @@ public class CarportSvg
     //Stolper
     private void addPost()
     {
-        for (double i = length / 4; i < length; i += (length / 2))
-        {
-            innerSvg.addRectangle(i, 32.5, 10, 10, "stroke:#000000; fill: #000000");
-        }
-
-        for (double i = length / 4; i < length; i += (length / 2))
+        for (double i = 100; i <= length; i += 200)
         {
             innerSvg.addRectangle(i, width - 37.5, 10, 10, "stroke:#000000; fill: #000000");
+        }
+
+        for (double i = 100; i <= length; i += 200)
+        {
+            innerSvg.addRectangle(i, 32.5, 10, 10, "stroke:#000000; fill: #000000");
         }
     }
 

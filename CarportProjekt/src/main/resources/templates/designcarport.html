@@ -71,6 +71,25 @@
         <div th:utext="${svg}"></div>
     </div>
 
+<hr>
+
+    <div class="create-user-form">
+        <form action="sendrequest" method="get">
+            <label for="fullname">Navn</label> <br>
+            <input type="text" id="fullname" name="fullname" th:value="${session.user.fullname}" /> <br>
+            <label for="address">Adresse</label> <br>
+            <input type="text" id="address" name="address" th:value="${session.user.address}" /> <br>
+            <label for="postcode">Postnummer</label> <br>
+            <input type="text" id="postcode" name="postcode" th:value="${session.user.postcode}" /> <br>
+            <label for="phone">Telefon</label> <br>
+            <input type="text" id="phone" name="phone" th:value="${session.user.phone}" /> <br>
+            <label for="email">Email</label> <br>
+            <input type="email" id="email" name="email" th:value="${session.user.email}" /> <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
 
 </div>
 </body>

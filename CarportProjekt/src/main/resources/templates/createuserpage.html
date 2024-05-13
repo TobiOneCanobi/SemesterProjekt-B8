@@ -10,16 +10,18 @@
 <body class="create-user-form">
 
 
+<div class="return">
+    <form th:action="@{/backtologin}" method="get">
+        <button type="submit" class="button-red">Tilbage</button>
+    </form>
+</div>
+
 <div class="create-user-box">
     <div class="login-logo">
         <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
     </div>
 
-    <div class="return">
-        <form th:action="@{/backtologin}">
-            <button class="text-margin" type="submit">Tilbage</button>
-        </form>
-    </div>
+
 
 
     <div class="create_user_input">

@@ -3,13 +3,13 @@ package app.entities;
 public class Material
 {
     private int materialId;
-    private String description;
+    private String name;
     private String unit;
 
-    public Material(int materialId, String description, String unit)
+    public Material(int materialId, String name, String unit)
     {
         this.materialId = materialId;
-        this.description = description;
+        this.name = name;
         this.unit = unit;
     }
 
@@ -18,9 +18,9 @@ public class Material
         return materialId;
     }
 
-    public String getDescription()
+    public String getName()
     {
-        return description;
+        return name;
     }
 
     public String getUnit()
@@ -33,7 +33,7 @@ public class Material
     {
         return "Material{" +
                 "materialId=" + materialId +
-                ", description='" + description + '\'' +
+                ", description='" + name + '\'' +
                 ", unit='" + unit + '\'' +
                 '}';
     }

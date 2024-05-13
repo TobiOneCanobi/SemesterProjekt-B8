@@ -4,14 +4,14 @@ public class MaterialVariant
 {
     private int materialVariantId;
     private int length;
-    private int materialId;
+    Material material;
     private int price;
 
-    public MaterialVariant(int materialVariantId, int length, int materialId, int price)
+    public MaterialVariant(int materialVariantId, int length, Material material, int price)
     {
         this.materialVariantId = materialVariantId;
         this.length = length;
-        this.materialId = materialId;
+        this.material = material;
         this.price = price;
     }
 
@@ -25,9 +25,9 @@ public class MaterialVariant
         return length;
     }
 
-    public int getMaterialId()
+    public Material getMaterial()
     {
-        return materialId;
+        return material;
     }
 
     public int getPrice()

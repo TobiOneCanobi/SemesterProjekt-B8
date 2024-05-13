@@ -28,6 +28,10 @@
                 </form>
             </div>
 
+            <form th:action="@{/designcarport}" href="designcarport.html">
+                <button class="text-margin button-blue" type="submit">Design carport</button>
+            </form>
+
             <div class="customer_panel" th:if="${session.userRole == 'customer'}">
                 <div class="button-container">
                     <form th:action="@{/customeroverview}" method="get">
@@ -35,9 +39,7 @@
                     </form>
 
                     <!-- SVG tegning test-->
-                    <form th:action="@{/designcarport}" href="designcarport.html">
-                        <button class="text-margin button-blue" type="submit">Design carport</button>
-                    </form>
+
                 </div>
             </div>
         </div>

@@ -216,3 +216,13 @@ body.create-user-form {
     margin-top: 20vh;
     padding: 0;
 }
+
+.panel_overview{
+    margin: 5px;
+}
+
+.login_check{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

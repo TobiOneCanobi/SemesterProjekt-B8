@@ -39,24 +39,37 @@
     </div>
 
 </header>
-<h3>Her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
 
-
-<div class="design_input">
-    <form action="designcarport" method="get">
-        <label for="length">Carportens længde:</label><br>
-        <input type="text" id="length" name="length" placeholder="Længde"><br>
-        <label for="width">Carportens bredde:</label><br>
-        <input type="text" id="width" name="width" placeholder="Bredde"><br><br>
-        <button type="submit" class="button-green">Generér carport</button>
-        <p class="error" th:if="${message != null}" th:text="${message}"></p>
-    </form>
+<div class="login_check" th:if="${session.currentUser == null}">
+    <div class="login-box">
+        <p>Venligst login for adgang til design funktion</p>
+        <form th:action="@{/loginpage}" method="get">
+            <button type="submit" class="button-blue">Login</button>
+        </form>
+    </div>
 </div>
 
-<p>Din Carport:</p>
-<div class="carport-svg-topview">
-    <div th:utext="${svg}"></div>
-</div>
 
+<div th:if="${session.currentUser != null}">
+    <h3>Her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
+
+    <div class="design_input" th:if="${session.currentUser != null}">
+        <form action="designcarport" method="get">
+            <label for="length">Carportens længde:</label><br>
+            <input type="text" id="length" name="length" placeholder="Længde"><br>
+            <label for="width">Carportens bredde:</label><br>
+            <input type="text" id="width" name="width" placeholder="Bredde"><br><br>
+            <button type="submit" class="button-green">Generér carport</button>
+            <p class="error" th:if="${message != null}" th:text="${message}"></p>
+        </form>
+    </div>
+
+    <p>Din Carport:</p>
+    <div class="carport-svg-topview">
+        <div th:utext="${svg}"></div>
+    </div>
+
+
+</div>
 </body>
 </html>

@@ -9,7 +9,7 @@ header {
     color: white;
     padding: 10px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
 }
 
@@ -24,13 +24,6 @@ h4 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 20px;
-}
 
 input[type=text] {
     width: 100%;
@@ -81,8 +74,9 @@ button[type=submit] {
 
 .button-same-row {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-between;
+    gap: 5px;
 }
 
 .password-input-box {
@@ -175,7 +169,6 @@ button[type=submit] {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin: 20px 0;
 }
 
 .text-margin {
@@ -215,4 +208,14 @@ body.create-user-form {
     margin-bottom: 20vh;
     margin-top: 20vh;
     padding: 0;
+}
+
+.panel_overview{
+    margin: auto;
+}
+
+.login_check{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

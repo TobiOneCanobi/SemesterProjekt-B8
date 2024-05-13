@@ -41,7 +41,7 @@ public class MaterialVariant
         return "MaterialVariant{" +
                 "materialVariantId=" + materialVariantId +
                 ", length=" + length +
-                ", materialId=" + materialId +
+                ", material=" + material +
                 ", price=" + price +
                 '}';
     }

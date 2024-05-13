@@ -22,7 +22,6 @@
     </div>
 
 
-
     <div class="login-input">
         <form action="login" method="post">
             <h2>Log på</h2>
@@ -30,8 +29,29 @@
             <label for="email">Indtast din email</label> <br>
             <input type="text" id="email" name="email" placeholder="Email"><br>
 
-            <label for="password">Indtast dit password</label> <br>
-            <input type="password" id="password" name="password" placeholder="Password"><br><br>
+            <br>
+            <div class="password-input-box">
+                <label for="password">Indtast dit password</label> <br>
+                <input type="password" id="password" name="password" placeholder="Password">
+                <img src="images/PasswordEye.png" id="eyeicon">
+            </div>
+
+            <script>
+                let eyeicon = document.getElementById("eyeicon")
+                let password = document.getElementById("password")
+                eyeicon.onclick = function () {
+                    if (password.type == "password") {
+                        password.type = "text";
+                        eyeicon.src = "images/PasswordEye.png"
+                    } else {
+                        password.type = "password";
+                        eyeicon.src = "images/PasswordEyeslash.png"
+
+                    }
+                }
+            </script>
+
+            <br><br>
 
             <button class="loginbottom button-green" type="submit">Login</button>
             <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
@@ -46,6 +66,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

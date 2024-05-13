@@ -11,14 +11,14 @@ public class CarportSvg
     {
         this.width = width;
         this.length = length;
-        outerSvg = new Svg(0, 0, "0 0 855 690", "75%");
-        innerSvg = new Svg(40, 20, "0 0 " + (width + 200) + " " + (length + 200), "100%");
+        outerSvg = new Svg(0, 0, "0 0 1000 1000", "100%");
+        innerSvg = new Svg(0, 0, "0 0" + (width + 200) + " " + (length + 200), "100%");
         innerSvg.addRectangle(0, 0, width, length, "stroke-width:1px; stroke:#000000; fill: #ffffff");
         addBeams();
         addRafters();
         addPost();
-//        addArrow();
-//        addText();
+        addArrow();
+        addText();
         outerSvg.addSvg(innerSvg);
     }
 
@@ -54,14 +54,20 @@ public class CarportSvg
 
     public void addArrow()
     {
-        outerSvg.addArrow(width - 90, 20, width - 90, width - 37, "stroke:#000000; fill: #000000");
-        outerSvg.addArrow(40, length + 0, width + 0, length + 0, "stroke:#000000; fill: #000000");
+        //Pil til højre
+        outerSvg.addArrow(length +20, 0, length + 20, width , "stroke:#000000; fill: #000000");
+
+        //Pil ned
+        outerSvg.addArrow(0, width + 20, length , width + 20, "stroke:#000000; fill: #000000");
     }
 
     public void addText()
     {
-        outerSvg.addText(width, length, 90, "600");
-        outerSvg.addText(width, length, 0, "780");
+        //Tekst til højre
+        outerSvg.addText(length +25, width / 2, 90, String.valueOf(width) + " cm");
+
+        //Tekst ned
+        outerSvg.addText(length / 2, width+35, 0, String.valueOf(length) + " cm");
     }
 
     @Override

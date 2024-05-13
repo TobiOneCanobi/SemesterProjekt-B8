@@ -4,36 +4,22 @@ public class Order
 {
     //Order fields
     private int orderId;
-    private int totalPrice;
+    private int carportWidth;
+    private int carportLength;
     private boolean installationFee;
-    private String status;
-    private int userId;
+    private int orderStatusId;
+    private int totalPrice;
+    private User user;
 
-    //User fields
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String address;
-    private int zipCode;
-
-    public Order(int orderId, int userId)
+    public Order(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, User user)
     {
         this.orderId = orderId;
-        this.userId = userId;
-    }
-
-    public Order(int orderId, String firstName, String lastName, String email, String phone, String address, int zipCode, int totalPrice, String status)
-    {
-        this.orderId = orderId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.zipCode = zipCode;
+        this.carportWidth = carportWidth;
+        this.carportLength = carportLength;
+        this.installationFee = installationFee;
+        this.orderStatusId = orderStatusId;
         this.totalPrice = totalPrice;
-        this.status = status;
+        this.user = user;
     }
 
     public int getOrderId()
@@ -41,9 +27,14 @@ public class Order
         return orderId;
     }
 
-    public int getTotalPrice()
+    public int getCarportWidth()
     {
-        return totalPrice;
+        return carportWidth;
+    }
+
+    public int getCarportLength()
+    {
+        return carportLength;
     }
 
     public boolean isInstallationFee()
@@ -51,24 +42,32 @@ public class Order
         return installationFee;
     }
 
-    public String getStatus()
+    public int getOrderStatusId()
     {
-        return status;
+        return orderStatusId;
     }
 
-    public void setStatus(String status)
+    public int getTotalPrice()
     {
-        this.status = status;
+        return totalPrice;
     }
 
-    public int getUserId()
+    public User getUser()
     {
-        return userId;
+        return user;
     }
 
     @Override
     public String toString()
     {
-        return "Order{" + "orderId=" + orderId + ", totalPrice=" + totalPrice + ", installationFee=" + installationFee + ", status='" + status + '\'' + ", userId=" + userId + '}';
+        return "Order{" +
+                "orderId=" + orderId +
+                ", carportWidth=" + carportWidth +
+                ", carportLength=" + carportLength +
+                ", installationFee=" + installationFee +
+                ", orderStatusId=" + orderStatusId +
+                ", totalPrice=" + totalPrice +
+                ", user=" + user +
+                '}';
     }
 }

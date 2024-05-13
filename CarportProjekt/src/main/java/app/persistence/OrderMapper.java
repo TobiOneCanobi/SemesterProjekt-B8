@@ -9,6 +9,27 @@ import java.util.List;
 
 public class OrderMapper
 {
+    /*
+    public static List<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException, SQLException
+    {
+        List<Order> orderList = new ArrayList<>();
+        String sql = "SELECT * FROM orders inner join users using(user_id)";
+        try (Connection connection = connectionPool.getConnection();
+                var prepareStatement = connection.prepareStatement(sql)
+                var resultSet=prepareStatement.executeQuery();
+                )
+        {
+            while (resultSet.next())
+
+        } catch (SQLException e)
+        {
+            throw new DatabaseException("Could not get users from the database", e.getMessage());
+        }
+        return orderList;
+    }
+     */
+
+    /*
     public static List<Order> loadOrdersForAdmin(ConnectionPool connectionPool) throws DatabaseException
     {
         List<Order> loadOrdersForAdminList = new ArrayList<>();
@@ -148,8 +169,5 @@ public class OrderMapper
             throw e;
         }
     }
-
-
-
-
+*/
 }

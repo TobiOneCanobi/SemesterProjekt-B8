@@ -18,6 +18,7 @@ import java.util.Locale;
 
 public class OrderController
 {
+    /*
     public static void addRoutes(Javalin app, ConnectionPool connectionPool)
     {
         app.get("orderoverviewadmin", ctx -> orderOverviewAdmin(ctx, connectionPool));
@@ -139,4 +140,7 @@ public class OrderController
         // Render the HTML template
         ctx.render("designcarport.html");
     }
+
+
+     */
 }

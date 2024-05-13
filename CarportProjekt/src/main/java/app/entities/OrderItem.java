@@ -3,17 +3,18 @@ package app.entities;
 public class OrderItem
 {
     private int orderItemId;
+    private Order order;
+    private MaterialVariant materialVariant;
+    private int quantity;
     private String description;
-    private int orderId;
-    private int materialId;
-    private Material material;
 
-    public OrderItem(int orderItemId, String description, int orderId, int materialId)
+    public OrderItem(int orderItemId, Order order, MaterialVariant materialVariant, int quantity, String description)
     {
         this.orderItemId = orderItemId;
+        this.order = order;
+        this.materialVariant = materialVariant;
+        this.quantity = quantity;
         this.description = description;
-        this.orderId = orderId;
-        this.materialId = materialId;
     }
 
     public int getOrderItemId()
@@ -21,29 +22,35 @@ public class OrderItem
         return orderItemId;
     }
 
+    public Order getOrder()
+    {
+        return order;
+    }
+
+    public MaterialVariant getMaterialVariant()
+    {
+        return materialVariant;
+    }
+
+    public int getQuantity()
+    {
+        return quantity;
+    }
+
     public String getDescription()
     {
         return description;
     }
 
-    public int getOrderId()
-    {
-        return orderId;
-    }
-
-    public int getMaterialId()
-    {
-        return materialId;
-    }
-
-    public Material getMaterial()
-    {
-        return material;
-    }
-
     @Override
     public String toString()
     {
-        return "OrderItem{" + "orderItemId=" + orderItemId + ", description='" + description + '\'' + ", orderId=" + orderId + ", materialId=" + materialId + ", material=" + material + '}';
+        return "OrderItem{" +
+                "orderItemId=" + orderItemId +
+                ", order=" + order +
+                ", materialVariant=" + materialVariant +
+                ", quantity=" + quantity +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

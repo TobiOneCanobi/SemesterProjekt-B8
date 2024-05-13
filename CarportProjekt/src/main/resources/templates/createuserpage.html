@@ -113,7 +113,10 @@
             <br><br>
 
             <button type="submit" class="button-green" formaction="/createuser">Opret bruger</button>
-            <div><p th:text="${message}"></p></div>
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'validinfomsg'}"
+               th:text="${entry.value}"></p>
+            <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'chaosmsg'}"
+               th:text="${entry.value}"></p>
         </form>
     </div>
 </div>

@@ -21,29 +21,6 @@
              th:if="${session.currentUser != null}" th:text="${session.userEmail}">
         </div>
 
-        <div class="panel_overview">
-            <div class="admin_panel" th:if="${session.userRole == 'admin'}">
-                <form th:action="@{/adminoverview}" method="get">
-                    <button class="text-margin button-blue" type="submit">Kundeoversigt</button>
-                </form>
-            </div>
-
-            <form th:action="@{/designcarport}" href="designcarport.html">
-                <button class="text-margin button-blue" type="submit">Design carport</button>
-            </form>
-
-            <div class="customer_panel" th:if="${session.userRole == 'customer'}">
-                <div class="button-container">
-                    <form th:action="@{/customeroverview}" method="get">
-                        <button class="text-margin button-blue" type="submit">Mit overblik</button>
-                    </form>
-
-                    <!-- SVG tegning test-->
-
-                </div>
-            </div>
-        </div>
-
         <div class="login_or_out">
             <div class="login" th:if="${session.currentUser == null}">
                 <form th:action="@{/loginpage}" method="get">
@@ -57,6 +34,35 @@
                 </form>
             </div>
         </div>
+
+        <div class="panel_overview">
+            <div class="admin_panel" th:if="${session.userRole == 'admin'}">
+                <form th:action="@{/adminoverview}" method="get">
+                    <button class="text-margin button-blue" type="submit">Kundeoversigt</button>
+                </form>
+            </div>
+
+
+
+            <div class="customer_panel" th:if="${session.userRole == 'customer'}">
+                <div class="button-container">
+                    <form th:action="@{/customeroverview}" method="get">
+                        <button class="text-margin button-blue" type="submit">Mit overblik</button>
+                    </form>
+
+                    <!-- SVG tegning test-->
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <form th:action="@{/designcarport}" href="designcarport.html">
+                <button class="text-margin button-blue" type="submit">Design carport</button>
+            </form>
+        </div>
+
+
     </div>
 </header>
 

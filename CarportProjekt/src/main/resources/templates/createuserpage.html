@@ -34,14 +34,44 @@
             <br><br>
 
 
-            <label for="password1"> Indtast dit password:</label><br>
-            <input type="password" id="password1" name="password1" placeholder="Password">
+            <div class="password-input-box">
+                <label for="password1"> Indtast dit password:</label><br>
+                <input type="password" id="password1" name="password1" placeholder="Password">
+                <img src="images/PasswordEye.png" id="eyeicon">
+                <br>
+
+                <label for="password2"> Indtast dit password igen:</label><br>
+                <input type="password" id="password2" name="password2" placeholder="Password">
+                <img src="images/PasswordEye.png" id="eyeicon2">
+
+                <br>
+            </div>
+
+            <script>
+                let eyeicon = document.getElementById("eyeicon")
+                let eyeicon2 = document.getElementById("eyeicon2")
+
+                let password = document.getElementById("password1")
+                let password2 = document.getElementById("password2")
+                eyeicon.onclick = function () {
+                    if (password.type == "password") {
+                        password.type = "text";
+                        password2.type = "text";
+                        eyeicon.src = "images/PasswordEye.png"
+                        eyeicon2.src = "images/PasswordEye.png"
+
+                    } else {
+                        password.type = "password";
+                        password2.type = "password";
+                        eyeicon.src = "images/PasswordEyeslash.png"
+                        eyeicon2.src = "images/PasswordEyeslash.png"
+
+                    }
+                }
+            </script>
+
             <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'passwordmsg'}"
                th:text="${entry.value}"></p>
-            <br><br>
-
-            <label for="password2"> Indtast dit password igen:</label><br>
-            <input type="password" id="password2" name="password2" placeholder="Password">
             <br><br>
 
 

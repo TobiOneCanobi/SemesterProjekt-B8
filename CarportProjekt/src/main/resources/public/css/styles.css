@@ -4,7 +4,7 @@ body {
     text-align: center;
 }
 
-header{
+header {
     background-color: #013d7a;
     color: white;
     padding: 10px 20px;
@@ -19,7 +19,7 @@ h1 {
     font-size: 3rem;
 }
 
-h4{
+h4 {
     color: #369;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -85,7 +85,20 @@ button[type=submit] {
     justify-content: space-between;
 }
 
-field-error {
+.password-input-box {
+
+}
+
+.password-input-box input {
+    width: 100%;
+}
+
+.password-input-box img {
+    width: 35px;
+    cursor: pointer;
+}
+
+.field-error {
     border-radius: 2px;
     color: red;
 }
@@ -170,7 +183,6 @@ field-error {
 }
 
 
-
 /* SVG */
 .carport-svg-topview {
     max-width: 600px;
@@ -193,6 +205,7 @@ field-error {
     flex-direction: column;
     align-items: center;
 }
+
 body.create-user-form {
     background-color: #013d7a;
     display: flex;

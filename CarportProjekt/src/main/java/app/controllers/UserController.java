@@ -94,6 +94,7 @@ public class UserController
 
 
 
+
             {
                 //CRITERIA TO FIRSTNAME
                 if (!Validation.validateLetterOnly(firstName))

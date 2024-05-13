@@ -124,6 +124,12 @@ public class OrderController
         try {
             int length = Integer.parseInt(ctx.queryParam("length"));
             int width = Integer.parseInt(ctx.queryParam("width"));
+            if (length < 200 || length > 900 || width < 200 || width > 900) {
+                ctx.attribute("message", "Ugyldig længde eller bredde. Indtast venligst gyldige tal.");
+                ctx.attribute("svg", "");
+                ctx.render("designcarport.html");
+                return;
+            }
             CarportSvg svg = new CarportSvg(width,length);
             ctx.attribute("svg", svg.toString());
         } catch (NumberFormatException e) {

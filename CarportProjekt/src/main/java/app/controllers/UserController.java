@@ -92,25 +92,23 @@ public class UserController
             User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
             ctx.sessionAttribute("currentCreateUser", guest);
 
-            firstName = Caps.firstLetterToUppercase(firstName);
-            lastName = Caps.firstLetterToUppercase(lastName);
-            address = Caps.firstLetterToUppercase(address);
+
 
             {
                 //CRITERIA TO FIRSTNAME
                 if (!Validation.validateLetterOnly(firstName))
                 {
-                    errorMessages.put("firstnamemsg", "Dit fornavn må ikke indholde tal eller symboler, udover '-'");
+                    errorMessages.put("firstnamemsg", "Dit fornavn må ikke indeholde tal eller symboler, udover '-'");
                 }
                 //CRITERIA TO LASTNAME
                 if (!Validation.validateLetterOnly(lastName))
                 {
-                    errorMessages.put("lastnamemsg", "Dit efternavn må ikke indholde tal eller symboler, udover '-'");
+                    errorMessages.put("lastnamemsg", "Dit efternavn må ikke indeholde tal eller symboler, udover '-'");
                 }
                 //CRITERIA TO ADDRESS
                 if (!Validation.validateLetterAndSelectSymbolsOnly(address))
                 {
-                    errorMessages.put("addressmsg", "Din addresse må ikke indholde symboler, udover '. -'");
+                    errorMessages.put("addressmsg", "Din addresse må ikke indeholde symboler, udover '. -'");
                 }
                 //CRITERIA TO ZIP CODE
                 if (!Validation.validateFourNumbersOnly(zipCode))
@@ -153,18 +151,24 @@ public class UserController
                     ctx.render("createuserpage.html");
                     return;
                 }
+
+                firstName = Caps.firstLetterToUppercase(firstName);
+                lastName = Caps.firstLetterToUppercase(lastName);
+                address = Caps.firstLetterToUppercase(address);
             }
 
         } catch (NumberFormatException n)
         {
+            errorMessages.put("validinfomsg", "Alle felter skal være udfyldt");
             User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
             ctx.sessionAttribute("currentCreateUser", guest);
-            ctx.attribute("message", "Alle felter skal være udført");
+            ctx.attribute("errormessages", errorMessages);
             ctx.render("createuserpage.html");
 
         } catch (Exception e)
         {
-            ctx.attribute("message", "noget gik galt prøve igen");
+            errorMessages.put("chaosmsg", "Panik, alt gik galt");
+            ctx.attribute("errormessages", errorMessages);
             ctx.render("createuserpage.html");
         }
 

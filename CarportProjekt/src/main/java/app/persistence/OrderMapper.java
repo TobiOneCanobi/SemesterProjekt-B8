@@ -105,7 +105,7 @@ public class OrderMapper
             {
                 ps.setInt(1, order.getCarportWidth());
                 ps.setInt(2, order.getCarportLength());
-                ps.setBoolean(3,order.isInstallationFee());
+                ps.setBoolean(3, order.isInstallationFee());
                 ps.setInt(4, 1);
                 ps.setInt(5, order.getUser().getUserId());
                 ps.setInt(6, order.getTotalPrice());
@@ -122,8 +122,7 @@ public class OrderMapper
                     return null;
                 }
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException("Could not get users from the database", e.getMessage());
         }
@@ -137,7 +136,7 @@ public class OrderMapper
         {
             for (OrderItem orderItem : orderItems)
             {
-                try(PreparedStatement ps = connection.prepareStatement(sql))
+                try (PreparedStatement ps = connection.prepareStatement(sql))
                 {
                     ps.setInt(1, orderItem.getOrder().getOrderId());
                     ps.setInt(2, orderItem.getMaterialVariant().getMaterialVariantId());
@@ -146,8 +145,7 @@ public class OrderMapper
                     ps.executeQuery();
                 }
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException("Could not get users from the database", e.getMessage());
         }

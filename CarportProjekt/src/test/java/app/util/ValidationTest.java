@@ -4,22 +4,15 @@ import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-class ValidationTest {
+
+class ValidationTest
+{
 
     @Test
     void validateLetterOnly()
     {
         assertTrue(Validation.validateLetterOnly("Jørgen"));
         assertFalse(Validation.validateLetterOnly("Hans5"));
-
-
-    }
-
-    @Test
-    void validateLetterAndSelectSymbolsOnly()
-    {
-        assertTrue(Validation.validateLetterAndSelectSymbolsOnly("lyngby-vej 50"));
-        assertFalse(Validation.validateLetterAndSelectSymbolsOnly("Virumgade 25%"));
     }
 
     @Test
@@ -27,7 +20,6 @@ class ValidationTest {
     {
         assertTrue(Validation.validateFourNumbersOnly(3435));
         assertFalse(Validation.validateFourNumbersOnly(444));
-
     }
 
     @Test
@@ -35,16 +27,7 @@ class ValidationTest {
     {
         assertTrue(Validation.validateEightNumbersOnly(12345678));
         assertFalse(Validation.validateEightNumbersOnly(5555));
-
     }
-
-    @Test
-    void validateEmailContains()
-    {
-        assertTrue(Validation.validateEmailContainsAtSymbol("@"));
-        assertFalse(Validation.validateEmailContainsAtSymbol("mas"));
-    }
-
 
     @Test
     void validateEqualPasswords()
@@ -82,9 +65,23 @@ class ValidationTest {
     }
 
     @Test
-    void validateEmailContainsAtLetters()
+    void validateTextContainsLetterAndNumber()
     {
-        assertTrue(Validation.validateEmailContainsAtLetters("hans"));
-        assertFalse(Validation.validateEmailContainsAtLetters("33"));
+        assertTrue(Validation.validateTextContainsLetterAndNumber("stenvej 20"));
+        assertFalse(Validation.validateTextContainsLetterAndNumber("stenvej"));
+    }
+
+    @Test
+    void validateTextContainsAtAndLetter()
+    {
+        assertTrue(Validation.validateTextContainsAtAndLetter("mas@"));
+        assertFalse(Validation.validateTextContainsAtAndLetter("mas"));
+    }
+
+    @Test
+    void validateTextContainsWhitespaceBetweenLetterAndNumber()
+    {
+        assertTrue(Validation.validateTextContainsWhitespaceBetweenLetterAndNumber("stenvej 20"));
+        assertFalse(Validation.validateTextContainsWhitespaceBetweenLetterAndNumber("stenvej20"));
     }
 }

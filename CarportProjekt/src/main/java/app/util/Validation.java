@@ -26,6 +26,11 @@ public class Validation
     {
         return text.contains("@");
     }
+
+    public static boolean validateEmailContainsAtLetters(String text)
+    {
+        return text.matches(".*[a-zA-Z]+.*");
+    }
     public static boolean validateEqualPasswords(String text1, String text2)
     {
         return text1.equals(text2);

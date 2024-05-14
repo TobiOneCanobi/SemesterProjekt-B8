@@ -81,4 +81,10 @@ class ValidationTest {
         assertFalse(Validation.validatePasswordContainsSign("mas"));
     }
 
+    @Test
+    void validateEmailContainsAtLetters()
+    {
+        assertTrue(Validation.validateEmailContainsAtLetters("hans"));
+        assertFalse(Validation.validateEmailContainsAtLetters("33"));
+    }
 }

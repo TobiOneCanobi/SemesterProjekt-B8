@@ -120,7 +120,26 @@ public class UserController
                 // email must have a @
                 if (!Validation.validateEmailContainsAtSymbol(email))
                 {
-                    errorMessages.put("emailmsg", "Din email skal indeholde '@'! Prøv igen");
+                    if(errorMessages.containsKey("emailmsg"))
+                    {
+                        errorMessages.put("emailmsg", errorMessages.get("emailmsg") + "Din email skal indeholde '@' ");
+                    }else
+                    {
+                        errorMessages.put("emailmsg", "Din email skal indeholde '@' ");
+                    }
+
+                }
+
+                if(!Validation.validateEmailContainsAtLetters(email))
+                {
+                    if(errorMessages.containsKey("emailmsg"))
+                    {
+                        errorMessages.put("emailmsg", errorMessages.get("emailmsg") + "Din email skal indeholde bogstaver ");
+                    }
+
+                }else
+                {
+                    errorMessages.put("emailmsg", "Din email skal indeholde bogstaver ");
                 }
                 // email already in use
                 if (UserMapper.emailExists(email, connectionPool))

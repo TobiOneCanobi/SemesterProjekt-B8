@@ -91,9 +91,6 @@ public class UserController
 
             User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
             ctx.sessionAttribute("currentCreateUser", guest);
-
-
-
             {
                 //CRITERIA TO FIRSTNAME
                 if (!Validation.validateLetterOnly(firstName))
@@ -121,7 +118,7 @@ public class UserController
                     errorMessages.put("phonenumbermsg", "Dit telefon nummer må kun indeholde 8 tal");
                 }
                 // email must have a @
-                if (!email.contains("@"))
+                if (!Validation.validateEmailContainsAtSymbol(email))
                 {
                     errorMessages.put("emailmsg", "Din email skal indeholde '@'! Prøv igen");
                 }
@@ -131,20 +128,61 @@ public class UserController
                     errorMessages.put("emailmsg", "Email er i brug");
                 }
                 // both passwords must match
-                if (!password1.equals(password2))
+                if (!Validation.validateEqualPasswords(password1, password2))
                 {
-                    errorMessages.put("passwordmsg", "Dine to passwords matcher ikke! Prøv igen");
+                    if(errorMessages.containsKey("passwordmsg"))
+                    {
+                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Dine to passwords matchter ikke! ");
+                    } else
+                    {
+                        errorMessages.put("passwordmsg", "Dine to passwords matcher ikke! ");
+                    }
                 }
-                // password must consist standard letter
-                if (!Pattern.matches(".*[\\p{Lu}\\p{N}æøåÆØÅ].*", password1))
+                // password must consist one uppercase letter
+                if (!Validation.validateOneUppercaseLetterPassword(password1))
                 {
-                    errorMessages.put("passwordmsg", "Password skal bestå af standard bogstaver");
+                    if(errorMessages.containsKey("passwordmsg"))
+                    {
+                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal bestå af mindst et stort bogstav. ");
+                    }else
+                    {
+                        errorMessages.put("passwordmsg", "Password skal bestå af mindst et stort bogstav. ");
+                    }
                 }
                 //password must be 4 letters long
-                if (!(password1.length() >= 4))
+                if (!Validation.validateLengthOfPassword(password1))
                 {
-                    errorMessages.put("passwordmsg", "Password skal mindst være 4 bogstaver langt");
+                    if(errorMessages.containsKey("passwordmsg"))
+                    {
+                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst være 4 bogstaver langt. ");
+                    }else
+                    {
+                        errorMessages.put("passwordmsg", "Password skal mindst være 4 bogstaver langt. ");
+                    }
                 }
+
+                if(!Validation.validatePasswordContainsNumber(password1))
+                {
+                    if(errorMessages.containsKey("passwordmsg"))
+                    {
+                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal indeholde mindst et tal. ");
+                    }else
+                    {
+                        errorMessages.put("passwordmsg", "Password skal indeholde mindst et tal. ");
+                    }
+                }
+
+                if(!Validation.validatePasswordContainsSign(password1))
+                {
+                    if(errorMessages.containsKey("passwordmsg"))
+                    {
+                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal indeholde tegn");
+                    }else
+                    {
+                        errorMessages.put("passwordmsg", "Password skal indeholde tegn");
+                    }
+                }
+
                 if (!errorMessages.isEmpty())
                 {
                     ctx.attribute("errormessages", errorMessages);
@@ -159,8 +197,8 @@ public class UserController
 
         } catch (NumberFormatException n)
         {
-            errorMessages.put("validinfomsg", "Alle felter skal være udfyldt");
             User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
+            errorMessages.put("validinfomsg", "Alle felter skal være udfyldt");
             ctx.sessionAttribute("currentCreateUser", guest);
             ctx.attribute("errormessages", errorMessages);
             ctx.render("createuserpage.html");

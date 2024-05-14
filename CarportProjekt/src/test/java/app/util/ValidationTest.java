@@ -37,4 +37,47 @@ class ValidationTest {
         assertFalse(Validation.validateEightNumbersOnly(5555));
         assertFalse(Validation.validateEightNumbersOnly(999999999));
     }
+
+    @Test
+    void validateEmailContains()
+    {
+        assertTrue(Validation.validateEmailContainsAtSymbol("@"));
+        assertFalse(Validation.validateEmailContainsAtSymbol("mas"));
+    }
+
+
+    @Test
+    void validateEqualPasswords()
+    {
+        assertTrue(Validation.validateEqualPasswords("mas12", "mas12"));
+        assertFalse(Validation.validateEqualPasswords("mas2", "mas1"));
+    }
+
+    @Test
+    void validateOneUppercaseLetterPassword()
+    {
+        assertTrue(Validation.validateOneUppercaseLetterPassword("hAns"));
+        assertFalse(Validation.validateOneUppercaseLetterPassword("hans"));
+    }
+
+    @Test
+    void validateLengthOfPassword()
+    {
+        assertTrue(Validation.validateLengthOfPassword("mk14"));
+        assertFalse(Validation.validateLengthOfPassword("mk4"));
+    }
+
+    @Test
+    void validatePasswordContainsNumber()
+    {
+        assertTrue(Validation.validatePasswordContainsNumber("mas1"));
+        assertFalse(Validation.validatePasswordContainsNumber("mas"));
+    }
+
+    @Test
+    void validatePasswordContainsSign()
+    {
+        assertTrue(Validation.validatePasswordContainsSign("mas!?%"));
+        assertFalse(Validation.validatePasswordContainsSign("mas"));
+    }
 }

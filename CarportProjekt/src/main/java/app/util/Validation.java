@@ -13,21 +13,13 @@ public class Validation
     public static boolean validateFourNumbersOnly(int number)
     {
         String numberString = String.valueOf(number);
-        if(numberString.length() != 4)
-        {
-            return false;
-        }
-        return numberString.matches("^[\\p{N}]+$");
+        return numberString.length() == 4 && numberString.matches("^[0-9]+$");
     }
 
     public static boolean validateEightNumbersOnly(int number)
     {
         String numberString = String.valueOf(number);
-        if(numberString.length() != 8)
-        {
-            return false;
-        }
-        return numberString.matches("^[\\p{N}]+$");
+        return  numberString.length() == 8 && numberString.matches("^[0-9]+$");
     }
 
     public static boolean validateEmailContainsAtSymbol(String text)

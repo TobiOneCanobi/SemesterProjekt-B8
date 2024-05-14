@@ -176,10 +176,10 @@ public class UserController
                 {
                     if(errorMessages.containsKey("passwordmsg"))
                     {
-                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal indeholde tegn");
+                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst indeholde et tegn");
                     }else
                     {
-                        errorMessages.put("passwordmsg", "Password skal indeholde tegn");
+                        errorMessages.put("passwordmsg", "Password skal mindst indeholde et tegn");
                     }
                 }
 
@@ -222,7 +222,7 @@ public class UserController
                 ctx.render("loginpage.html");
             } catch (DatabaseException e)
             {
-                ctx.attribute("message", "Alle felter skal være udfyldt");
+                ctx.attribute("message", "Noget fik galt! Prøv igen. ");
                 ctx.render("createuserpage.html");
             }
         }

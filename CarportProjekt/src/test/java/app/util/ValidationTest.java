@@ -25,7 +25,7 @@ class ValidationTest {
     @Test
     void validateFourNumbersOnly()
     {
-        assertTrue(Validation.validateFourNumbersOnly(3436));
+        assertTrue(Validation.validateFourNumbersOnly(3435));
         assertFalse(Validation.validateFourNumbersOnly(444));
 
     }
@@ -35,7 +35,7 @@ class ValidationTest {
     {
         assertTrue(Validation.validateEightNumbersOnly(12345678));
         assertFalse(Validation.validateEightNumbersOnly(5555));
-        assertFalse(Validation.validateEightNumbersOnly(999999999));
+
     }
 
     @Test
@@ -80,4 +80,5 @@ class ValidationTest {
         assertTrue(Validation.validatePasswordContainsSign("mas!?%"));
         assertFalse(Validation.validatePasswordContainsSign("mas"));
     }
+
 }

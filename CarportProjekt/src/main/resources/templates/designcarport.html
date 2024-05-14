@@ -58,9 +58,9 @@
     <div class="design_input" th:if="${session.currentUser != null}">
         <form action="designcarport" method="get">
             <label for="length">Carportens længde:</label><br>
-            <input type="text" id="length" name="length" placeholder="Længde"><br>
+            <input type="text" id="length" name="length" placeholder="Længde i cm"><br>
             <label for="width">Carportens bredde:</label><br>
-            <input type="text" id="width" name="width" placeholder="Bredde"><br><br>
+            <input type="text" id="width" name="width" placeholder="Bredde i cm"><br><br>
             <button type="submit" class="button-green">Generér carport</button>
             <p class="error" th:if="${message != null}" th:text="${message}"></p>
         </form>

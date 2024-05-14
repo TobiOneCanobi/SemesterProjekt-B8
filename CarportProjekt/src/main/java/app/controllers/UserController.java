@@ -92,54 +92,54 @@ public class UserController
             User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
             ctx.sessionAttribute("currentCreateUser", guest);
             {
-                //CRITERIA TO FIRSTNAME
+                // firstname must have letters only
                 if (!Validation.validateLetterOnly(firstName))
                 {
-                    errorMessages.put("firstnamemsg", "Dit fornavn må ikke indeholde tal eller symboler, udover '-'");
+                    errorMessages.put("firstnamemsg", "Dit fornavn må ikke indeholde tal eller symboler, udover [-])");
                 }
-                //CRITERIA TO LASTNAME
+                // lastname must have letters only
                 if (!Validation.validateLetterOnly(lastName))
                 {
-                    errorMessages.put("lastnamemsg", "Dit efternavn må ikke indeholde tal eller symboler, udover '-'");
+                    errorMessages.put("lastnamemsg", "Dit efternavn må ikke indeholde tal eller symboler, udover [-]");
                 }
-                //CRITERIA TO ADDRESS
-                if (!Validation.validateLetterAndSelectSymbolsOnly(address))
+                // address must have letters and numbers
+                if (!Validation.validateTextContainsLetterAndNumber(address))
                 {
-                    errorMessages.put("addressmsg", "Din addresse må ikke indeholde symboler, udover '. -'");
+                    if(errorMessages.containsKey("addressmsg"))
+                    {
+                        errorMessages.put("addressmsg", errorMessages.get("addressmsg") + "Din adresse skal indeholde bogstaver og tal. ");
+                    }else
+                    {
+                        errorMessages.put("addressmsg", "Din adresse skal indeholde bogstaver og tal. ");
+                    }
+
                 }
-                //CRITERIA TO ZIP CODE
+                // address must have a whitespace between letters and numbers
+                if(!Validation.validateTextContainsWhitespaceBetweenLetterAndNumber(address))
+                {
+                    if(errorMessages.containsKey("addressmsg"))
+                    {
+                        errorMessages.put("addressmsg", errorMessages.get("addressmsg") + "Angiv venligst mellemrum mellem vejnavn og husnummer ");
+                    }else
+                    {
+                        errorMessages.put("addressmsg", "Angiv venligst mellemrum mellem vejnavn og husnummer ");
+                    }
+
+                }
+                // zip code must only contain 4 numbers
                 if (!Validation.validateFourNumbersOnly(zipCode))
                 {
                     errorMessages.put("zipcodemsg", "Dit postnummer må kun indeholde 4 tal");
                 }
-                //CRITERIA FOR PHONE NUMBERS
+                // phone number must only contain 8 numbers
                 if (!Validation.validateEightNumbersOnly(phoneNumber))
                 {
                     errorMessages.put("phonenumbermsg", "Dit telefon nummer må kun indeholde 8 tal");
                 }
-                // email must have a @
-                if (!Validation.validateEmailContainsAtSymbol(email))
+                // email must have a @ and letters
+                if (!Validation.validateTextContainsAtAndLetter(email))
                 {
-                    if(errorMessages.containsKey("emailmsg"))
-                    {
-                        errorMessages.put("emailmsg", errorMessages.get("emailmsg") + "Din email skal indeholde '@' ");
-                    }else
-                    {
-                        errorMessages.put("emailmsg", "Din email skal indeholde '@' ");
-                    }
-
-                }
-
-                if(!Validation.validateEmailContainsAtLetters(email))
-                {
-                    if(errorMessages.containsKey("emailmsg"))
-                    {
-                        errorMessages.put("emailmsg", errorMessages.get("emailmsg") + "Din email skal indeholde bogstaver ");
-                    }
-
-                }else
-                {
-                    errorMessages.put("emailmsg", "Din email skal indeholde bogstaver ");
+                    errorMessages.put("emailmsg", "Din email skal indeholde '@' og bogstaver");
                 }
                 // email already in use
                 if (UserMapper.emailExists(email, connectionPool))
@@ -149,7 +149,7 @@ public class UserController
                 // both passwords must match
                 if (!Validation.validateEqualPasswords(password1, password2))
                 {
-                    if(errorMessages.containsKey("passwordmsg"))
+                    if (errorMessages.containsKey("passwordmsg"))
                     {
                         errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Dine to passwords matchter ikke! ");
                     } else
@@ -160,55 +160,53 @@ public class UserController
                 // password must consist one uppercase letter
                 if (!Validation.validateOneUppercaseLetterPassword(password1))
                 {
-                    if(errorMessages.containsKey("passwordmsg"))
+                    if (errorMessages.containsKey("passwordmsg"))
                     {
                         errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal bestå af mindst et stort bogstav. ");
-                    }else
+                    } else
                     {
                         errorMessages.put("passwordmsg", "Password skal bestå af mindst et stort bogstav. ");
                     }
                 }
-                //password must be 4 letters long
+                // password must be minimum 4 letters long
                 if (!Validation.validateLengthOfPassword(password1))
                 {
-                    if(errorMessages.containsKey("passwordmsg"))
+                    if (errorMessages.containsKey("passwordmsg"))
                     {
                         errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst være 4 bogstaver langt. ");
-                    }else
+                    } else
                     {
                         errorMessages.put("passwordmsg", "Password skal mindst være 4 bogstaver langt. ");
                     }
                 }
-
-                if(!Validation.validatePasswordContainsNumber(password1))
+                // password must minumum contain 1 number
+                if (!Validation.validatePasswordContainsNumber(password1))
                 {
-                    if(errorMessages.containsKey("passwordmsg"))
+                    if (errorMessages.containsKey("passwordmsg"))
                     {
                         errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal indeholde mindst et tal. ");
-                    }else
+                    } else
                     {
                         errorMessages.put("passwordmsg", "Password skal indeholde mindst et tal. ");
                     }
                 }
-
-                if(!Validation.validatePasswordContainsSign(password1))
+                // password must minimum contain 1 sign
+                if (!Validation.validatePasswordContainsSign(password1))
                 {
-                    if(errorMessages.containsKey("passwordmsg"))
+                    if (errorMessages.containsKey("passwordmsg"))
                     {
                         errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst indeholde et tegn");
-                    }else
+                    } else
                     {
                         errorMessages.put("passwordmsg", "Password skal mindst indeholde et tegn");
                     }
                 }
-
                 if (!errorMessages.isEmpty())
                 {
                     ctx.attribute("errormessages", errorMessages);
                     ctx.render("createuserpage.html");
                     return;
                 }
-
                 firstName = Caps.firstLetterToUppercase(firstName);
                 lastName = Caps.firstLetterToUppercase(lastName);
                 address = Caps.firstLetterToUppercase(address);
@@ -228,8 +226,6 @@ public class UserController
             ctx.attribute("errormessages", errorMessages);
             ctx.render("createuserpage.html");
         }
-
-
         if (errorMessages.isEmpty())
         {
             try

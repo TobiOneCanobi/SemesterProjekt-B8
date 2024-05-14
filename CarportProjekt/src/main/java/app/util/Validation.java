@@ -6,10 +6,21 @@ public class Validation
     {
         return text.matches("^[a-zA-ZæøåÆØÅ]+$");
     }
-    public static boolean validateLetterAndSelectSymbolsOnly(String text)
+
+    public static boolean validateTextContainsLetterAndNumber(String text)
     {
-        return text.matches("^[\\p{N}a-zA-ZæøåÆØÅ.\\s-]+$");
+        boolean hasLetter = text.matches(".*[a-zA-ZæøåÆØÅ]+.*");
+        boolean hasNumber = text.matches(".*\\d+.*");
+        boolean validChars = text.matches("^[a-zA-ZæøåÆØÅ\\d\\s]+$");
+        return hasLetter && hasNumber && validChars;
     }
+
+    public static boolean validateTextContainsWhitespaceBetweenLetterAndNumber(String text)
+    {
+        boolean hasWhitespaceBetween = text.matches(".*[a-zA-ZæøåÆØÅ]+\\s+\\d+.*") || text.matches(".*\\d+\\s+[a-zA-ZæøåÆØÅ]+.*");
+        return hasWhitespaceBetween;
+    }
+
     public static boolean validateFourNumbersOnly(int number)
     {
         String numberString = String.valueOf(number);
@@ -19,18 +30,14 @@ public class Validation
     public static boolean validateEightNumbersOnly(int number)
     {
         String numberString = String.valueOf(number);
-        return  numberString.length() == 8 && numberString.matches("^[0-9]+$");
+        return numberString.length() == 8 && numberString.matches("^[0-9]+$");
     }
 
-    public static boolean validateEmailContainsAtSymbol(String text)
+    public static boolean validateTextContainsAtAndLetter(String text)
     {
-        return text.contains("@");
+        return text.contains("@") && text.matches(".*[a-zA-Z]+.*");
     }
 
-    public static boolean validateEmailContainsAtLetters(String text)
-    {
-        return text.matches(".*[a-zA-Z]+.*");
-    }
     public static boolean validateEqualPasswords(String text1, String text2)
     {
         return text1.equals(text2);
@@ -43,7 +50,7 @@ public class Validation
 
     public static boolean validateLengthOfPassword(String text)
     {
-        return text.length() >=4;
+        return text.length() >= 4;
     }
 
     public static boolean validatePasswordContainsNumber(String text)
@@ -53,6 +60,6 @@ public class Validation
 
     public static boolean validatePasswordContainsSign(String text)
     {
-        return text.matches(".*[!@#$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?`~].*") ;
+        return text.matches(".*[!@#$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?`~].*");
     }
 }

@@ -62,7 +62,7 @@
             <label for="width">Carportens bredde:</label><br>
             <input type="text" id="width" name="width" placeholder="Bredde i cm"><br><br>
             <button type="submit" class="button-green">Generér carport</button>
-            <p class="error" th:if="${message != null}" th:text="${message}"></p>
+            <p class="error" th:if="${message != null}" th:utext="${message}"></p>
         </form>
     </div>
 

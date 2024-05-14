@@ -122,13 +122,14 @@ public class OrderController
 
     public static void showCarport(Context ctx) {
         Locale.setDefault(Locale.US);
+
         try {
             int length = Integer.parseInt(ctx.queryParam("length"));
             int width = Integer.parseInt(ctx.queryParam("width"));
             if (length < 200 || length > 900 || width < 200 || width > 900) {
-                ctx.attribute("message", "Ugyldig længde eller bredde. " +
-                        "\nIndtast venligst gyldige tal. " +
-                        "\nLængde og bredde skal være mellem 200 og 900 cm.");
+                ctx.attribute("message", "Ugyldig længde eller bredde. <br>" +
+                        "Indtast venligst gyldige tal. <br>" +
+                        "Længde og bredde skal være mellem 200 og 900 cm.");
                 ctx.attribute("svg", "");
                 ctx.render("designcarport.html");
                 return;
@@ -136,14 +137,15 @@ public class OrderController
             CarportSvg svg = new CarportSvg(width,length);
             ctx.attribute("svg", svg.toString());
         } catch (NumberFormatException e) {
-            ctx.attribute("message", "Ugyldig længde eller bredde. " +
-                    "\nIndtast venligst gyldige tal. " +
-                    "\nLængde og bredde skal være mellem 200 og 900 cm.");
+            ctx.attribute("message", "Ugyldig længde eller bredde. <br>" +
+                    "Indtast venligst gyldige tal. <br>" +
+                    "Længde og bredde skal være mellem 200 og 900 cm.");
             ctx.attribute("svg", "");
         }
         // Render the HTML template
         ctx.render("designcarport.html");
     }
+
 
 
 

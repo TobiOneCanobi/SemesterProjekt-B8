@@ -54,7 +54,7 @@ public class OrderMapper
     public static List<OrderItem> getOrderItemsByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException
     {
         List<OrderItem> orderItemList = new ArrayList<>();
-        String sql = "Select * FROM bill_of_materials_view where order_id = ?";
+        String sql = "Select * FROM parts_list_view where order_id = ?";
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -77,13 +77,13 @@ public class OrderMapper
                 Material material = new Material(materialId, name, unit);
 
                 int materialVariantId = rs.getInt("material_variant_id");
-                String description = rs.getString("description");
                 int length = rs.getInt("length");
                 int price = rs.getInt("price");
                 MaterialVariant materialVariant = new MaterialVariant(materialVariantId, length, material, price);
 
                 int orderItemId = rs.getInt("order_item_id");
                 int quantity = rs.getInt("quantity");
+                String description = rs.getString("description");
                 OrderItem orderItem = new OrderItem(orderItemId, order, materialVariant, quantity, description);
                 orderItemList.add(orderItem);
             }
@@ -97,17 +97,18 @@ public class OrderMapper
 
     public static Order insertOrder(Order order, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "INSERT INTO orders (carport_width, carport_length, status, user_id, total_price)" +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO orders (carport_width, carport_length, installation_fee, status, user_id, total_price)" +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
             {
                 ps.setInt(1, order.getCarportWidth());
                 ps.setInt(2, order.getCarportLength());
-                ps.setInt(3, 1);
-                ps.setInt(4, order.getUser().getUserId());
-                ps.setInt(5, order.getTotalPrice());
+                ps.setBoolean(3,order.isInstallationFee());
+                ps.setInt(4, 1);
+                ps.setInt(5, order.getUser().getUserId());
+                ps.setInt(6, order.getTotalPrice());
                 ps.executeQuery();
                 ResultSet keySet = ps.getGeneratedKeys();
                 if (keySet.next())

@@ -25,7 +25,7 @@ public class UserController
         app.get("loginpage", ctx -> ctx.render("loginpage.html"));
         app.get("createuserpage", ctx -> ctx.render("createuserpage.html"));
         app.get("backtologin", ctx -> ctx.render("loginpage.html"));
-        app.get("adminoverview", ctx -> ctx.render("adminoverview.html"));
+        //app.get("adminoverview", ctx -> ctx.render("adminoverview.html"));
         app.get("customeroverview", ctx -> ctx.render("customeroverview.html"));
     }
 

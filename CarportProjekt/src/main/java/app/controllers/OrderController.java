@@ -23,7 +23,7 @@ public class OrderController
     public static void addRoutes(Javalin app, ConnectionPool connectionPool)
     {
         app.get("adminoverview", ctx -> orderOverviewAdmin(ctx, connectionPool));
-        app.get("showPartsList", ctx -> showPartsList(ctx, connectionPool));
+        app.post("showPartsList", ctx -> showPartsList(ctx, connectionPool));
         // app.get("orderoverviewcustomer", ctx -> orderOverviewCustomer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("designcarport", ctx -> showCarport(ctx));
@@ -68,6 +68,7 @@ public class OrderController
         int orderId = Integer.parseInt(ctx.formParam("orderIdChosen"));
         try
         {
+
             List<OrderItem> orderItemList = OrderMapper.getOrderItemsByOrderId(orderId, connectionPool);
 
             if (orderItemList.isEmpty())

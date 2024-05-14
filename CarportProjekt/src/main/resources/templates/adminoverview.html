@@ -51,24 +51,23 @@
         <th>strykliste</th>
     </tr>
     </thead>
-    <tbody>
-    <tr th:each="order : ${orderList}">
-        <form th:action="@{/showPartsList}" method="get">
-            <td th:text="${order.orderId}"><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" /></td>
-            <td th:text="${order.orderStatusId}"></td>
-            <td th:text="${order.carportWidth}"></td>
-            <td th:text="${order.carportLength}"></td>
-            <td th:text="${order.installationFee}"></td>
-            <td th:text="${order.User.email}"></td>
-            <td th:text="${order.totalPrice}"></td>
-            <td>
-                <button type="submit">Se strykliste</button>
-            </td>
-        </form>
-    </tr>
-    </tbody>
-
 </table>
+<div th:each="order : ${orderList}">
+    <form th:action="@{/showPartsList}" method="post">
+        <table class="table">
+            <tr>
+                <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}"></td>
+                <td th:text="${order.orderStatusId}"></td>
+                <td th:text="${order.carportWidth}"></td>
+                <td th:text="${order.carportLength}"></td>
+                <td th:text="${order.installationFee}"></td>
+                <td th:text="${order.User.email}"></td>
+                <td th:text="${order.totalPrice}"></td>
+                <td> <button type="submit">Se strykliste</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
 
 
 </body>

@@ -69,7 +69,7 @@ public class OrderMapper
                 boolean installationFee = rs.getBoolean("installation_fee");
                 int status = rs.getInt("status");
                 int totalPrice = rs.getInt("total_price");
-                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice, null);
+                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice,null );
 
                 int materialId = rs.getInt("material_id");
                 String name = rs.getString("name");

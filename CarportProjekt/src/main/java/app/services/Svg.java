@@ -53,6 +53,11 @@ public class Svg
         svg.append(String.format("<text x=\"%d\" y=\"%d\" transform=\"rotate(%d %d,%d)\">%s</text> ", x, y, rotation, x, y, text));
     }
 
+    public void addDashLine(double x1, double y1, double x2, double y2, String style)
+    {
+        svg.append(String.format("<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"%s\" />", x1, y1, x2, y2, style));
+    }
+
     public void addSvg(Svg innerSvg)
     {
         svg.append(innerSvg.toString());

@@ -27,6 +27,7 @@ public class OrderController
         // app.get("orderoverviewcustomer", ctx -> orderOverviewCustomer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("designcarport", ctx -> showCarport(ctx));
+        app.get("testCalculator", ctx -> sendRequest(ctx,connectionPool));
     }
 
 
@@ -92,15 +93,16 @@ public class OrderController
 
     private static void sendRequest(Context ctx, ConnectionPool connectionPool)
     {
-
-        int width = ctx.sessionAttribute("width");
-        int length = ctx.sessionAttribute("length");
-        Boolean installationFee = ctx.sessionAttribute("installationFee");
+        int width = 600;
+        int length = 600;
+        //int width = ctx.sessionAttribute("width");
+        //int length = ctx.sessionAttribute("length");
+        //Boolean installationFee = ctx.sessionAttribute("installationFee");
         int status = 1;
         int totalPrice = 19999;
-        User user = ctx.sessionAttribute("CurrentUser");
-        //User user = new User(100,"tester1","tester1","test",2600,87654321,"testemail","testpassword","customer");
-        Order order = new Order(100, width, length, false, status, totalPrice, user);
+        //User user = ctx.sessionAttribute("currentUser");
+        User user = new User(2,"Pepandekage","testefternavn","testroad 1",2600,87654321,"testemail","testpassword","admin");
+        Order order = new Order(0, width, length, false, status, totalPrice, user);
         try
         {
             order = OrderMapper.insertOrder(order, connectionPool);
@@ -116,7 +118,8 @@ public class OrderController
 
 
             // create message to customer and render order / send confirmation
-            ctx.render("requestconfirmation.html");
+            System.out.println("succes");
+            ctx.render("index.html");
 
         } catch (DatabaseException e)
         {

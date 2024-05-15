@@ -1,8 +1,10 @@
 package app.services;
 
 import app.entities.Material;
+import app.entities.MaterialVariant;
 import app.entities.Order;
 import app.entities.OrderItem;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.MaterialMapper;
 
@@ -12,7 +14,7 @@ import java.util.List;
 public class Calculator
 {
 
-    private static final int POSTs = 1;
+    private static final int Posts = 1;
     private static final int Rafters = 2;
     private static final int beams = 2;
 
@@ -29,7 +31,7 @@ public class Calculator
         this.connectionPool = connectionPool;
     }
 
-    public void calcCarport(Order order)
+    public void calcCarport(Order order) throws DatabaseException
     {
         calcPosts(order);
         calcBeams(order);
@@ -38,16 +40,22 @@ public class Calculator
 
 
     // stolper
-    private void calcPosts(Order order)
+    private void calcPosts(Order order) throws DatabaseException
     {
         //antal stolper
         int quantity = calcPostQuantity();
 
         //længde på stolper "variant"
-        //List <MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(0, Posts,connectionPool);
-        //MaterialVariant materialVariant = materialVariants.get(0);
-        //OrderItem orderItem = new OrderItem(0,order,materialVariant, quantity, Stolper nedgraves 90 cm. i jord);
-        //orderItems.add(orderItems);
+         List <MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(0, 1,connectionPool);
+        MaterialVariant materialVariant = materialVariants.get(0);
+        OrderItem orderItem = new OrderItem(0,order,materialVariant, quantity, "Stolper nedgraves 90 cm. i jord");
+        orderItems.add(orderItem);
+
+        // tester
+        for (OrderItem orderItem1 : orderItems)
+        {
+            System.out.println(orderItem1.getMaterialVariant());
+        }
 
     }
 

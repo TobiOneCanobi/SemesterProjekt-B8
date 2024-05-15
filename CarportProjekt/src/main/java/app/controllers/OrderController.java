@@ -29,9 +29,8 @@ public class OrderController
         app.get("designcarport", ctx -> showCarport(ctx));
         app.post("updateOrder", ctx -> updateOrder(ctx, connectionPool));
         app.post("editOrder", ctx -> editOrder(ctx, connectionPool));
-
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
-        app.get("testCalculator", ctx -> sendRequest(ctx,connectionPool));
+        app.post("sendRequest", ctx -> sendRequest(ctx, connectionPool));
     }
 
 
@@ -98,13 +97,15 @@ public class OrderController
     private static void sendRequest(Context ctx, ConnectionPool connectionPool)
     {
 
-        int width = ctx.sessionAttribute("width");
-        int length = ctx.sessionAttribute("length");
-        Boolean installationFee = ctx.sessionAttribute("installationFee");
+        int width = Integer.parseInt(ctx.formParam("width"));
+        int length = Integer.parseInt(ctx.formParam("length"));
+        // width = ctx.sessionAttribute("width");
+        //int length = ctx.sessionAttribute("length");
+        //Boolean installationFee = ctx.formParam("");
         int status = 1;
         int totalPrice = 19999;
         User user = ctx.sessionAttribute("currentUser");
-        //User user = new User(100,"tester1","tester1","test",2600,87654321,"testemail","testpassword","customer");
+
         Order order = new Order(100, width, length, false, status, totalPrice, user);
         try
         {
@@ -116,9 +117,7 @@ public class OrderController
             Calculator calculator = new Calculator(width, length, connectionPool);
             calculator.calcCarport(order);
 
-
             // save parts in db
-
 
             // create message to customer and render order / send confirmation
             System.out.println("succes");
@@ -135,7 +134,6 @@ public class OrderController
 
     private static void deleteOrder(Context ctx, ConnectionPool connectionPool)
     {
-
         try
         {
             int orderId = Integer.parseInt(ctx.formParam("orderid"));
@@ -143,58 +141,15 @@ public class OrderController
             List<OrderItem> orderItemList = OrderMapper.getOrderItemsByOrderId(orderId, connectionPool);
             ctx.attribute("orderItemlist", orderItemList);
             orderOverviewAdmin(ctx, connectionPool);
-        }
-        catch (DatabaseException | NumberFormatException e)
+        } catch (DatabaseException | NumberFormatException e)
         {
             ctx.attribute("message", e.getMessage());
             orderOverviewAdmin(ctx, connectionPool);
         }
     }
 
-    /*
-        public static void CreateOrder(Context ctx, ConnectionPool connectionPool)
-        {
-            User currentUser = ctx.sessionAttribute("currentUser");
-            try
-            {
-                Order newOrder = OrderMapper.createOrder(currentUser.getUserId(), connectionPool);
 
-                addOrderItems(ctx, newOrder.getOrderId(), connectionPool);
-
-
-                List<?> materialItemList = new ArrayList<>();
-                ctx.sessionAttribute("MaterialItemList", materialItemList);
-
-                ctx.attribute("orderId", newOrder.getOrderId());
-
-                int totalPrice = calculateTotalPrice(ctx);
-                System.out.print("Total price: " + totalPrice);
-
-                //Sæt til den rigtige side
-                ctx.render("confirmation.html");
-            } catch (DatabaseException | SQLException e)
-            {
-                e.printStackTrace();
-                ctx.attribute("message", "Fejl ved opdatering af saldo eller oprettelse af ordre.");
-                //Sæt til den rigtige side
-                ctx.render("shoppingcart.html");
-            }
-        }
-
-        public static void addOrderItems(Context ctx, int orderId, ConnectionPool connectionPool) throws SQLException
-        {
-            //Material list eller orderitem list?
-            List<Material> materialslist = ctx.sessionAttribute("Materialslist");
-
-            if (materialslist != null)
-            {
-                for (Material material : materialslist)
-                {
-                    OrderMapper.createOrderItem(connectionPool, orderId, material.getDescription(), material.getMaterialId());
-                }
-            }
-        }
-
+/*
         public static int calculateTotalPrice(Context ctx)
         {
             List<OrderItem> orderItemList = ctx.sessionAttribute("orderItemList");
@@ -214,7 +169,6 @@ public class OrderController
     public static void showCarport(Context ctx)
     {
         Locale.setDefault(Locale.US);
-
         try
         {
             int length = Integer.parseInt(ctx.queryParam("length"));
@@ -241,8 +195,10 @@ public class OrderController
         ctx.render("designcarport.html");
     }
 
-    private static void updateOrder(Context ctx, ConnectionPool connectionPool) {
-        try {
+    private static void updateOrder(Context ctx, ConnectionPool connectionPool)
+    {
+        try
+        {
             int orderId = Integer.parseInt(ctx.formParam("orderId"));
             int carportWidth = Integer.parseInt(ctx.formParam("carportWidth"));
             int carportLength = Integer.parseInt(ctx.formParam("carportLength"));
@@ -253,20 +209,24 @@ public class OrderController
             List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orderList", orderList);
             ctx.render("adminoverview.html");
-        } catch (DatabaseException | NumberFormatException e) {
+        } catch (DatabaseException | NumberFormatException e)
+        {
             ctx.attribute("message", e.getMessage());
             System.out.println("Error in updateOrder: " + e.getMessage());
             ctx.render("updateorder.html");
         }
     }
 
-    private static void editOrder(Context ctx,ConnectionPool connectionPool) {
-        try {
+    private static void editOrder(Context ctx, ConnectionPool connectionPool)
+    {
+        try
+        {
             int orderId = Integer.parseInt(ctx.formParam("orderId"));
             Order order = OrderMapper.getOrderById(orderId, connectionPool);
             ctx.attribute("order", order);
             ctx.render("updateorder.html");
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e)
+        {
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
             System.out.println("Error in editOrder" + e.getMessage());
@@ -275,6 +235,4 @@ public class OrderController
             throw new RuntimeException(e);
         }
     }
-
-
 }

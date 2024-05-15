@@ -74,26 +74,33 @@
     <hr>
 
     <div class="requestform">
-        <form action="sendRequest" method="get">
-            <label>Fornavn</label>
+        <form action="sendRequest" method="post">
+            <label for="firstname">Fornavn</label>
             <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
-            <label>Efternavn</label>
+            <label for="lastname">>Efternavn</label>
             <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
-            <label>Adresse</label>
+            <label for="address">>Adresse</label>
             <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
-            <label>Post nummer</label>
+            <label for="postcode">>Post nummer</label>
             <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
-            <label>Telefon nummer</label>
+            <label for="phone">>Telefon nummer</label>
             <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
-            <label>Email</label>
+            <label for="email">>Email</label>
             <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
             <br>
 
+            <label for="bygSelv">Jeg bygger selv</label>
             <input type="radio" id="bygSelv" name="installationFee"/>
-            <label for="installationFee">Jeg bygger selv</label>
+
             <br><br>
-            <input type="radio" id="installationFee" name="installationFee"/>
             <label for="installationFee">Få bygget af FOG (+5000-,)</label>
+            <input type="radio" id="installationFee" name="installationFee"/>
+            <br><br>
+
+            <label for="testwidth">testwidth</label>
+            <input type="text" id="testwidth" name="width"/>
+            <label for="testlength">testlength</label>
+            <input type="text" id="testlength" name="length"/>
 
             <button type="submit" value="">Send forspørgelse</button>
         </form>

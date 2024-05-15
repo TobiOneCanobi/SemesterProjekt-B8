@@ -35,18 +35,12 @@
             </div>
         </div>
 
-        <form th:action="@{/testCalculator}" method="get">
-            <button class="login-button-index button-blue" type="submit">testcalculator</button>
-        </form>
-
         <div class="panel_overview">
             <div class="admin_panel" th:if="${session.userRole == 'admin'}">
                 <form th:action="@{/adminoverview}" method="get">
                     <button class="text-margin button-blue" type="submit">Kundeoversigt</button>
                 </form>
             </div>
-
-
 
             <div class="customer_panel" th:if="${session.userRole == 'customer'}">
                 <div class="button-container">

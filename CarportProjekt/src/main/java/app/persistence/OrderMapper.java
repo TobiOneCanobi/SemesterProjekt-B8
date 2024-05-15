@@ -98,33 +98,34 @@ public class OrderMapper
     public static Order insertOrder(Order order, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "INSERT INTO orders (carport_width, carport_length, installation_fee, status, user_id, total_price)" +
-                "VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = connectionPool.getConnection())
+                " VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
-            {
-                ps.setInt(1, order.getCarportWidth());
-                ps.setInt(2, order.getCarportLength());
-                ps.setBoolean(3, order.isInstallationFee());
-                ps.setInt(4, 1);
-                ps.setInt(5, order.getUser().getUserId());
-                ps.setInt(6, order.getTotalPrice());
-                ps.executeQuery();
-                ResultSet keySet = ps.getGeneratedKeys();
-                if (keySet.next())
-                {
+            ps.setInt(1, order.getCarportWidth());
+            ps.setInt(2, order.getCarportLength());
+            ps.setBoolean(3, order.isInstallationFee());
+            ps.setInt(4, 1);  // Ensure '1' is the correct status ID
+            ps.setInt(5, order.getUser().getUserId());
+            ps.setInt(6, order.getTotalPrice());
+
+            int affectedRows = ps.executeUpdate(); // Use executeUpdate for INSERT, UPDATE, DELETE
+            if (affectedRows == 0) {
+                throw new DatabaseException("Inserting order failed, no rows affected.");
+            }
+
+            try (ResultSet keySet = ps.getGeneratedKeys()) {
+                if (keySet.next()) {
                     Order newOrder = new Order(keySet.getInt(1), order.getCarportWidth(),
-                            order.getCarportLength(), order.isInstallationFee(), order.getOrderStatusId(),
+                            order.getCarportLength(), order.isInstallationFee(), 1, // Assuming '1' is the correct initial status
                             order.getTotalPrice(), order.getUser());
                     return newOrder;
-                } else
-                {
-                    return null;
+                } else {
+                    throw new DatabaseException("Failed to retrieve ID for new order.");
                 }
             }
-        } catch (SQLException e)
-        {
-            throw new DatabaseException("Could not get users from the database", e.getMessage());
+        } catch (SQLException e) {
+            throw new DatabaseException("Error inserting order into database", e.getMessage());
         }
     }
 

@@ -31,6 +31,7 @@ public class OrderController
         app.post("editOrder", ctx -> editOrder(ctx, connectionPool));
 
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
+        app.get("testCalculator", ctx -> sendRequest(ctx,connectionPool));
     }
 
 
@@ -112,15 +113,16 @@ public class OrderController
             //to do
             // calculate order items (parts list)
 
-//            Calculator calculator = new Calculator(width, length, connectionPool);
-//            calculator.calcCarport(order);
+            Calculator calculator = new Calculator(width, length, connectionPool);
+            calculator.calcCarport(order);
 
 
             // save parts in db
 
 
             // create message to customer and render order / send confirmation
-            ctx.render("requestconfirmation.html");
+            System.out.println("succes");
+            ctx.render("index.html");
 
         } catch (DatabaseException e)
         {

@@ -145,7 +145,7 @@ public class OrderController
         catch (DatabaseException | NumberFormatException e)
         {
             ctx.attribute("message", e.getMessage());
-            ctx.render("index.html");
+            orderOverviewAdmin(ctx, connectionPool);
         }
     }
 

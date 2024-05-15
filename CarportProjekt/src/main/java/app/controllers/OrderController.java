@@ -120,7 +120,8 @@ public class OrderController
             // save parts in db
 
             // create message to customer and render order / send confirmation
-            System.out.println("succes");
+            // er for test skal render en anden side
+            System.out.println("test succes");
             ctx.render("index.html");
 
         } catch (DatabaseException e)

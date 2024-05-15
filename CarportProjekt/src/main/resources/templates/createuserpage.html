@@ -25,15 +25,12 @@
         <form method="post">
             <h2>Opret din bruger her</h2>
 
-            <form action="createuserpage.html" novalidate>
-                <fieldset>
                     <label for="email">Indtast din email:</label><br>
                     <input type="text" id="email" name="email" placeholder="Email"
                            th:value="${session.currentCreateUser != null ? session.currentCreateUser.email : ''}">
                     <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'emailmsg'}"
                        th:text="${entry.value}"></p>
                     <br><br>
-
 
                     <div class="password-input-box">
                         <label for="password1"> Indtast dit password:</label><br>
@@ -89,25 +86,60 @@
                        th:text="${entry.value}"></p>
                     <br><br>
 
-                </fieldset>
+
             <button type="submit" class="button-green" id="submitbutton" formaction="/createuser">Opret bruger</button>
             <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'validinfomsg'}"
                th:text="${entry.value}"></p>
             <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'chaosmsg'}"
                th:text="${entry.value}"></p>
         </form>
-        </form>
     </div>
 </div>
 
-<!--
 <script>
     const submitButton = document.getElementById("submitbutton");
+    const emailcheck = document.querySelector("#email");
+    const password1check = document.querySelector("#password1");
+    const password2check = document.querySelector("#password2");
     const firstnamecheck = document.querySelector("#firstname");
+    const lastnamecheck = document.querySelector("#lastname");
+    const addresscheck = document.querySelector("#address");
+    const phonenumbercheck = document.querySelector("#phonenumber");
+    const zipcodecheck = document.querySelector("#zipcode");
 
-    function nameValidation() {
+    function emailValidation() {
+        if (!emailcheck.value) {
+            emailcheck.style.border = '3px solid';
+            emailcheck.style.borderColor = 'red';
+        } else {
+            emailcheck.style.border = '0px';
+            emailcheck.style.borderColor = 'transparent';
+        }
+    }
+
+    function password1Validation() {
+        if (!password1check.value) {
+            password1check.style.border = '3px solid';
+            password1check.style.borderColor = 'red';
+        } else {
+            password1check.style.border = '0px';
+            password1check.style.borderColor = 'transparent';
+        }
+    }
+
+    function password2Validation() {
+        if (!password2check.value) {
+            password2check.style.border = '3px solid';
+            password2check.style.borderColor = 'red';
+        } else {
+            password2check.style.border = '0px';
+            password2check.style.borderColor = 'transparent';
+        }
+    }
+
+    function firstNameValidation() {
         if (!firstnamecheck.value) {
-            firstnamecheck.style.border = '5px solid';
+            firstnamecheck.style.border = '3px solid';
             firstnamecheck.style.borderColor = 'red';
         } else {
             firstnamecheck.style.border = '0px';
@@ -115,13 +147,57 @@
         }
     }
 
-    submitButton.addEventListener('click', e => {
-        e.preventDefault();
-        nameValidation();
-        emailValidation();
+    function lastNameValidation() {
+        if (!lastnamecheck.value) {
+            lastnamecheck.style.border = '3px solid';
+            lastnamecheck.style.borderColor = 'red';
+        } else {
+            lastnamecheck.style.border = '0px';
+            lastnamecheck.style.borderColor = 'transparent';
+        }
+    }
+
+    function addressValidation() {
+        if (!addresscheck.value) {
+            addresscheck.style.border = '3px solid';
+            addresscheck.style.borderColor = 'red';
+        } else {
+            addresscheck.style.border = '0px';
+            addresscheck.style.borderColor = 'transparent';
+        }
+    }
+
+    function phoneNumberValidation() {
+        if (!phonenumbercheck.value) {
+            phonenumbercheck.style.border = '3px solid';
+            phonenumbercheck.style.borderColor = 'red';
+        } else {
+            phonenumbercheck.style.border = '0px';
+            phonenumbercheck.style.borderColor = 'transparent';
+        }
+    }
+
+    function zipcodeValidation() {
+        if (!zipcodecheck.value) {
+            zipcodecheck.style.border = '3px solid';
+            zipcodecheck.style.borderColor = 'red';
+        } else {
+            zipcodecheck.style.border = '0px';
+            zipcodecheck.style.borderColor = 'transparent';
+        }
+    }
+
+    submitButton.addEventListener('click', event => {
+        emailValidation()
+        password1Validation()
+        password2Validation()
+        firstNameValidation()
+        lastNameValidation()
+        addressValidation()
+        phoneNumberValidation()
+        zipcodeValidation()
     });
 </script>
-
 
 <script>
     let eyeicon = document.getElementById("eyeicon")
@@ -141,10 +217,26 @@
             password2.type = "password";
             eyeicon.src = "images/PasswordEyeslash.png"
             eyeicon2.src = "images/PasswordEyeslash.png"
+        }
+
+        eyeicon2.onclick = function () {
+            if (password.type == "password") {
+                password.type = "text";
+                password2.type = "text";
+                eyeicon.src = "images/PasswordEye.png"
+                eyeicon2.src = "images/PasswordEye.png"
+
+            } else {
+                password.type = "password";
+                password2.type = "password";
+                eyeicon.src = "images/PasswordEyeslash.png"
+                eyeicon2.src = "images/PasswordEyeslash.png"
+            }
 
         }
     }
-</script>-->
+</script>
+
 
 </body>
 </html>

@@ -91,126 +91,125 @@ public class UserController
 
             User guest = new User(firstName, lastName, address, zipCode, phoneNumber, email);
             ctx.sessionAttribute("currentCreateUser", guest);
+
+            // firstname must have letters only
+            if (!Validation.validateLetterOnly(firstName))
             {
-                // firstname must have letters only
-                if (!Validation.validateLetterOnly(firstName))
-                {
-                    errorMessages.put("firstnamemsg", "Dit fornavn må ikke indeholde tal eller symboler, udover [-])");
-                }
-                // lastname must have letters only
-                if (!Validation.validateLetterOnly(lastName))
-                {
-                    errorMessages.put("lastnamemsg", "Dit efternavn må ikke indeholde tal eller symboler, udover [-]");
-                }
-                // address must have letters and numbers
-                if (!Validation.validateTextContainsLetterAndNumber(address))
-                {
-                    if(errorMessages.containsKey("addressmsg"))
-                    {
-                        errorMessages.put("addressmsg", errorMessages.get("addressmsg") + "Din adresse skal indeholde bogstaver og tal. ");
-                    }else
-                    {
-                        errorMessages.put("addressmsg", "Din adresse skal indeholde bogstaver og tal. ");
-                    }
-
-                }
-                // address must have a whitespace between letters and numbers
-                if(!Validation.validateTextContainsWhitespaceBetweenLetterAndNumber(address))
-                {
-                    if(errorMessages.containsKey("addressmsg"))
-                    {
-                        errorMessages.put("addressmsg", errorMessages.get("addressmsg") + "Angiv venligst mellemrum mellem vejnavn og husnummer ");
-                    }else
-                    {
-                        errorMessages.put("addressmsg", "Angiv venligst mellemrum mellem vejnavn og husnummer ");
-                    }
-
-                }
-                // zip code must only contain 4 numbers
-                if (!Validation.validateFourNumbersOnly(zipCode))
-                {
-                    errorMessages.put("zipcodemsg", "Dit postnummer må kun indeholde 4 tal");
-                }
-                // phone number must only contain 8 numbers
-                if (!Validation.validateEightNumbersOnly(phoneNumber))
-                {
-                    errorMessages.put("phonenumbermsg", "Dit telefon nummer må kun indeholde 8 tal");
-                }
-                // email must have a @ and letters
-                if (!Validation.validateTextContainsAtAndLetter(email))
-                {
-                    errorMessages.put("emailmsg", "Din email skal indeholde '@' og bogstaver");
-                }
-                // email already in use
-                if (UserMapper.emailExists(email, connectionPool))
-                {
-                    errorMessages.put("emailmsg", "Email er i brug");
-                }
-                // both passwords must match
-                if (!Validation.validateEqualPasswords(password1, password2))
-                {
-                    if (errorMessages.containsKey("passwordmsg"))
-                    {
-                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Dine to passwords matchter ikke! ");
-                    } else
-                    {
-                        errorMessages.put("passwordmsg", "Dine to passwords matcher ikke! ");
-                    }
-                }
-                // password must consist one uppercase letter
-                if (!Validation.validateOneUppercaseLetterPassword(password1))
-                {
-                    if (errorMessages.containsKey("passwordmsg"))
-                    {
-                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal bestå af mindst et stort bogstav. ");
-                    } else
-                    {
-                        errorMessages.put("passwordmsg", "Password skal bestå af mindst et stort bogstav. ");
-                    }
-                }
-                // password must be minimum 4 letters long
-                if (!Validation.validateLengthOfPassword(password1))
-                {
-                    if (errorMessages.containsKey("passwordmsg"))
-                    {
-                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst være 4 bogstaver langt. ");
-                    } else
-                    {
-                        errorMessages.put("passwordmsg", "Password skal mindst være 4 bogstaver langt. ");
-                    }
-                }
-                // password must minumum contain 1 number
-                if (!Validation.validatePasswordContainsNumber(password1))
-                {
-                    if (errorMessages.containsKey("passwordmsg"))
-                    {
-                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal indeholde mindst et tal. ");
-                    } else
-                    {
-                        errorMessages.put("passwordmsg", "Password skal indeholde mindst et tal. ");
-                    }
-                }
-                // password must minimum contain 1 sign
-                if (!Validation.validatePasswordContainsSign(password1))
-                {
-                    if (errorMessages.containsKey("passwordmsg"))
-                    {
-                        errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst indeholde et tegn");
-                    } else
-                    {
-                        errorMessages.put("passwordmsg", "Password skal mindst indeholde et tegn");
-                    }
-                }
-                if (!errorMessages.isEmpty())
-                {
-                    ctx.attribute("errormessages", errorMessages);
-                    ctx.render("createuserpage.html");
-                    return;
-                }
-                firstName = Caps.firstLetterToUppercase(firstName);
-                lastName = Caps.firstLetterToUppercase(lastName);
-                address = Caps.firstLetterToUppercase(address);
+                errorMessages.put("firstnamemsg", "Dit fornavn må ikke indeholde tal eller symboler, udover [-])");
             }
+            // lastname must have letters only
+            if (!Validation.validateLetterOnly(lastName))
+            {
+                errorMessages.put("lastnamemsg", "Dit efternavn må ikke indeholde tal eller symboler, udover [-]");
+            }
+            // address must have letters and numbers
+            if (!Validation.validateTextContainsLetterAndNumber(address))
+            {
+                if (errorMessages.containsKey("addressmsg"))
+                {
+                    errorMessages.put("addressmsg", errorMessages.get("addressmsg") + "Din adresse skal indeholde bogstaver og tal. ");
+                } else
+                {
+                    errorMessages.put("addressmsg", "Din adresse skal indeholde bogstaver og tal. ");
+                }
+
+            }
+            // address must have a whitespace between letters and numbers
+            if (!Validation.validateTextContainsWhitespaceBetweenLetterAndNumber(address))
+            {
+                if (errorMessages.containsKey("addressmsg"))
+                {
+                    errorMessages.put("addressmsg", errorMessages.get("addressmsg") + "Angiv venligst mellemrum mellem vejnavn og husnummer ");
+                } else
+                {
+                    errorMessages.put("addressmsg", "Angiv venligst mellemrum mellem vejnavn og husnummer ");
+                }
+
+            }
+            // zip code must only contain 4 numbers
+            if (!Validation.validateFourNumbersOnly(zipCode))
+            {
+                errorMessages.put("zipcodemsg", "Dit postnummer må kun indeholde 4 tal");
+            }
+            // phone number must only contain 8 numbers
+            if (!Validation.validateEightNumbersOnly(phoneNumber))
+            {
+                errorMessages.put("phonenumbermsg", "Dit telefon nummer må kun indeholde 8 tal");
+            }
+            // email must have a @ and letters
+            if (!Validation.validateTextContainsAtAndLetter(email))
+            {
+                errorMessages.put("emailmsg", "Din email skal indeholde '@' og bogstaver");
+            }
+            // email already in use
+            if (UserMapper.emailExists(email, connectionPool))
+            {
+                errorMessages.put("emailmsg", "Email er i brug");
+            }
+            // both passwords must match
+            if (!Validation.validateEqualPasswords(password1, password2))
+            {
+                if (errorMessages.containsKey("passwordmsg"))
+                {
+                    errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Dine to passwords matchter ikke! ");
+                } else
+                {
+                    errorMessages.put("passwordmsg", "Dine to passwords matcher ikke! ");
+                }
+            }
+            // password must consist one uppercase letter
+            if (!Validation.validateOneUppercaseLetterPassword(password1))
+            {
+                if (errorMessages.containsKey("passwordmsg"))
+                {
+                    errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal bestå af mindst et stort bogstav. ");
+                } else
+                {
+                    errorMessages.put("passwordmsg", "Password skal bestå af mindst et stort bogstav. ");
+                }
+            }
+            // password must be minimum 4 letters long
+            if (!Validation.validateLengthOfPassword(password1))
+            {
+                if (errorMessages.containsKey("passwordmsg"))
+                {
+                    errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst være 4 bogstaver langt. ");
+                } else
+                {
+                    errorMessages.put("passwordmsg", "Password skal mindst være 4 bogstaver langt. ");
+                }
+            }
+            // password must minumum contain 1 number
+            if (!Validation.validatePasswordContainsNumber(password1))
+            {
+                if (errorMessages.containsKey("passwordmsg"))
+                {
+                    errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal indeholde mindst et tal. ");
+                } else
+                {
+                    errorMessages.put("passwordmsg", "Password skal indeholde mindst et tal. ");
+                }
+            }
+            // password must minimum contain 1 sign
+            if (!Validation.validatePasswordContainsSign(password1))
+            {
+                if (errorMessages.containsKey("passwordmsg"))
+                {
+                    errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst indeholde et tegn");
+                } else
+                {
+                    errorMessages.put("passwordmsg", "Password skal mindst indeholde et tegn");
+                }
+            }
+            if (!errorMessages.isEmpty())
+            {
+                ctx.attribute("errormessages", errorMessages);
+                ctx.render("createuserpage.html");
+                return;
+            }
+            firstName = Caps.firstLetterToUppercase(firstName);
+            lastName = Caps.firstLetterToUppercase(lastName);
+            address = Caps.firstLetterToUppercase(address);
 
         } catch (NumberFormatException n)
         {

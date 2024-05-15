@@ -5,13 +5,18 @@
     <title>Parts list</title>
 </head>
 <body>
-    <h2><b> <i> Du er nu på stryk.</i> </b></h2>
+<h2><b> <i> Du er nu på stryk.</i> </b></h2>
+<table class="table-border">
+    <tr>
+        <td>Width</td>
+        <td>Length</td>
+    </tr>
 
-    <th>Width</th>
-    <th>Length</th>
+    <tr>
+        <td th:text="${width}"></td>
+        <td th:text="${length}"></td>
+    </tr>
 
-    <td th:text="${width}"></td>
-    <td th:text="${length}"></td>
-
+</table>
 </body>
 </html>

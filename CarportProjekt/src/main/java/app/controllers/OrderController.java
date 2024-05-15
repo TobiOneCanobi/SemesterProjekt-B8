@@ -101,7 +101,7 @@ public class OrderController
         Boolean installationFee = ctx.sessionAttribute("installationFee");
         int status = 1;
         int totalPrice = 19999;
-        User user = ctx.sessionAttribute("CurrentUser");
+        User user = ctx.sessionAttribute("currentUser");
         //User user = new User(100,"tester1","tester1","test",2600,87654321,"testemail","testpassword","customer");
         Order order = new Order(100, width, length, false, status, totalPrice, user);
         try
@@ -111,8 +111,8 @@ public class OrderController
             //to do
             // calculate order items (parts list)
 
-            Calculator calculator = new Calculator(width, length, connectionPool);
-            calculator.calcCarport(order);
+//            Calculator calculator = new Calculator(width, length, connectionPool);
+//            calculator.calcCarport(order);
 
 
             // save parts in db

@@ -27,6 +27,9 @@ public class OrderController
         // app.get("orderoverviewcustomer", ctx -> orderOverviewCustomer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("designcarport", ctx -> showCarport(ctx));
+        app.post("updateOrder", ctx -> updateOrder(ctx, connectionPool));
+        app.post("editOrder", ctx -> editOrder(ctx, connectionPool));
+
     }
 
 
@@ -215,6 +218,41 @@ public class OrderController
         }
         // Render the HTML template
         ctx.render("designcarport.html");
+    }
+
+    private static void updateOrder(Context ctx, ConnectionPool connectionPool) {
+        try {
+            int orderId = Integer.parseInt(ctx.formParam("orderId"));
+            int carportWidth = Integer.parseInt(ctx.formParam("carportWidth"));
+            int carportLength = Integer.parseInt(ctx.formParam("carportLength"));
+            boolean installation = Boolean.parseBoolean(ctx.formParam("installationFee"));
+            int status = Integer.parseInt(ctx.formParam("status"));
+            int totalPrice = Integer.parseInt(ctx.formParam("totalPrice"));
+            OrderMapper.updateOrder(orderId, carportWidth, carportLength, installation, status, totalPrice, connectionPool);
+            List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
+            ctx.attribute("orderList", orderList);
+            ctx.render("adminoverview.html");
+        } catch (DatabaseException | NumberFormatException e) {
+            ctx.attribute("message", e.getMessage());
+            System.out.println("Error in updateOrder: " + e.getMessage());
+            ctx.render("updateorder.html");
+        }
+    }
+
+    private static void editOrder(Context ctx,ConnectionPool connectionPool) {
+        try {
+            int orderId = Integer.parseInt(ctx.formParam("orderId"));
+            Order order = OrderMapper.getOrderById(orderId, connectionPool);
+            ctx.attribute("order", order);
+            ctx.render("updateorder.html");
+        } catch (NumberFormatException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+            System.out.println("Error in editOrder" + e.getMessage());
+        } catch (DatabaseException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
 

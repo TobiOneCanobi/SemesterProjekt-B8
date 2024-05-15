@@ -342,4 +342,33 @@ public class OrderMapper
         throw new DatabaseException("Fejl i opdatering af en order", e.getMessage());
     }
 }
+
+    public static Order getOrderById(int orderId, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Order order = null;
+        String sql = "select * from orders where order_id = ?";
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                int id = rs.getInt("order_id");
+                int carportWidth = rs.getInt("carport_width");
+                int carportLength = rs.getInt("carport_length");
+                boolean installationFee = rs.getBoolean("installation_fee");
+                int status = rs.getInt("status");
+                int totalPrice = rs.getInt("total_price");
+                order = new Order(id, carportWidth, carportLength, installationFee, status, totalPrice);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Fejl ved hentning af task med id = " + orderId, e.getMessage());
+        }
+        return order;
+    }
 }

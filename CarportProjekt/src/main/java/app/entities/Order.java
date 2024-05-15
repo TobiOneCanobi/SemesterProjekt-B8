@@ -11,6 +11,16 @@ public class Order
     private int totalPrice;
     private User user;
 
+    public Order(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice)
+    {
+        this.orderId = orderId;
+        this.carportWidth = carportWidth;
+        this.carportLength = carportLength;
+        this.installationFee = installationFee;
+        this.orderStatusId = orderStatusId;
+        this.totalPrice = totalPrice;
+    }
+
     public Order(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, User user)
     {
         this.orderId = orderId;

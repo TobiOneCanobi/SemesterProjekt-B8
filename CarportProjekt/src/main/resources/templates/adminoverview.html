@@ -46,9 +46,10 @@
         <th>Width</th>
         <th>Length</th>
         <th>Installation fee</th>
-        <th>User id</th>
+        <th>E-mail</th>
         <th>Price</th>
         <th>strykliste</th>
+        <th>Action</th>
     </tr>
     </thead>
 
@@ -67,6 +68,11 @@
                 <td>
                     <button type="submit">Se strykliste</button>
                 </td>
+
+                <td>
+                    <button type="submit" name="orderId" th:value="${order.orderID}" formaction="editOrder">edit</button>
+                </td>
+
             </tr>
         </form>
     </div>

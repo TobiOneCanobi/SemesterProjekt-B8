@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Ændre Order</h1>
+<form class=" " method="post">
+    <input type="text" name="carportWidth" th:value="${order.carportWidth}"/>
+    <input type="text" name="carportLength" th:value="${order.carportLength}"/>
+    <input type="text" name="installationFee" th:value="${order.installationFee}"/>
+    <input type="text" name="status" th:value="${order.orderStatusId}"/>
+    <input type="text" name="totalPrice" th:value="${order.totalPrice}"/>
+
+
+    <button type="submit" name="orderId" th:value="${order.orderId}" formaction="/updateOrder">Update</button>
+
+</form>
+
+</body>
+</html>

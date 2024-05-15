@@ -20,6 +20,7 @@ public class UserController
     {
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
+        app.get("backtologinfromcreateuser", ctx -> invalidateSession(ctx));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
         app.get("backtoindex", ctx -> ctx.render("index.html"));
         app.get("loginpage", ctx -> ctx.render("loginpage.html"));
@@ -60,6 +61,11 @@ public class UserController
     {
         ctx.req().getSession().invalidate();
         ctx.redirect("/");
+    }
+
+    private static void invalidateSession(Context ctx) {
+        ctx.req().getSession().invalidate();
+        ctx.redirect("backtologin");
     }
 
     private static void createUser(Context ctx, ConnectionPool connectionPool)

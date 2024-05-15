@@ -70,17 +70,12 @@
                 </td>
 
                 <td>
-                    <button type="submit" name="orderId" th:value="${order.orderID}" formaction="editOrder">edit</button>
+                    <button type="submit" name="orderId" th:value="${order.orderId}" formaction="editOrder">edit</button>
+                    <button type="submit" name="orderid" th:value="${order.orderId}" formaction="deleteorder">Slet</button>
                 </td>
 
             </tr>
         </form>
-        <td>
-            <form th:action="@{/deleteorder}" method="post">
-                <input type="hidden" name="orderid" th:value="${order.orderId}" />
-                <button type="submit">Slet</button>
-            </form>
-        </td>
     </div>
 </table>
 

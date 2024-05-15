@@ -109,7 +109,8 @@ public class OrderController
         Order order = new Order(100, width, length, false, status, totalPrice, user);
         try
         {
-            order = OrderMapper.insertOrder(order, connectionPool);
+
+           // order = OrderMapper.insertOrder(order, connectionPool);
 
             //to do
             // calculate order items (parts list)

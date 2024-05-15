@@ -151,6 +151,28 @@ public class OrderMapper
         }
     }
 
+    public static void delete(int orderId, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "DELETE FROM orders WHERE order_id = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setInt(1, orderId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1)
+            {
+                throw new DatabaseException("Fejl ved sletning af en ordre!");
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Fejl ved sletning af en ordre", e.getMessage());
+        }
+    }
+
 
     /*
     public static List<Order> loadOrdersForAdmin(ConnectionPool connectionPool) throws DatabaseException
@@ -293,4 +315,31 @@ public class OrderMapper
         }
     }
 */
+        public static void updateOrder(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "UPDATE orders " +
+                "SET carport_width = ?, carport_length = ?, installation_fee = ?,  status = ?, total_price = ? " +
+                "WHERE order_id = ?";
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setInt(1, carportWidth);
+            ps.setInt(2, carportLength);
+            ps.setBoolean(3, installationFee);
+            ps.setInt(4, orderStatusId);
+            ps.setInt(5, totalPrice);
+            ps.setInt(6, orderId);
+
+        int rowsAffected = ps.executeUpdate();
+        if (rowsAffected != 1)
+        {
+            throw new DatabaseException("Fejl i opdatering af en order");
+        }
+    } catch (SQLException e)
+    {
+        throw new DatabaseException("Fejl i opdatering af en order", e.getMessage());
+    }
+}
 }

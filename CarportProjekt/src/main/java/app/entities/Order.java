@@ -57,6 +57,43 @@ public class Order
         return user;
     }
 
+    public void setOrderId(int orderId)
+    {
+        this.orderId = orderId;
+    }
+
+    public int setCarportWidth(int carportWidth)
+    {
+        this.carportWidth = carportWidth;
+        return carportWidth;
+    }
+
+    public int setCarportLength(int carportLength)
+    {
+        this.carportLength = carportLength;
+        return carportLength;
+    }
+
+    public void setInstallationFee(boolean installationFee)
+    {
+        this.installationFee = installationFee;
+    }
+
+    public void setOrderStatusId(int orderStatusId)
+    {
+        this.orderStatusId = orderStatusId;
+    }
+
+    public void setTotalPrice(int totalPrice)
+    {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
     @Override
     public String toString()
     {

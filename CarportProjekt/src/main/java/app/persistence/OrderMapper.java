@@ -153,11 +153,30 @@ public class OrderMapper
 
     public static void delete(int orderId, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "DELETE FROM orders WHERE order_id = ?";
+        String sql = "DELETE FROM order_item WHERE order_id = ?";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setInt(1, orderId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1)
+            {
+                throw new DatabaseException("Fejl ved sletning af en ordre!");
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Fejl ved sletning af en ordre", e.getMessage());
+        }
+
+        String sql2 = "DELETE FROM orders WHERE order_id = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql2)
         )
         {
             ps.setInt(1, orderId);

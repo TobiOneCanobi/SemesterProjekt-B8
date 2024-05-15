@@ -27,6 +27,7 @@ public class OrderController
         // app.get("orderoverviewcustomer", ctx -> orderOverviewCustomer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("designcarport", ctx -> showCarport(ctx));
+        app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
     }
 
 
@@ -125,6 +126,24 @@ public class OrderController
         }
 
 
+    }
+
+    private static void deleteOrder(Context ctx, ConnectionPool connectionPool)
+    {
+
+        try
+        {
+            int orderId = Integer.parseInt(ctx.formParam("orderid"));
+            OrderMapper.delete(orderId, connectionPool);
+            List<OrderItem> orderItemList = OrderMapper.getOrderItemsByOrderId(orderId, connectionPool);
+            ctx.attribute("orderItemlist", orderItemList);
+            orderOverviewAdmin(ctx, connectionPool);
+        }
+        catch (DatabaseException | NumberFormatException e)
+        {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
     }
 
     /*

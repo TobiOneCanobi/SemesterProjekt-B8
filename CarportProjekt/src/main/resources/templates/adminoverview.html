@@ -48,7 +48,7 @@
         <th>Installation fee</th>
         <th>User id</th>
         <th>Price</th>
-        <th>strykliste</th>
+        <th>stykliste</th>
     </tr>
     </thead>
 
@@ -65,12 +65,24 @@
                 <td th:text="${order.User.email}"></td>
                 <td th:text="${order.totalPrice}"></td>
                 <td>
-                    <button type="submit">Se strykliste</button>
+                    <button type="submit">Se stykliste</button>
                 </td>
+
             </tr>
         </form>
+        <td>
+            <form th:action="@{/deleteorder}" method="post">
+                <input type="hidden" name="orderid" th:value="${order.orderId}" />
+                <button type="submit">Slet</button>
+            </form>
+        </td>
     </div>
+
+
+
 </table>
+
+
 
 </body>
 </html>

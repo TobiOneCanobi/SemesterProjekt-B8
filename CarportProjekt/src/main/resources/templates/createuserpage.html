@@ -73,14 +73,14 @@
                     <br><br>
 
                     <label for="phonenumber">Indtast dit telefonnummer:</label><br>
-                    <input type="number" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"
+                    <input type="text" onkeypress="return/[0-9]/.test(event.key)" id="phonenumber" name="phonenumber" placeholder="Telefonnummer"
                            th:value="${session.currentCreateUser != null ? session.currentCreateUser.phonenumber : ''}">
                     <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'phonenumbermsg'}"
                        th:text="${entry.value}"></p>
                     <br><br>
 
                     <label for="zipcode">Indtast dit postnummer:</label><br>
-                    <input type="number" id="zipcode" name="zipcode" placeholder="Postnummer"
+                    <input type="text" onkeypress="return/[0-9]/.test(event.key)" id="zipcode" name="zipcode" placeholder="Postnummer"
                            th:value="${session.currentCreateUser != null ? session.currentCreateUser.zipcode : ''}">
                     <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'zipcodemsg'}"
                        th:text="${entry.value}"></p>

@@ -71,28 +71,33 @@
         <div th:utext="${svg}"></div>
     </div>
 
-<hr>
+    <hr>
 
-    <!--
-    <div class="create-user-form">
-        <form action="sendrequest" method="get">
-            <label for="fullname">Navn</label> <br>
-            <input type="text" id="fullname" name="fullname" th:value="${session.user.fullname}" /> <br>
-            <label for="address">Adresse</label> <br>
-            <input type="text" id="address" name="address" th:value="${session.user.address}" /> <br>
-            <label for="postcode">Postnummer</label> <br>
-            <input type="text" id="postcode" name="postcode" th:value="${session.user.postcode}" /> <br>
-            <label for="phone">Telefon</label> <br>
-            <input type="text" id="phone" name="phone" th:value="${session.user.phone}" /> <br>
-            <label for="email">Email</label> <br>
-            <input type="email" id="email" name="email" th:value="${session.user.email}" /> <br>
-            <input type="submit" value="Submit">
+    <div class="requestform">
+        <form action="sendRequest" method="get">
+            <label>Fornavn</label>
+            <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
+            <label>Efternavn</label>
+            <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
+            <label>Adresse</label>
+            <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
+            <label>Post nummer</label>
+            <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
+            <label>Telefon nummer</label>
+            <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
+            <label>Email</label>
+            <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
+            <br>
+
+            <input type="radio" id="bygSelv" name="installationFee"/>
+            <label for="installationFee">Jeg bygger selv</label>
+            <br><br>
+            <input type="radio" id="installationFee" name="installationFee"/>
+            <label for="installationFee">Få bygget af FOG (+5000-,)</label>
+
+            <button type="submit" value="">Send forspørgelse</button>
         </form>
     </div>
-
-    -->
-
-
 
 </div>
 </body>

@@ -1,5 +1,7 @@
 package app.entities;
 
+import java.util.Objects;
+
 public class Order
 {
     //Order fields
@@ -24,6 +26,16 @@ public class Order
     public Order(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, User user)
     {
         this.orderId = orderId;
+        this.carportWidth = carportWidth;
+        this.carportLength = carportLength;
+        this.installationFee = installationFee;
+        this.orderStatusId = orderStatusId;
+        this.totalPrice = totalPrice;
+        this.user = user;
+    }
+
+    public Order(int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, User user)
+    {
         this.carportWidth = carportWidth;
         this.carportLength = carportLength;
         this.installationFee = installationFee;
@@ -116,5 +128,20 @@ public class Order
                 ", totalPrice=" + totalPrice +
                 ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return orderId == order.orderId && carportWidth == order.carportWidth && carportLength == order.carportLength && installationFee == order.installationFee && orderStatusId == order.orderStatusId && totalPrice == order.totalPrice && Objects.equals(user, order.user);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(orderId, carportWidth, carportLength, installationFee, orderStatusId, totalPrice, user);
     }
 }

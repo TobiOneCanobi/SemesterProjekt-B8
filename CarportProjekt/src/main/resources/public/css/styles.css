@@ -228,7 +228,17 @@ body.create-user-form {
     margin: 20px 0; /* Optional: Adds space around the table */
 }
 
+.table-border-stykliste {
+    border-collapse: collapse; /* Collapses the border between cells */
+    width: 50%; /* Optional: Sets the width of the table to fill the container */
+    margin: 20px 0; /* Optional: Adds space around the table */
+}
+
 .table-border, th, td {
     border: 1px solid black; /* Adds a black border to the table and each cell */
     padding: 8px; /* Adds padding inside each cell */
+}
+
+.return-admin-overview{
+    width: 15%;
 }

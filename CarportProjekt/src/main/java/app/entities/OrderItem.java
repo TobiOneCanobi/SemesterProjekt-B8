@@ -17,6 +17,14 @@ public class OrderItem
         this.description = description;
     }
 
+    public OrderItem(int orderItemId, Order order, int quantity, String description)
+    {
+        this.orderItemId = orderItemId;
+        this.order = order;
+        this.quantity = quantity;
+        this.description = description;
+    }
+
     public int getOrderItemId()
     {
         return orderItemId;

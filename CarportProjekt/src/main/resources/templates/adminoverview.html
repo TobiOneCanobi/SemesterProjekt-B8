@@ -48,7 +48,7 @@
         <th>Installation fee</th>
         <th>E-mail</th>
         <th>Price</th>
-        <th>stykliste</th>
+        <th>Stykliste</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -66,12 +66,11 @@
                 <td th:text="${order.User.email}"></td>
                 <td th:text="${order.totalPrice}"></td>
                 <td>
-                    <button type="submit">Se stykliste</button>
+                    <button class="styklist-button" type="submit">Se stykliste</button>
                 </td>
 
                 <td>
-                    <button type="submit" name="orderId" th:value="${order.orderId}" formaction="editOrder">edit</button>
-                    <button type="submit" name="orderid" th:value="${order.orderId}" formaction="deleteorder">Slet</button>
+                    <button class="edit-button" type="submit" name="orderId" th:value="${order.orderId}" formaction="editOrder">edit</button>
                 </td>
 
             </tr>

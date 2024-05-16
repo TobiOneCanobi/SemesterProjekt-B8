@@ -26,6 +26,7 @@ public class UserController
         app.get("loginpage", ctx -> ctx.render("loginpage.html"));
         app.get("createuserpage", ctx -> ctx.render("createuserpage.html"));
         app.get("customeroverview", ctx -> ctx.render("customeroverview.html"));
+
     }
 
     public static void login(Context ctx, ConnectionPool connectionPool)

@@ -23,7 +23,7 @@ public class OrderController
         app.post("showPartsList", ctx -> showPartsList(ctx, connectionPool));
          app.get("orderoverviewcustomer", ctx -> orderOverviewCustommer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
-        app.get("designcarport", ctx -> showCarport(ctx));
+        app.get("generateSvg", ctx -> showCarport(ctx));
         app.post("updateOrder", ctx -> updateOrder(ctx, connectionPool));
         app.post("editOrder", ctx -> editOrder(ctx, connectionPool));
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
@@ -159,6 +159,9 @@ public class OrderController
         {
             throw new RuntimeException();
 
+        } catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
         }
 
 
@@ -205,11 +208,11 @@ public class OrderController
         {
             int length = Integer.parseInt(ctx.queryParam("length"));
             int width = Integer.parseInt(ctx.queryParam("width"));
-            if (length > 200 && length < 900 || width > 200 && width < 900)
+            if (length < 300 || length > 600 || width < 300 || width > 600)
             {
                 ctx.attribute("message1", "Ugyldig længde eller bredde. <br>" +
                         "Indtast venligst gyldige tal. <br>" +
-                        "Længde og bredde skal være mellem 200 og 900 cm.");
+                        "Længde og bredde skal være mellem 300 og 600 cm.");
                 ctx.attribute("svg", "");
                 ctx.render("designcarport.html");
                 return;
@@ -223,7 +226,7 @@ public class OrderController
         {
             ctx.attribute("message", "Ugyldig længde eller bredde. <br>" +
                     "Indtast venligst gyldige tal. <br>" +
-                    "Længde og bredde skal være mellem 200 og 900 cm.");
+                    "Længde og bredde skal være mellem 300 og 600 cm.");
             ctx.attribute("svg", "");
         }
         // Render the HTML template

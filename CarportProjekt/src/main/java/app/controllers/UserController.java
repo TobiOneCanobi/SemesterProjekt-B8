@@ -204,10 +204,10 @@ public class UserController
             {
                 if (errorMessages.containsKey("passwordmsg"))
                 {
-                    errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst indeholde et tegn");
+                    errorMessages.put("passwordmsg", errorMessages.get("passwordmsg") + "Password skal mindst indeholde et symbol");
                 } else
                 {
-                    errorMessages.put("passwordmsg", "Password skal mindst indeholde et tegn");
+                    errorMessages.put("passwordmsg", "Password skal mindst indeholde et symbol");
                 }
             }
             if (!errorMessages.isEmpty())

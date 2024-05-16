@@ -50,6 +50,30 @@ public class OrderMapper
         }
         return orderList;
     }
+    public static List<Integer> getMaterialVariantFromMaterialId(ConnectionPool connectionPool) throws DatabaseException
+    {
+        List<Integer> carportLengthList = new ArrayList<>();
+        String sql = "Select length FROM material_variant where material_id = 2";
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                )
+        {
+            var rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+
+                int length = rs.getInt("length");
+                carportLengthList.add(length);
+            }
+        } catch (SQLException e)
+        {
+            throw new DatabaseException("Could not get material variant from the database", e.getMessage());
+        }
+
+        return carportLengthList;
+
+    }
 
     public static List<OrderItem> getOrderItemsByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException
     {

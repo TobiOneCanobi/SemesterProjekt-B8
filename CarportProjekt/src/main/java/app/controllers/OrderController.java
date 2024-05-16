@@ -1,9 +1,6 @@
 package app.controllers;
 
-import app.entities.Material;
-import app.entities.Order;
-import app.entities.OrderItem;
-import app.entities.User;
+import app.entities.*;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderMapper;
@@ -24,6 +21,7 @@ public class OrderController
     {
         app.get("adminoverview", ctx -> orderOverviewAdmin(ctx, connectionPool));
         app.post("showPartsList", ctx -> showPartsList(ctx, connectionPool));
+        // app.post("showMaterialVariantList", ctx -> showMaterialVariantList(ctx, connectionPool));
         // app.get("orderoverviewcustomer", ctx -> orderOverviewCustomer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("designcarport", ctx -> showCarport(ctx));
@@ -67,6 +65,22 @@ public class OrderController
             }
         }
     */
+
+    private static void carportLengthList(Context ctx, ConnectionPool connectionPool)
+    {
+        try
+        {
+
+            List<Integer> carportLengthList = OrderMapper.getMaterialVariantFromMaterialId(connectionPool);
+
+            ctx.attribute("carportlengthlist", carportLengthList);
+
+        } catch (DatabaseException e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
     private static void showPartsList(Context ctx, ConnectionPool connectionPool)
     {
         int orderId = Integer.parseInt(ctx.formParam("orderIdChosen"));

@@ -77,15 +77,15 @@
         <form action="sendRequest" method="post">
             <label for="firstname">Fornavn</label>
             <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
-            <label for="lastname">>Efternavn</label>
+            <label for="lastname">Efternavn</label>
             <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
-            <label for="address">>Adresse</label>
+            <label for="address">Adresse</label>
             <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
-            <label for="postcode">>Post nummer</label>
+            <label for="postcode">Post nummer</label>
             <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
-            <label for="phone">>Telefon nummer</label>
+            <label for="phone">Telefon nummer</label>
             <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
-            <label for="email">>Email</label>
+            <label for="email">Email</label>
             <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
             <br>
 
@@ -97,8 +97,17 @@
             <input type="radio" id="installationFee" name="installationFee"/>
             <br><br>
 
-            <label for="testwidth">testwidth</label>
-            <input type="text" id="testwidth" name="width"/>
+            <select id="lengthdropdown" name="selectedcarportlength" th:each="length : ${carportLengthList}">
+                <option value="" disabled selected>Vælg længde</option>
+                <option th:text="${length}" th:value="${length}"></option>
+                <option th:text="${length}" th:value="${length}"></option>
+                <option th:text="${length}" th:value="${length}"></option>
+                <option th:text="${length}" th:value="${length}"></option>
+                <option th:text="${length}" th:value="${length}"></option>
+                <option th:text="${length}" th:value="${length}"></option>
+            </select>
+
+
             <label for="testlength">testlength</label>
             <input type="text" id="testlength" name="length"/>
 

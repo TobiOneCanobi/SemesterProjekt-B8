@@ -1,6 +1,5 @@
 package app.services;
 
-import app.entities.Material;
 import app.entities.MaterialVariant;
 import app.entities.Order;
 import app.entities.OrderItem;
@@ -33,85 +32,120 @@ public class Calculator
         this.connectionPool = connectionPool;
     }
 
-    public void calcCarport(Order order) throws DatabaseException
+    public void calcCarport(Order order) throws DatabaseException, InterruptedException
     {
-       // calcPosts(order);
-        calcBeams(order);
-        calcRafters(order);
-    }
 
+        System.out.println("Starting calcPosts");
+        calcPosts(order);
+        System.out.println("Finished calcPosts");
+
+        System.out.println("Starting calcBeams");
+        calcBeams(order);
+        System.out.println("Finished calcBeams");
+
+        System.out.println("Starting calcRafter");
+        calcRafter(order);
+        System.out.println("Finished calcRafter");
+
+    }
 
     // stolper
     private void calcPosts(Order order) throws DatabaseException
     {
+
         //antal stolper
         int quantity = calcPostQuantity();
 
         //længde på stolper "variant"
-        List <MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(300, 1,connectionPool);
+        List<MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(300, 1, connectionPool);
         MaterialVariant materialVariant = materialVariants.get(0);
-        OrderItem orderItem = new OrderItem(0,order,materialVariant, quantity, "Stolper nedgraves 90 cm. i jord");
+        OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Stolper nedgraves 90 cm. i jord");
         orderItems.add(orderItem);
 
         // tester
-        for (OrderItem orderItem1 : orderItems)
+        System.out.println("stolper:");
+        System.out.println(quantity);
+        for (MaterialVariant materialVariant1 : materialVariants)
         {
-            System.out.println(orderItem1.getMaterialVariant());
-            System.out.println(orderItem1.getMaterialVariant().getMaterial());
-
+            System.out.println(materialVariant1.toString());
         }
     }
 
     public int calcPostQuantity()
     {
-        return 2 * (2 + (length -130)/ 340);
+        return 2 * (2 + (length - 130) / 340);
     }
+
 
     //remme
     private void calcBeams(Order order) throws DatabaseException
     {
-        int quantity = calcBeamsQuantity();
+        List<MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(length, 2, connectionPool);
+        MaterialVariant materialVariant = materialVariants.get(0);
 
 
-        List <MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(length, 2,connectionPool);
+        int quantity = calcBeamQuantity();
+
+        OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Remme i sider, sadles ned i stolper");
+        orderItems.add(orderItem);
+
+        //test
+        System.out.println("remme:");
+        System.out.println(quantity);
+        for (MaterialVariant materialVariant1 : materialVariants)
+        {
+            System.out.println(materialVariant1.toString());
+        }
+    }
+
+    public int calcBeamQuantity()
+    {
+        return 2;
+    }
+
+
+    //spær
+    private void calcRafter(Order order) throws DatabaseException
+    {
+        List<MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(length, 2, connectionPool);
         MaterialVariant materialVariant = materialVariants.get(0);
 
         String description = materialVariant.getMaterial().getName();
-        width = extractWidth(description);
+        width = extractPartWidth(description);
 
-        OrderItem orderItem = new OrderItem(0,order,materialVariant, quantity, "Remme i sider, sadles ned i stolper");
+        int quantity = calcRafterQuantity(length, width);
+
+        OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Spær, monteres på rem");
         orderItems.add(orderItem);
 
 
         //test
-        for (OrderItem orderItem1 : orderItems)
+        System.out.println("spær:");
+        System.out.println(quantity);
+        for (MaterialVariant materialVariant1 : materialVariants)
         {
-            System.out.println(orderItem1.getMaterialVariant());
-            System.out.println(orderItem1.getMaterialVariant().getMaterial());
-
+            System.out.println(materialVariant1.toString());
         }
-        System.out.println("Beams Width: " + width);  // Print the extracted beams width
+        System.out.println("Rafter Width: " + width);
     }
 
-    public int calcBeamsQuantity()
+    public int calcRafterQuantity(int length, int width)
     {
-        return length/(width/10);
+        double widthInCm = width / 10.0; // Convert width from mm to cm
+        double result = length / widthInCm;
+        return (int) Math.ceil(result);
     }
 
-    //spær
-    private void calcRafters(Order order)
+    private int extractPartWidth(String description)
     {
-
-    }
-
-    private int extractWidth(String description) {
-        // Use a regular expression to match the format "<number>x<number>"
         String regex = "\\d+x(\\d+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(description);
-        if (matcher.find()) {
+        if (matcher.find())
+        {
             return Integer.parseInt(matcher.group(1));
-        } else {
+        } else
+        {
             throw new IllegalArgumentException("Invalid material description format: " + description);
         }
     }

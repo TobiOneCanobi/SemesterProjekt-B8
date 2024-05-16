@@ -96,19 +96,22 @@ public class Order
         return carportLength;
     }
 
-    public void setInstallationFee(boolean installationFee)
+    public boolean setInstallationFee(boolean installationFee)
     {
         this.installationFee = installationFee;
+        return installationFee;
     }
 
-    public void setOrderStatusId(int orderStatusId)
+    public int setOrderStatusId(int orderStatusId)
     {
         this.orderStatusId = orderStatusId;
+        return orderStatusId;
     }
 
-    public void setTotalPrice(int totalPrice)
+    public int setTotalPrice(int totalPrice)
     {
         this.totalPrice = totalPrice;
+        return totalPrice;
     }
 
     public void setUser(User user)

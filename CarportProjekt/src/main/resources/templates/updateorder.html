@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Opdater Ordrer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
-<body>
-<h1>Ændre Order</h1>
-<form class=" " method="post">
-    <label>Carport Brede</label>
-    <input type="text" name="carportWidth" th:value="${order.carportWidth}"/>
-    <br>
-    <label>Carport Længde</label>
-    <input type="text" name="carportLength" th:value="${order.carportLength}"/>
-    <br>
-    <label>Installations Gebyr</label>
-    <input type="text" name="installationFee" th:value="${order.installationFee}"/>
-    <br>
-    <label>Status</label>
-    <input type="text" name="status" th:value="${order.orderStatusId}"/>
-    <br>
-    <label>Total pris</label>
-    <input type="text" name="totalPrice" th:value="${order.totalPrice}"/>
+<body class="updateorderpage">
+
+<div class="return">
+    <form th:action="@{/adminoverview}" method="get">
+        <button type="submit" class="button-red">Tilbage</button>
+    </form>
+</div>
+
+<div class="updateorderform">
+    <h1>Ændre Order</h1>
+    <form class="updateorder" method="post">
+        <label>Carport Brede</label>
+        <input type="text" name="carportWidth" th:value="${order.carportWidth}"/>
+        <label>Carport Længde</label>
+        <input type="text" name="carportLength" th:value="${order.carportLength}"/>
+        <label>Installations Gebyr</label>
+        <input type="text" name="installationFee" th:value="${order.installationFee}"/>
+        <label>Status</label>
+        <input type="text" name="status" th:value="${order.orderStatusId}"/>
+        <label>Total pris</label>
+        <input type="text" name="totalPrice" th:value="${order.totalPrice}"/>
 
     <br>
 
@@ -33,5 +39,8 @@
 </form>
 
 
+
+</div>
 </body>
+
 </html>

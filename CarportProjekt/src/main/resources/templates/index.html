@@ -44,7 +44,7 @@
 
             <div class="customer_panel" th:if="${session.userRole == 'customer'}">
                 <div class="button-container">
-                    <form th:action="@{/customeroverview}" method="get">
+                    <form th:action="@{/orderoverviewcustomer}" method="get">
                         <button class="text-margin button-blue" type="submit">Mit overblik</button>
                     </form>
 

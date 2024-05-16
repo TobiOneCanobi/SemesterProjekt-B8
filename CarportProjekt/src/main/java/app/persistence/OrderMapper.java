@@ -51,6 +51,52 @@ public class OrderMapper
         return orderList;
     }
 
+
+
+
+
+
+  public static List<Order> getAllOrdersCustomer(int userId, ConnectionPool connectionPool) throws DatabaseException
+{
+    List<Order> orderList = new ArrayList<>();
+    String sql = "SELECT orders.order_id, orders.carport_width, orders.carport_length, orders.installation_fee, orders.status, orders.total_price " +
+            "FROM orders " +
+            "INNER JOIN users ON orders.user_id = users.user_id " +
+            "WHERE users.user_id = ?;";
+    try (
+            Connection connection = connectionPool.getConnection();
+            var prepareStatement = connection.prepareStatement(sql)
+    )
+    {
+        prepareStatement.setInt(1, userId);
+        try (var resultSet = prepareStatement.executeQuery())
+        {
+            while (resultSet.next())
+            {
+                int orderId = resultSet.getInt("order_id");
+                int carportWidth = resultSet.getInt("carport_width");
+                int carportLength = resultSet.getInt("carport_length");
+                boolean installationFee = resultSet.getBoolean("installation_fee");
+                int status = resultSet.getInt("status");
+                int totalPrice = resultSet.getInt("total_price");
+
+
+                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice);
+                orderList.add(order);
+            }
+        }
+    } catch (SQLException e)
+    {
+        throw new DatabaseException("Could not get users from the database", e.getMessage());
+    }
+    return orderList;
+}
+
+
+
+
+
+
     public static List<OrderItem> getOrderItemsByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException
     {
         List<OrderItem> orderItemList = new ArrayList<>();
@@ -69,7 +115,7 @@ public class OrderMapper
                 boolean installationFee = rs.getBoolean("installation_fee");
                 int status = rs.getInt("status");
                 int totalPrice = rs.getInt("total_price");
-                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice,null );
+                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice, null );
 
                 int materialId = rs.getInt("material_id");
                 String name = rs.getString("name");

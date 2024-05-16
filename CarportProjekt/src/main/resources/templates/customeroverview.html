@@ -38,7 +38,47 @@
     <div></div>
 </header>
 
-<h2><b> <i> Dit overblik:</i> </b></h2>
+<h2><b> <i> Du er nu på Kundeoverblik-siden.</i> </b></h2>
+<table class="table-border">
+    <thead>
+    <tr>
+        <th>Order id</th>
+        <th>Width</th>
+        <th>Length</th>
+        <th>Installation fee</th>
+        <th>status</th>
+        <th>Price</th>
+        <th>stykliste</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+
+    <div th:each="order : ${orderListCustomer}">
+        <form th:action="@{showpartslist}" method="post">
+
+            <tr>
+                <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">
+                </td>
+
+                <td th:text="${order.carportWidth}"></td>
+                <td th:text="${order.carportLength}"></td>
+                <td th:text="${order.installationFee}"></td>
+                <td th:text="${order.orderStatusId}"></td>
+                <td th:text="${order.totalPrice}"></td>
+
+                <td>
+                    <button type="submit">Se stykliste</button>
+                </td>
+
+                <td>
+                    <button type="submit" name="orderId" th:value="${order.orderId}" formaction="editOrder">edit</button>
+                    <button type="submit" name="orderid" th:value="${order.orderId}" formaction="deleteorder">Slet</button>
+                </td>
+
+            </tr>
+        </form>
+    </div>
+</table>
 
 </body>
 </html>

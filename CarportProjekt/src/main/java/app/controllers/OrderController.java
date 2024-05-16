@@ -1,6 +1,5 @@
 package app.controllers;
 
-import app.entities.Material;
 import app.entities.Order;
 import app.entities.OrderItem;
 import app.entities.User;
@@ -12,8 +11,6 @@ import app.services.CarportSvg;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,7 +21,7 @@ public class OrderController
     {
         app.get("adminoverview", ctx -> orderOverviewAdmin(ctx, connectionPool));
         app.post("showPartsList", ctx -> showPartsList(ctx, connectionPool));
-        // app.get("orderoverviewcustomer", ctx -> orderOverviewCustomer(ctx, connectionPool));
+         app.get("orderoverviewcustomer", ctx -> orderOverviewCustommer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("designcarport", ctx -> showCarport(ctx));
         app.post("updateOrder", ctx -> updateOrder(ctx, connectionPool));
@@ -48,6 +45,23 @@ public class OrderController
             ctx.render("adminoverview.html");
         }
     }
+
+    public static void orderOverviewCustommer(Context ctx, ConnectionPool connectionPool)
+    {
+        User currentUser = ctx.sessionAttribute("currentUser");
+        try
+        {
+            List<Order> orderListCustomer = OrderMapper.getAllOrdersCustomer( currentUser.getUserId(),connectionPool);
+            ctx.attribute("orderListCustomer", orderListCustomer);
+            ctx.render("customeroverview.html");
+        } catch (Exception e)
+        {
+            ctx.attribute("message", "Failed to get orders");
+            e.printStackTrace();
+            ctx.render("customeroverview.html");
+        }
+    }
+
 
     /*
         public static void orderOverviewCustomer(Context ctx, ConnectionPool connectionPool)

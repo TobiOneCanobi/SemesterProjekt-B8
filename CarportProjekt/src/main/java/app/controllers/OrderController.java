@@ -81,6 +81,22 @@ public class OrderController
             }
         }
     */
+
+    private static void carportLengthList(Context ctx, ConnectionPool connectionPool)
+    {
+        try
+        {
+
+            List<Integer> carportLengthList = OrderMapper.getMaterialVariantFromMaterialId(connectionPool);
+
+            ctx.attribute("carportlengthlist", carportLengthList);
+
+        } catch (DatabaseException e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
     private static void showPartsList(Context ctx, ConnectionPool connectionPool)
     {
         int orderId = Integer.parseInt(ctx.formParam("orderIdChosen"));

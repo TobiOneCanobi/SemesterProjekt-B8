@@ -56,7 +56,7 @@
     <h3>Her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
 
     <div class="design_input" th:if="${session.currentUser != null}">
-        <form action="designcarport" method="get">
+        <form action="generateSvg" method="get">
             <label for="length">Carportens længde:</label><br>
             <input type="text" id="length" name="length" placeholder="Længde i cm"><br>
             <label for="width">Carportens bredde:</label><br>

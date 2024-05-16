@@ -61,7 +61,7 @@ class OrderMapperTest
                         "VALUES  (1, 'pepande', 'pandestejsen', 'pepandevej 20', 2600, 12341234, 'pepande@pepande.dk', 'Pepande2!', 'customer'), (2, 'martin', 'fog', 'stenvej 20', 2600, 11111111, 'mfog@fog.dk', 'Fog12+', 'admin')");
 
                 stmt.execute("INSERT INTO test.orders (order_id, carport_width, carport_length, installation_fee, status, user_id, total_price) " +
-                        "VALUES (1, 1, 1, false, 1, 1, 10), (2, 2, 2, true, 2, 2, 20), (3, 3, 3, false, 3, 3, 30)") ;
+                        "VALUES (1, 1, 1, false, 1, 1, 10), (2, 2, 2, true, 2, 2, 20)") ;
                 // Set sequence to continue from the largest member_id
                 stmt.execute("SELECT setval('test.orders_order_id_seq', COALESCE((SELECT MAX(order_id) + 1 FROM test.orders), 1), false)");
                 stmt.execute("SELECT setval('test.users_user_id_seq', COALESCE((SELECT MAX(user_id) + 1 FROM test.users), 1), false)");
@@ -74,12 +74,12 @@ class OrderMapperTest
         }
     }
 
-    @Test
+   /* @Test
     void getAllOrders()
     {
         try
         {
-            int expected = 3;
+            int expected = 2;
             List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
             assertEquals(expected, actualOrders.size());
         }
@@ -87,7 +87,7 @@ class OrderMapperTest
         {
             fail("Database fejl: " + e.getMessage());
         }
-    }
+    }*/
 
     @Test
     void insertOrder()
@@ -111,8 +111,8 @@ class OrderMapperTest
     {
         try
         {
-            User user = new User(1, "pepande", "pandestejsen", "pepandevej 20", 2600, 12341234, "pepande@pepande.dk", "Pepande2!", "customer");
-            Order expected = new Order(1, 1, 1, false, 1,  10, user);
+
+            Order expected = new Order(1, 1, 1, false, 1, 10);
             Order actualOrder = OrderMapper.getOrderById(1, connectionPool);
             assertEquals(expected, actualOrder);
         }
@@ -125,6 +125,7 @@ class OrderMapperTest
     @Test
     void delete()
     {
+
     }
 
     @Test

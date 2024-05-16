@@ -63,11 +63,43 @@ public class UserMapper
         return false;
     }
 
+
+
+
+    public static boolean phoneNumberExists(int phoneNumber, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "SELECT COUNT(*) AS COUNT FROM users WHERE phone_number = ?";
+
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql))
+        {
+            ps.setInt(1, phoneNumber);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return rs.getInt("count") > 0;
+            }
+        } catch (SQLException e)
+        {
+            throw new DatabaseException("Database error", e.getMessage());
+        }
+        return false;
+    }
+
+
+
+
+
+
+
     public static void createUser(String firstName, String lastName, String address, int zipCode, int phoneNumber, String email, String password, String role, ConnectionPool connectionPool) throws DatabaseException
     {
         if (emailExists(email, connectionPool))
         {
             throw new DatabaseException("Email bliver allerede brugt.");
+        } else if (phoneNumberExists(phoneNumber, connectionPool))
+        {
+            throw new DatabaseException("Telefonnummer bliver allerede brugt.");
         }
 
         String sql = "INSERT INTO users (first_name, last_name, address, zip_code, phone_number, email, passwords, role) VALUES (?,?,?,?,?,?,?,?)";

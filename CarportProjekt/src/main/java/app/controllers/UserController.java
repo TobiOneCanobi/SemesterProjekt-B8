@@ -141,6 +141,11 @@ public class UserController
             {
                 errorMessages.put("phonenumbermsg", "Dit telefon nummer må kun indeholde 8 tal");
             }
+            // phonenumber already in use
+            if (UserMapper.phoneNumberExists(phoneNumber, connectionPool))
+            {
+                errorMessages.put("phonenumbermsg", "Telefon nummeret er allerede i brug");
+            }
             // email must have a @ and letters
             if (!Validation.validateTextContainsAtAndLetter(email))
             {
@@ -149,7 +154,7 @@ public class UserController
             // email already in use
             if (UserMapper.emailExists(email, connectionPool))
             {
-                errorMessages.put("emailmsg", "Email er i brug");
+                errorMessages.put("emailmsg", "Email er allerede i brug");
             }
             // both passwords must match
             if (!Validation.validateEqualPasswords(password1, password2))

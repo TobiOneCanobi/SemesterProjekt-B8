@@ -38,12 +38,10 @@ public class Calculator
         System.out.println("Starting calcPosts");
         calcPosts(order);
         System.out.println("Finished calcPosts");
-        Thread.sleep(1000);
 
         System.out.println("Starting calcBeams");
         calcBeams(order);
         System.out.println("Finished calcBeams");
-        Thread.sleep(1000);
 
         System.out.println("Starting calcRafter");
         calcRafter(order);

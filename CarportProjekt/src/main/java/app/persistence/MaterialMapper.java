@@ -21,7 +21,7 @@ public class MaterialMapper
                 "WHERE material_id = ? AND length >= ?";
         try(Connection connection = connectionPool.getConnection())
         {
-            PreparedStatement ps = connectionPool.getConnection().prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, materialId);
             ps.setInt(2, minLength);
             ResultSet resultSet = ps.executeQuery();
@@ -37,6 +37,7 @@ public class MaterialMapper
                 MaterialVariant materialVariant = new MaterialVariant(variantId, length, material, price);
                 materialVariantList.add(materialVariant);
             }
+            ps.close();
         }
         catch (SQLException e)
         {

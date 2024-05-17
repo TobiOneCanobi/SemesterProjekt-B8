@@ -288,3 +288,15 @@ button.edit-button{
     padding: 5px;
     width: 75%;
 }
+
+.yellow-text{
+    color: #c6c600;
+}
+
+.red-text{
+    color: red;
+}
+
+.green-text{
+    color: green;
+}

@@ -144,7 +144,7 @@ public class OrderController
         try
         {
 
-            // order = OrderMapper.insertOrder(order, connectionPool);
+             order = OrderMapper.insertOrder(order, connectionPool);
 
             //to do
             // calculate order items (parts list)

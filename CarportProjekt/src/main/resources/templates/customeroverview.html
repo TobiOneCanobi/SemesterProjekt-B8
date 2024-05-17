@@ -63,7 +63,13 @@
                 <td th:text="${order.carportWidth}"></td>
                 <td th:text="${order.carportLength}"></td>
                 <td th:text="${order.installationFee}"></td>
-                <td th:text="${order.orderStatusId}"></td>
+                <td>
+                    <div th:switch="${order.orderStatusId}">
+                        <p class="yellow-text" th:case="'1'">Under gennemsyn</p>
+                        <p class="red-text" th:case="'2'">Afventer betaling</p>
+                        <p class="green-text" th:case="'3'">Betalt</p>
+                    </div>
+                </td>
                 <td th:text="${order.totalPrice}"></td>
 
                 <td>
@@ -83,6 +89,7 @@
                 </td>
             </tr>
         </form>
+
     </div>
 </table>
 

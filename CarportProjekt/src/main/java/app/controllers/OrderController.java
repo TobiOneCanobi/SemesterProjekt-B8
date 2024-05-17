@@ -295,13 +295,13 @@ public class OrderController
             } else if (status == 2)
             {
                 status = 3;
-                ctx.render("index.html");
+                ctx.render("confirmationpage.html");
             }
 
             OrderMapper.updateStatus(orderId, status, connectionPool);
             List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orderList", orderList);
-            ctx.render("adminoverview.html");
+            //ctx.render("adminoverview.html");
 
         } catch (DatabaseException | NumberFormatException e)
         {

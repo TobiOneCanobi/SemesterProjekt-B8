@@ -22,7 +22,7 @@ public class CarportSvg
     {
         this.width = width;
         this.length = length;
-        outerSvg = new Svg(0, 0, "0 0 1000 1000", "100%");
+        outerSvg = new Svg(0, 0, "0 0 700 700", "100%");
         innerSvg = new Svg(0, 0, "0 0" + (width + 200) + " " + (length + 200), "100%");
         innerSvg.addRectangle(0, 0, width, length, "stroke-width:1px; stroke:#000000; fill: #ffffff");
         addBeams();

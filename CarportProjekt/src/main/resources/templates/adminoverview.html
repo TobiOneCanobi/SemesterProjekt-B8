@@ -59,11 +59,7 @@
             <tr>
                 <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">
                 </td>
-
-
                 <td th:text="${order.orderStatusId}"></td>
-
-
                 <td th:text="${order.carportWidth}"></td>
                 <td th:text="${order.carportLength}"></td>
                 <td th:text="${order.installationFee}"></td>
@@ -72,13 +68,22 @@
                 <td>
                     <button type="submit">Se stykliste</button>
                 </td>
-
-                <td>
-                    <button type="submit" name="orderId" th:value="${order.orderId}" formaction="editOrder">edit</button>
-                </td>
-
-            </tr>
         </form>
+
+        <td>
+            <form th:action="@{/editOrder}" method="post">
+                <input type="hidden" name="orderId" th:value="${order.orderId}">
+                <button type="submit">Edit</button>
+            </form>
+            <form th:action="@{/updateStatusOnOrder}" method="post">
+                <input type="hidden" name="orderId" th:value="${order.orderId}">
+                <input type="hidden" name="status" th:value="${order.orderStatusId}">
+                <button type="submit">Accept</button>
+            </form>
+        </td>
+
+
+        </tr>
     </div>
 </table>
 

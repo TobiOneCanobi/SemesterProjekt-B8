@@ -67,14 +67,20 @@
                 <td th:text="${order.totalPrice}"></td>
 
                 <td>
+                    <div th:if="${order.orderStatusId == 3}">
                     <button type="submit">Se stykliste</button>
+                    </div>
                 </td>
-
+        </form>
                 <td>
-                    <button type="submit" name="orderId" th:value="${order.orderId}" formaction="editOrder">edit</button>
-                    <button type="submit" name="orderid" th:value="${order.orderId}" formaction="deleteorder">Slet</button>
-                </td>
+                    <div th:if="${order.orderStatusId == 2}">
+                    <form th:action="@{/betalOrdre}" method="post">
+                        <input type="hidden" name="orderId" th:value="${order.orderId}">
+                        <button class="button-betal" type="submit">Betal ordre</button>
 
+                    </form>
+                    </div>
+                </td>
             </tr>
         </form>
     </div>

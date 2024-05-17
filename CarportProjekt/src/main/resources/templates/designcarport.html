@@ -97,23 +97,44 @@
         <input type="radio" id="installationFee" name="installationFee"/>
         <br><br>
 
-        <label for="lengthdropdown"></label>
-        <select id="lengthdropdown" name="selectedcarportlength" th:each="length : ${carportLengthList}">
+            <p>Længde på din carport</p>
+            <label for="lengthdropdown"></label>
+        <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
             <option value="" disabled selected>Vælg længde</option>
-            <option th:text="${length}" th:value="${length}"></option>
-            <option th:text="${length}" th:value="${length}"></option>
-            <option th:text="${length}" th:value="${length}"></option>
-            <option th:text="${length}" th:value="${length}"></option>
-            <option th:text="${length}" th:value="${length}"></option>
-            <option th:text="${length}" th:value="${length}"></option>
+            <th:block th:each="carportLength : ${session.carportLengthList}">
+                <option th:value="${carportLength}" th:text="${carportLength}"></option>
+            </th:block>
         </select>
 
-        <label for="testlength">testlength</label>
-        <input type="text" id="testlength" name="length"/>
+            <p>Bredde på din carport</p>
+            <label for="widthdropdown"></label>
+            <select id="widthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
+                <option value="" disabled selected>Vælg bredde</option>
+                <th:block th:each="carportLength : ${session.carportLengthList}">
+                    <option th:value="${carportLength}" th:text="${carportLength}"></option>
+                </th:block>
+            </select>
+
 
         <button type="submit" value="">Send forspørgelse</button>
         </form>
     </div>
+
+
+   <!--
+    <script>
+        function updateTotalPrice() {
+            const lengthSelect = document.getElementById('lengthdropdown');
+
+            const lengthOption = lengthSelect.options[lengthSelect.selectedIndex].dataset.length;
+            const toppingPrice = toppingSelect.options[toppingSelect.selectedIndex].dataset.price;
+            const quantity = quantitySelect.value;
+
+            const total = (parseInt(lengthOption, 10) + parseInt(toppingPrice, 10)) * parseInt(quantity, 10);
+            document.getElementById('totalPrice').value = total;
+        }
+    </script>
+    -->
 
 </div>
 </body>

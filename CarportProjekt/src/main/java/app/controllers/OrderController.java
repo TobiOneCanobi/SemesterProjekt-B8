@@ -28,7 +28,7 @@ public class OrderController
         app.post("editOrder", ctx -> editOrder(ctx, connectionPool));
         app.post("deleteorder", ctx -> deleteOrder(ctx, connectionPool));
         app.post("sendRequest", ctx -> sendRequest(ctx, connectionPool));
-        app.get("carportLengthList", ctx -> carportLengthList(ctx, connectionPool));
+        app.get("carportLengthOptionsList", ctx -> carportLengthList(ctx, connectionPool));
         app.get("designcarport", ctx -> carportLengthList(ctx, connectionPool));
 
 
@@ -91,9 +91,9 @@ public class OrderController
         try
         {
 
-            List<Integer> carportLengthList = OrderMapper.getMaterialVariantFromMaterialId(connectionPool);
+            List<Integer> carportLengthOptionsList = OrderMapper.getMaterialVariantFromMaterialId(connectionPool);
 
-            ctx.attribute("carportlengthlist", carportLengthList);
+            ctx.sessionAttribute("carportLengthList", carportLengthOptionsList);
             ctx.render("designcarport.html");
 
         } catch (DatabaseException e)

@@ -76,49 +76,41 @@ public class OrderMapper
     }
 
 
-
-
-
-
-  public static List<Order> getAllOrdersCustomer(int userId, ConnectionPool connectionPool) throws DatabaseException
-{
-    List<Order> orderList = new ArrayList<>();
-    String sql = "SELECT orders.order_id, orders.carport_width, orders.carport_length, orders.installation_fee, orders.status, orders.total_price " +
-            "FROM orders " +
-            "INNER JOIN users ON orders.user_id = users.user_id " +
-            "WHERE users.user_id = ?;";
-    try (
-            Connection connection = connectionPool.getConnection();
-            var prepareStatement = connection.prepareStatement(sql)
-    )
+    public static List<Order> getAllOrdersCustomer(int userId, ConnectionPool connectionPool) throws DatabaseException
     {
-        prepareStatement.setInt(1, userId);
-        try (var resultSet = prepareStatement.executeQuery())
+        List<Order> orderList = new ArrayList<>();
+        String sql = "SELECT orders.order_id, orders.carport_width, orders.carport_length, orders.installation_fee, orders.status, orders.total_price " +
+                "FROM orders " +
+                "INNER JOIN users ON orders.user_id = users.user_id " +
+                "WHERE users.user_id = ?;";
+        try (
+                Connection connection = connectionPool.getConnection();
+                var prepareStatement = connection.prepareStatement(sql)
+        )
         {
-            while (resultSet.next())
+            prepareStatement.setInt(1, userId);
+            try (var resultSet = prepareStatement.executeQuery())
             {
-                int orderId = resultSet.getInt("order_id");
-                int carportWidth = resultSet.getInt("carport_width");
-                int carportLength = resultSet.getInt("carport_length");
-                boolean installationFee = resultSet.getBoolean("installation_fee");
-                int status = resultSet.getInt("status");
-                int totalPrice = resultSet.getInt("total_price");
+                while (resultSet.next())
+                {
+                    int orderId = resultSet.getInt("order_id");
+                    int carportWidth = resultSet.getInt("carport_width");
+                    int carportLength = resultSet.getInt("carport_length");
+                    boolean installationFee = resultSet.getBoolean("installation_fee");
+                    int status = resultSet.getInt("status");
+                    int totalPrice = resultSet.getInt("total_price");
 
 
-                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice);
-                orderList.add(order);
+                    Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice);
+                    orderList.add(order);
+                }
             }
+        } catch (SQLException e)
+        {
+            throw new DatabaseException("Could not get users from the database", e.getMessage());
         }
-    } catch (SQLException e)
-    {
-        throw new DatabaseException("Could not get users from the database", e.getMessage());
+        return orderList;
     }
-    return orderList;
-}
-
-
-
-
 
 
     public static List<OrderItem> getOrderItemsByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException
@@ -139,7 +131,7 @@ public class OrderMapper
                 boolean installationFee = rs.getBoolean("installation_fee");
                 int status = rs.getInt("status");
                 int totalPrice = rs.getInt("total_price");
-                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice, null );
+                Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice, null);
 
                 int materialId = rs.getInt("material_id");
                 String name = rs.getString("name");
@@ -180,21 +172,26 @@ public class OrderMapper
             ps.setInt(6, order.getTotalPrice());
 
             int affectedRows = ps.executeUpdate(); // Use executeUpdate for INSERT, UPDATE, DELETE
-            if (affectedRows == 0) {
+            if (affectedRows == 0)
+            {
                 throw new DatabaseException("Inserting order failed, no rows affected.");
             }
 
-            try (ResultSet keySet = ps.getGeneratedKeys()) {
-                if (keySet.next()) {
+            try (ResultSet keySet = ps.getGeneratedKeys())
+            {
+                if (keySet.next())
+                {
                     Order newOrder = new Order(keySet.getInt(1), order.getCarportWidth(),
                             order.getCarportLength(), order.isInstallationFee(), 1, // Assuming '1' is the correct initial status
                             order.getTotalPrice(), order.getUser());
                     return newOrder;
-                } else {
+                } else
+                {
                     throw new DatabaseException("Failed to retrieve ID for new order.");
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             throw new DatabaseException("Error inserting order into database", e.getMessage());
         }
     }
@@ -213,7 +210,7 @@ public class OrderMapper
                     ps.setInt(2, orderItem.getMaterialVariant().getMaterialVariantId());
                     ps.setInt(3, orderItem.getQuantity());
                     ps.setString(4, orderItem.getDescription());
-                    ps.executeQuery();
+                    ps.executeUpdate();
                 }
             }
         } catch (SQLException e)
@@ -237,8 +234,7 @@ public class OrderMapper
             {
                 throw new DatabaseException("Fejl ved sletning af en ordre!");
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException("Fejl ved sletning af en ordre", e.getMessage());
         }
@@ -256,8 +252,7 @@ public class OrderMapper
             {
                 throw new DatabaseException("Fejl ved sletning af en ordre!");
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException("Fejl ved sletning af en ordre", e.getMessage());
         }
@@ -314,7 +309,7 @@ public class OrderMapper
     }
 
 */
-        public static void updateOrder(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, ConnectionPool connectionPool) throws DatabaseException
+    public static void updateOrder(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "UPDATE orders " +
                 "SET carport_width = ?, carport_length = ?, installation_fee = ?,  status = ?, total_price = ? " +
@@ -331,16 +326,16 @@ public class OrderMapper
             ps.setInt(5, totalPrice);
             ps.setInt(6, orderId);
 
-        int rowsAffected = ps.executeUpdate();
-        if (rowsAffected != 1)
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1)
+            {
+                throw new DatabaseException("Fejl i opdatering af en order");
+            }
+        } catch (SQLException e)
         {
-            throw new DatabaseException("Fejl i opdatering af en order");
+            throw new DatabaseException("Fejl i opdatering af en order", e.getMessage());
         }
-    } catch (SQLException e)
-    {
-        throw new DatabaseException("Fejl i opdatering af en order", e.getMessage());
     }
-}
 
     public static Order getOrderById(int orderId, ConnectionPool connectionPool) throws DatabaseException
     {
@@ -363,8 +358,7 @@ public class OrderMapper
                 int totalPrice = rs.getInt("total_price");
                 order = new Order(id, carportWidth, carportLength, installationFee, status, totalPrice);
             }
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException("Fejl ved hentning af task med id = " + orderId, e.getMessage());
         }

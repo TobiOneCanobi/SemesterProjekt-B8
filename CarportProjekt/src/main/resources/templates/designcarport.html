@@ -108,7 +108,7 @@
 
             <p>Bredde på din carport</p>
             <label for="widthdropdown"></label>
-            <select id="widthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
+            <select id="widthdropdown" name="selectedcarportwidth" onchange="updateTotalPrice()">
                 <option value="" disabled selected>Vælg bredde</option>
                 <th:block th:each="carportLength : ${session.carportLengthList}">
                     <option th:value="${carportLength}" th:text="${carportLength}"></option>

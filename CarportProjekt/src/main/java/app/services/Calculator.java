@@ -34,25 +34,16 @@ public class Calculator
 
     public void calcCarport(Order order) throws DatabaseException, InterruptedException
     {
-
-        System.out.println("Starting calcPosts");
         calcPosts(order);
-        System.out.println("Finished calcPosts");
 
-        System.out.println("Starting calcBeams");
         calcBeams(order);
-        System.out.println("Finished calcBeams");
 
-        System.out.println("Starting calcRafter");
         calcRafter(order);
-        System.out.println("Finished calcRafter");
-
     }
 
     // stolper
     private void calcPosts(Order order) throws DatabaseException
     {
-
         //antal stolper
         int quantity = calcPostQuantity();
 
@@ -73,6 +64,8 @@ public class Calculator
 
     public int calcPostQuantity()
     {
+        int maxDist;
+        int firstPost;
         return 2 * (2 + (length - 130) / 340);
     }
 
@@ -107,17 +100,19 @@ public class Calculator
     //spær
     private void calcRafter(Order order) throws DatabaseException
     {
+        double rafterWidth;
         List<MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(length, 2, connectionPool);
         MaterialVariant materialVariant = materialVariants.get(0);
 
         String description = materialVariant.getMaterial().getName();
-        width = extractPartWidth(description);
+        // extract width from description
+        rafterWidth = extractPartWidth(description);
 
-        int quantity = calcRafterQuantity(length, width);
+
+        int quantity = calcRafterQuantity(length, rafterWidth);
 
         OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Spær, monteres på rem");
         orderItems.add(orderItem);
-
 
         //test
         System.out.println("spær:");
@@ -129,16 +124,21 @@ public class Calculator
         System.out.println("Rafter Width: " + width);
     }
 
-    public int calcRafterQuantity(int length, int width)
+    public int calcRafterQuantity(int length, double rafterWidth)
     {
-        double widthInCm = width / 10.0; // Convert width from mm to cm
-        double result = length / widthInCm;
+
+        double distanceBetweenRafters = 55;
+        double rafterWidthInCm = rafterWidth / 10.0; // Convert width from mm to cm
+        double firstPlacedRafter = distanceBetweenRafters+rafterWidthInCm;
+
+        double result = length / (rafterWidthInCm + distanceBetweenRafters) ;
+
         return (int) Math.ceil(result);
     }
 
     private int extractPartWidth(String description)
     {
-        String regex = "\\d+x(\\d+)";
+        String regex = "(\\d+)x\\d+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(description);
         if (matcher.find())

@@ -47,7 +47,7 @@ public class CarportSvg
     {
         for (double i = 0; i < length; i += 55.714)
         {
-            innerSvg.addRectangle(i, 0.0, width, 12, "stroke:#000000; fill: #ffffff");
+            innerSvg.addRectangle(i, 0.0, width, 4.5, "stroke:#000000; fill: #ffffff");
         }
     }
 

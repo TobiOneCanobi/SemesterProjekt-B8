@@ -30,8 +30,6 @@ public class OrderController
         app.post("sendRequest", ctx -> sendRequest(ctx, connectionPool));
         app.get("carportLengthOptionsList", ctx -> carportLengthList(ctx, connectionPool));
         app.get("designcarport", ctx -> carportLengthList(ctx, connectionPool));
-
-
     }
 
 
@@ -132,8 +130,8 @@ public class OrderController
     private static void sendRequest(Context ctx, ConnectionPool connectionPool)
     {
 
-        int width = Integer.parseInt(ctx.formParam("width"));
-        int length = Integer.parseInt(ctx.formParam("length"));
+        int width = Integer.parseInt(ctx.formParam("selectedcarportwidth"));
+        int length = Integer.parseInt(ctx.formParam("selectedcarportlength"));
         // width = ctx.sessionAttribute("width");
         //int length = ctx.sessionAttribute("length");
         //Boolean installationFee = ctx.formParam("");

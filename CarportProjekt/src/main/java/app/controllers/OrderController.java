@@ -288,17 +288,21 @@ public class OrderController
             if (status == 1)
             {
                 status = 2;
+                OrderMapper.updateStatus(orderId, status, connectionPool);
+                List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
+                ctx.attribute("orderList", orderList);
+                ctx.render("adminoverview.html");
             } else if (status == 2)
             {
                 status = 3;
-            } else
-            {
-                status = 3;
+                ctx.render("index.html");
             }
+
             OrderMapper.updateStatus(orderId, status, connectionPool);
             List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orderList", orderList);
             ctx.render("adminoverview.html");
+
         } catch (DatabaseException | NumberFormatException e)
         {
             ctx.attribute("message", e.getMessage());

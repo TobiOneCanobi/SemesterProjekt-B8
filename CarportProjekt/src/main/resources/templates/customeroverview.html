@@ -74,11 +74,11 @@
         </form>
                 <td>
                     <div th:if="${order.orderStatusId == 2}">
-                    <form th:action="@{/betalOrdre}" method="post">
-                        <input type="hidden" name="orderId" th:value="${order.orderId}">
-                        <button class="button-betal" type="submit">Betal ordre</button>
-
-                    </form>
+                        <form th:action="@{/updateStatusOnOrder}" method="post">
+                            <input type="hidden" name="orderId" th:value="${order.orderId}">
+                            <input type="hidden" name="status" th:value="${order.orderStatusId}">
+                            <button type="submit">Betal Ordre</button>
+                        </form>
                     </div>
                 </td>
             </tr>

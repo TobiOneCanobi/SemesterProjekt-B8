@@ -178,6 +178,7 @@ button[type=submit] {
 }
 
 
+
 /* SVG */
 .carport-svg-topview {
     max-width: 600px;
@@ -240,7 +241,14 @@ body.create-user-form {
     padding: 8px; /* Adds padding inside each cell */
 }
 
-
+select {
+    background-color: #013d7a;
+    padding: 15px;
+    border-radius: 8px;
+    width: 300px;
+    color: white;
+    margin: auto; /* Center horizontally */
+}
 
 .requestform {
     position: relative;

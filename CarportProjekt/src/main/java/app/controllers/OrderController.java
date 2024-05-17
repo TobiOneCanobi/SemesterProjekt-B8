@@ -273,4 +273,24 @@ public class OrderController
             throw new RuntimeException(e);
         }
     }
+
+    private static void updateStatusOnOrder (Context ctx, ConnectionPool connectionPool)
+    {
+        try
+        {
+            int orderId = Integer.parseInt(ctx.formParam("orderId"));
+            int status = Integer.parseInt(ctx.formParam("status"));
+            OrderMapper.updateStatus(orderId, status, connectionPool);
+            List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
+            ctx.attribute("orderList", orderList);
+            ctx.render("adminoverview.html");
+        } catch (DatabaseException | NumberFormatException e)
+        {
+            ctx.attribute("message", e.getMessage());
+            System.out.println("Error in updateStatusOnOrder: " + e.getMessage());
+            ctx.render("adminoverview.html");
+        }
+    }
+
+
 }

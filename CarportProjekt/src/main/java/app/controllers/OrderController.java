@@ -21,7 +21,7 @@ public class OrderController
     {
         app.get("adminoverview", ctx -> orderOverviewAdmin(ctx, connectionPool));
         app.post("showPartsList", ctx -> showPartsList(ctx, connectionPool));
-         app.get("orderoverviewcustomer", ctx -> orderOverviewCustommer(ctx, connectionPool));
+        app.get("orderoverviewcustomer", ctx -> orderOverviewCustommer(ctx, connectionPool));
         // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("generateSvg", ctx -> showCarport(ctx));
         app.post("updateOrder", ctx -> updateOrder(ctx, connectionPool));
@@ -32,6 +32,7 @@ public class OrderController
         app.get("designcarport", ctx -> carportLengthList(ctx, connectionPool));
 
 
+        app.post("updateStatusOnOrder", ctx -> updateStatusOnOrder(ctx, connectionPool));
     }
 
 
@@ -55,7 +56,7 @@ public class OrderController
         User currentUser = ctx.sessionAttribute("currentUser");
         try
         {
-            List<Order> orderListCustomer = OrderMapper.getAllOrdersCustomer( currentUser.getUserId(),connectionPool);
+            List<Order> orderListCustomer = OrderMapper.getAllOrdersCustomer(currentUser.getUserId(), connectionPool);
             ctx.attribute("orderListCustomer", orderListCustomer);
             ctx.render("customeroverview.html");
         } catch (Exception e)
@@ -145,7 +146,7 @@ public class OrderController
         try
         {
 
-           // order = OrderMapper.insertOrder(order, connectionPool);
+            // order = OrderMapper.insertOrder(order, connectionPool);
 
             //to do
             // calculate order items (parts list)
@@ -189,23 +190,23 @@ public class OrderController
     }
 
 
-/*
-        public static int calculateTotalPrice(Context ctx)
-        {
-            List<OrderItem> orderItemList = ctx.sessionAttribute("orderItemList");
-            if (orderItemList == null)
+    /*
+            public static int calculateTotalPrice(Context ctx)
             {
-                return 0;
+                List<OrderItem> orderItemList = ctx.sessionAttribute("orderItemList");
+                if (orderItemList == null)
+                {
+                    return 0;
+                }
+                int totalPrice = 0;
+                for (OrderItem orderItem : orderItemList)
+                {
+                    int orderItemsListTotal = orderItem.getMaterial().getQuantity() * orderItem.getMaterial().getPrice();
+                    totalPrice += orderItemsListTotal;
+                }
+                return totalPrice;
             }
-            int totalPrice = 0;
-            for (OrderItem orderItem : orderItemList)
-            {
-                int orderItemsListTotal = orderItem.getMaterial().getQuantity() * orderItem.getMaterial().getPrice();
-                totalPrice += orderItemsListTotal;
-            }
-            return totalPrice;
-        }
-    */
+        */
     public static void showCarport(Context ctx)
     {
         Locale.setDefault(Locale.US);
@@ -221,8 +222,7 @@ public class OrderController
                 ctx.attribute("svg", "");
                 ctx.render("designcarport.html");
                 return;
-            }
-            else
+            } else
             {
                 CarportSvg svg = new CarportSvg(width, length);
                 ctx.attribute("svg", svg.toString());
@@ -279,12 +279,24 @@ public class OrderController
         }
     }
 
-    private static void updateStatusOnOrder (Context ctx, ConnectionPool connectionPool)
+    private static void updateStatusOnOrder(Context ctx, ConnectionPool connectionPool)
     {
         try
         {
             int orderId = Integer.parseInt(ctx.formParam("orderId"));
             int status = Integer.parseInt(ctx.formParam("status"));
+
+            //hvis der acepteres ordre så skal status ændres til 2
+            if (status == 1)
+            {
+                status = 2;
+            } else if (status == 2)
+            {
+                status = 3;
+            } else
+            {
+                status = 3;
+            }
             OrderMapper.updateStatus(orderId, status, connectionPool);
             List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orderList", orderList);

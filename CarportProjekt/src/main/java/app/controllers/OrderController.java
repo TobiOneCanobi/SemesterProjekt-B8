@@ -132,8 +132,6 @@ public class OrderController
 
         int width = Integer.parseInt(ctx.formParam("selectedcarportwidth"));
         int length = Integer.parseInt(ctx.formParam("selectedcarportlength"));
-        // width = ctx.sessionAttribute("width");
-        //int length = ctx.sessionAttribute("length");
         //Boolean installationFee = ctx.formParam("");
         int status = 1;
         int totalPrice = 19999;

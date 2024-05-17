@@ -126,14 +126,22 @@ public class Calculator
 
     public int calcRafterQuantity(int length, double rafterWidth)
     {
+       int rafterQuantity= 0;
 
-        double distanceBetweenRafters = 55;
+
+        double distanceBetweenRafters = 54.714;
         double rafterWidthInCm = rafterWidth / 10.0; // Convert width from mm to cm
-        double firstPlacedRafter = distanceBetweenRafters+rafterWidthInCm;
+        //double firstPlacedRafter = distanceBetweenRafters+rafterWidthInCm;
 
-        double result = length / (rafterWidthInCm + distanceBetweenRafters) ;
+        for (double i = 0; i < length; i += distanceBetweenRafters)
+        {
+            ++rafterQuantity;
+            i+= rafterWidthInCm;
 
-        return (int) Math.ceil(result);
+        }
+
+
+        return rafterQuantity;
     }
 
     private int extractPartWidth(String description)

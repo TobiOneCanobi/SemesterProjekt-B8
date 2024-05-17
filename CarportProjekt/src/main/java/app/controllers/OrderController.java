@@ -132,7 +132,6 @@ public class OrderController
 
     private static void sendRequest(Context ctx, ConnectionPool connectionPool)
     {
-
         int width = Integer.parseInt(ctx.formParam("selectedcarportwidth"));
         int length = Integer.parseInt(ctx.formParam("selectedcarportlength"));
         //Boolean installationFee = ctx.formParam("");

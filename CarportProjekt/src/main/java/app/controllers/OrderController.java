@@ -158,7 +158,7 @@ public class OrderController
             // create message to customer and render order / send confirmation
             // er for test skal render en anden side
             System.out.println("test succes");
-            ctx.render("index.html");
+            ctx.render("requestsentpage.html");
 
         } catch (DatabaseException e)
         {

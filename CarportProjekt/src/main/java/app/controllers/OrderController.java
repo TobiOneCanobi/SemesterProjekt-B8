@@ -143,7 +143,7 @@ public class OrderController
         try
         {
 
-             order = OrderMapper.insertOrder(order, connectionPool);
+            order = OrderMapper.insertOrder(order, connectionPool);
 
             //to do
             // calculate order items (parts list)
@@ -278,11 +278,11 @@ public class OrderController
 
     private static void updateStatusOnOrder(Context ctx, ConnectionPool connectionPool)
     {
+        User currentUser = ctx.sessionAttribute("currentUser");
         try
         {
             int orderId = Integer.parseInt(ctx.formParam("orderId"));
             int status = Integer.parseInt(ctx.formParam("status"));
-
             //hvis der acepteres ordre så skal status ændres til 2
             if (status == 1)
             {
@@ -294,14 +294,16 @@ public class OrderController
             } else if (status == 2)
             {
                 status = 3;
-                ctx.render("confirmationpage.html");
             }
-
             OrderMapper.updateStatus(orderId, status, connectionPool);
             List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
             ctx.attribute("orderList", orderList);
-            //ctx.render("adminoverview.html");
-
+            if (currentUser.getRole().equals("customer"))
+            {
+                ctx.render("confirmationpage.html");
+            } else {
+                ctx.render("adminoverview.html");
+            }
         } catch (DatabaseException | NumberFormatException e)
         {
             ctx.attribute("message", e.getMessage());
@@ -309,6 +311,4 @@ public class OrderController
             ctx.render("adminoverview.html");
         }
     }
-
-
 }

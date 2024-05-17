@@ -75,45 +75,66 @@
 
     <div class="requestform">
         <form action="sendRequest" method="post">
-            <label for="firstname">Fornavn</label>
-            <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
-            <label for="lastname">Efternavn</label>
-            <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
-            <label for="address">Adresse</label>
-            <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
-            <label for="postcode">Post nummer</label>
-            <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
-            <label for="phone">Telefon nummer</label>
-            <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
-            <br>
+        <label for="firstname">Fornavn</label>
+        <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
+        <label for="lastname">Efternavn</label>
+        <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
+        <label for="address">Adresse</label>
+        <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
+        <label for="postcode">Post nummer</label>
+        <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
+        <label for="phone">Telefon nummer</label>
+        <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
+        <br>
 
-            <label for="bygSelv">Jeg bygger selv</label>
-            <input type="radio" id="bygSelv" name="installationFee"/>
+        <label for="bygSelv">Jeg bygger selv</label>
+        <input type="radio" id="bygSelv" name="installationFee"/>
 
-            <br><br>
-            <label for="installationFee">Få bygget af FOG (+5000-,)</label>
-            <input type="radio" id="installationFee" name="installationFee"/>
-            <br><br>
+        <br><br>
+        <label for="installationFee">Få bygget af FOG (+5000-,)</label>
+        <input type="radio" id="installationFee" name="installationFee"/>
+        <br><br>
 
-            <select id="lengthdropdown" name="selectedcarportlength" th:each="length : ${carportLengthList}">
-                <option value="" disabled selected>Vælg længde</option>
-                <option th:text="${length}" th:value="${length}"></option>
-                <option th:text="${length}" th:value="${length}"></option>
-                <option th:text="${length}" th:value="${length}"></option>
-                <option th:text="${length}" th:value="${length}"></option>
-                <option th:text="${length}" th:value="${length}"></option>
-                <option th:text="${length}" th:value="${length}"></option>
+            <p>Længde på din carport</p>
+            <label for="lengthdropdown"></label>
+        <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
+            <option value="" disabled selected>Vælg længde</option>
+            <th:block th:each="carportLength : ${session.carportLengthList}">
+                <option th:value="${carportLength}" th:text="${carportLength}"></option>
+            </th:block>
+        </select>
+
+            <p>Bredde på din carport</p>
+            <label for="widthdropdown"></label>
+            <select id="widthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
+                <option value="" disabled selected>Vælg bredde</option>
+                <th:block th:each="carportLength : ${session.carportLengthList}">
+                    <option th:value="${carportLength}" th:text="${carportLength}"></option>
+                </th:block>
             </select>
 
 
-            <label for="testlength">testlength</label>
-            <input type="text" id="testlength" name="length"/>
-
-            <button type="submit" value="">Send forspørgelse</button>
+        <button type="submit" value="">Send forspørgelse</button>
         </form>
     </div>
+
+
+   <!--
+    <script>
+        function updateTotalPrice() {
+            const lengthSelect = document.getElementById('lengthdropdown');
+
+            const lengthOption = lengthSelect.options[lengthSelect.selectedIndex].dataset.length;
+            const toppingPrice = toppingSelect.options[toppingSelect.selectedIndex].dataset.price;
+            const quantity = quantitySelect.value;
+
+            const total = (parseInt(lengthOption, 10) + parseInt(toppingPrice, 10)) * parseInt(quantity, 10);
+            document.getElementById('totalPrice').value = total;
+        }
+    </script>
+    -->
 
 </div>
 </body>

@@ -63,8 +63,8 @@ public class OrderMapper
             while (rs.next())
             {
 
-                int length = rs.getInt("length");
-                carportLengthList.add(length);
+                int desiredCarportLength = rs.getInt("length");
+                carportLengthList.add(desiredCarportLength);
             }
         } catch (SQLException e)
         {

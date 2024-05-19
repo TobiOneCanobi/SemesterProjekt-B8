@@ -45,7 +45,7 @@ public class CarportSvg
     //Spær
     private void addRafters()
     {
-        for (double i = 0; i < length; i += 55.714)
+        for (double i = 0; i < length; i += 55.0)
         {
             innerSvg.addRectangle(i, 0.0, width, 4.5, "stroke:#000000; fill: #ffffff");
             i+=4.5;

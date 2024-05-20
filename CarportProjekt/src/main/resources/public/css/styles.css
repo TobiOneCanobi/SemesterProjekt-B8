@@ -84,7 +84,6 @@ button[type=submit] {
     display: inline-block;
     position: relative;
     width: 100%;
-
 }
 
 .password-eye-position {
@@ -179,8 +178,6 @@ button[type=submit] {
     margin: 100px;
 }
 
-
-
 /* SVG */
 .carport-svg-topview {
     max-width: 600px;
@@ -216,31 +213,41 @@ body.create-user-form {
     padding: 0;
 }
 
-.panel_overview{
+.panel_overview {
     margin: auto;
 }
 
-.login_check{
+.login_check {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .table-border {
-    border-collapse: collapse; /* Collapses the border between cells */
-    width: 100%; /* Optional: Sets the width of the table to fill the container */
-    margin: 20px 0; /* Optional: Adds space around the table */
+    border-collapse: collapse;
+    width: 90%;
+
+    margin-left: 5%;
+    margin-right: 5%;
+
+    flex: auto;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .table-border-stykliste {
-    border-collapse: collapse; /* Collapses the border between cells */
-    width: 50%; /* Optional: Sets the width of the table to fill the container */
-    margin: 20px 0; /* Optional: Adds space around the table */
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px 0;
+    flex: auto;
+    flex-direction: column;
+    align-items: center;
 }
 
 .table-border, th, td {
-    border: 1px solid black; /* Adds a black border to the table and each cell */
-    padding: 8px; /* Adds padding inside each cell */
+    border: 1px solid black;
+    padding: 8px;
 }
 
 select {
@@ -266,7 +273,7 @@ select {
 }
 
 .updateorderform {
-    position:revert;
+    position: revert;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -285,28 +292,28 @@ select {
     justify-content: center;
 }
 
-.updateOrder{
+.updateOrder {
     width: 100%;
 }
 
-button.styklist-button{
+button.styklist-button {
     padding: 5px;
     width: 75%;
 }
 
-button.edit-button{
+button.edit-button {
     padding: 5px;
     width: 75%;
 }
 
-.yellow-text{
+.yellow-text {
     color: #c6c600;
 }
 
-.red-text{
+.red-text {
     color: red;
 }
 
-.green-text{
+.green-text {
     color: green;
 }

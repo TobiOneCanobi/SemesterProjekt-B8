@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Ordre betalt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
+<div class="login-form">
+    <div class="login-box">
+        <h3>betaling bekræftet, din styklist er nu tilgængelig .</h3>
+        <div>
+            <form th:action="@{/orderoverviewcustomer}" method="get">
+                <button class="button-blue" type="submit">Tilbage til overblik</button>
+            </form>
+        </div>
+    </div>
+</div>
 <body>
-
-<h1><b>Tillykke du har betalt for din ordre.</b> </h1>
 
 </body>
 </html>

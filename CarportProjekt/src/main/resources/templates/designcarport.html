@@ -54,18 +54,18 @@
                     <br>
 
                     <label for="bygSelv">Jeg bygger selv</label>
-                    <input type="radio" id="bygSelv" name="installationFee"/>
+                    <input type="radio" id="bygSelv" name="installationFee" value="false"/>
 
                     <br><br>
-                    <label for="installationFee">Få bygget af FOG (+5000-,)</label>
-                    <input type="radio" id="installationFee" name="installationFee"/>
+                    <label for="installationFee">Bygget af FOG (+5000 kr.)</label>
+                    <input type="radio" id="installationFee" name="installationFee" value="true"/>
                     <br><br>
 
                     <div class="dropdown">
                         <p>Længde på din carport</p>
                         <label for="lengthdropdown"></label>
                         <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
-                            <option value="" disabled selected>Vælg længde</option>
+                            <option disabled selected>Vælg længde</option>
                             <th:block th:each="carportLength : ${session.carportLengthList}">
                                 <option th:value="${carportLength}" th:text="${carportLength}"></option>
                             </th:block>
@@ -76,7 +76,7 @@
                         <p>Bredde på din carport</p>
                         <label for="widthdropdown"></label>
                         <select id="widthdropdown" name="selectedcarportwidth" onchange="updateTotalPrice()">
-                            <option value="" disabled selected>Vælg bredde</option>
+                            <option disabled selected>Vælg bredde</option>
                             <th:block th:each="carportLength : ${session.carportLengthList}">
                                 <option th:value="${carportLength}" th:text="${carportLength}"></option>
                             </th:block>
@@ -85,6 +85,7 @@
                     <br><br>
 
                     <button class="button-green" type="submit">Send forspørgelse</button>
+                    <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
                 </form>
 
                 <form th:action="@{/generateSvg}" method="get">

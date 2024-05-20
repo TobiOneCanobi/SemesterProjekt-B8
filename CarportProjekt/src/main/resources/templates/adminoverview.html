@@ -38,6 +38,7 @@
 
 
 <h2><b> <i> Du er nu på adminoverblik-siden.</i> </b></h2>
+<p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
 <table class="table-border">
     <thead>
     <tr>
@@ -76,16 +77,13 @@
                 <button type="submit">Edit</button>
             </form>
             <div th:if="${order.orderStatusId == 1}">
-            <form th:action="@{/updateStatusOnOrder}" method="post">
-                <input type="hidden" name="orderId" th:value="${order.orderId}">
-                <input type="hidden" name="status" th:value="${order.orderStatusId}">
-                <button type="submit">Accept</button>
-            </form>
+                <form th:action="@{/updateStatusOnOrder}" method="post">
+                    <input type="hidden" name="orderId" th:value="${order.orderId}">
+                    <input type="hidden" name="status" th:value="${order.orderStatusId}">
+                    <button type="submit">Accept</button>
+                </form>
             </div>
         </td>
-
-
-        </tr>
     </div>
 </table>
 

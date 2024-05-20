@@ -54,7 +54,7 @@
     </thead>
 
     <div th:each="order : ${orderListCustomer}">
-        <form th:action="@{showpartslist}" method="post">
+        <form th:action="@{showPartsList}" method="post">
 
             <tr>
                 <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">

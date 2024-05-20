@@ -106,16 +106,31 @@ public class OrderController
 
     private static void sendRequest(Context ctx, ConnectionPool connectionPool)
     {
-        int width = Integer.parseInt(ctx.formParam("selectedcarportwidth"));
-        int length = Integer.parseInt(ctx.formParam("selectedcarportlength"));
-        //Boolean installationFee = ctx.formParam("");
-        int status = 1;
-        int totalPrice = 19999;
-        User user = ctx.sessionAttribute("currentUser");
-
-        Order order = new Order(100, width, length, false, status, totalPrice, user);
         try
         {
+            int width = 0;
+            int length = 0;
+            boolean installationFee = false;
+            int installationFeeCost = 5000;
+            int status = 1;
+            int totalPrice = 19999;
+            User user = ctx.sessionAttribute("currentUser");
+            Order order;
+
+            width = Integer.parseInt(ctx.formParam("selectedcarportwidth"));
+            length = Integer.parseInt(ctx.formParam("selectedcarportlength"));
+            installationFee = Boolean.parseBoolean(ctx.formParam("installationFee"));
+
+
+            if (installationFee)
+            {
+                order = new Order(100, width, length, installationFee, status, totalPrice + installationFeeCost, user);
+            } else
+            {
+                order = new Order(100, width, length, installationFee, status, totalPrice, user);
+            }
+
+
             // lav order
             order = OrderMapper.insertOrder(order, connectionPool);
 
@@ -137,6 +152,10 @@ public class OrderController
         } catch (InterruptedException e)
         {
             throw new RuntimeException(e);
+        } catch (NumberFormatException n)
+        {
+            ctx.attribute("message", "mangler at udfylde længde og bredde");
+            ctx.render("designcarport.html");
         }
     }
 
@@ -240,16 +259,13 @@ public class OrderController
             {
                 status = 2;
                 OrderMapper.updateStatus(orderId, status, connectionPool);
-                List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
-                ctx.attribute("orderList", orderList);
-                ctx.render("adminoverview.html");
+                ctx.attribute("message", "Order id: " + orderId + " er blevet opdateret");
+                orderOverviewAdmin(ctx, connectionPool);
             } else if (status == 2)
             {
                 status = 3;
             }
             OrderMapper.updateStatus(orderId, status, connectionPool);
-            List<Order> orderList = OrderMapper.getAllOrders(connectionPool);
-            ctx.attribute("orderList", orderList);
             if (currentUser.getRole().equals("customer"))
             {
                 ctx.render("confirmationpage.html");

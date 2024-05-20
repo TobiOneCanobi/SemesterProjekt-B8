@@ -7,89 +7,98 @@
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
+<div class="login-form">
 
-<div class="return" th:if="${session.userRole == 'admin'}">
-    <form th:action="@{/adminoverview}" method="get">
-        <button class="button-blue" type="submit">Tilbage</button>
-    </form>
-</div>
-
-<!--
-skal også være en return knap til normal user
--->
-
-<h2><b> <i> Din stykliste.</i> </b></h2>
-<table class="table-border-stykliste">
-    <thead>
-    <tr>
-        <td>Carport bredde:</td>
-        <td>Carport længde:</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${width}"></td>
-        <td th:text="${length}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<table class="table-border">
-    <thead>
-    <tr>
-        <td>Materiale:</td>
-        <td>Længde:</td>
-        <td>Antal:</td>
-        <td>Enhed:</td>
-        <td>Anvendelse:</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="orderItem : ${orderItemList}">
-        <td th:text="${orderItem.materialVariant.material.name}"></td>
-        <td th:text="${orderItem.materialVariant.length}"></td>
-        <td th:text="${orderItem.quantity}"></td>
-        <td th:text="${orderItem.materialVariant.material.unit}"></td>
-        <td th:text="${orderItem.description}"></td>
-    </tr>
-    </tbody>
-</table>
-
-
-<!--
-<table class="table-border">
-    <thead>
-    <tr>
-        <th>Order id</th>
-        <th>status</th>
-        <th>Width</th>
-        <th>Length</th>
-        <th>Installation fee</th>
-        <th>User id</th>
-        <th>Price</th>
-        <th>strykliste</th>
-    </tr>
-    </thead>
-
-    <div th:each="order : ${orderList}">
-        <form th:action="@{/showPartsList}" method="post">
-
-            <tr>
-                <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">
-                </td>
-                <td th:text="${order.orderStatusId}"></td>
-                <td th:text="${order.carportWidth}"></td>
-                <td th:text="${order.carportLength}"></td>
-                <td th:text="${order.installationFee}"></td>
-                <td th:text="${order.User.email}"></td>
-                <td th:text="${order.totalPrice}"></td>
-                <td>
-                    <button type="submit">Se strykliste</button>
-                </td>
-            </tr>
+    <div class="return" th:if="${session.userRole == 'admin'}">
+        <form th:action="@{/adminoverview}" method="get">
+            <button class="button-blue" type="submit">Tilbage</button>
         </form>
     </div>
-</table>
--->
+
+    <div class="return" th:if="${session.userRole == 'customer'}">
+        <form th:action="@{/orderoverviewcustomer}" method="get">
+            <button class="button-blue" type="submit">Tilbage</button>
+        </form>
+    </div>
+
+
+
+
+        <h2><b> <i> Din stykliste.</i> </b></h2>
+        <table class="table-border-stykliste">
+
+            <thead>
+            <tr>
+                <td>Carport bredde:</td>
+                <td>Carport længde:</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${width}"></td>
+                <td th:text="${length}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table-border">
+            <thead>
+            <tr>
+                <td>Materiale:</td>
+                <td>Længde:</td>
+                <td>Antal:</td>
+                <td>Enhed:</td>
+                <td>Anvendelse:</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orderItem : ${orderItemList}">
+                <td th:text="${orderItem.materialVariant.material.name}"></td>
+                <td th:text="${orderItem.materialVariant.length}"></td>
+                <td th:text="${orderItem.quantity}"></td>
+                <td th:text="${orderItem.materialVariant.material.unit}"></td>
+                <td th:text="${orderItem.description}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <!--
+        <table class="table-border">
+            <thead>
+            <tr>
+                <th>Order id</th>
+                <th>status</th>
+                <th>Width</th>
+                <th>Length</th>
+                <th>Installation fee</th>
+                <th>User id</th>
+                <th>Price</th>
+                <th>strykliste</th>
+            </tr>
+            </thead>
+
+            <div th:each="order : ${orderList}">
+                <form th:action="@{/showPartsList}" method="post">
+
+                    <tr>
+                        <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">
+                        </td>
+                        <td th:text="${order.orderStatusId}"></td>
+                        <td th:text="${order.carportWidth}"></td>
+                        <td th:text="${order.carportLength}"></td>
+                        <td th:text="${order.installationFee}"></td>
+                        <td th:text="${order.User.email}"></td>
+                        <td th:text="${order.totalPrice}"></td>
+                        <td>
+                            <button type="submit">Se strykliste</button>
+                        </td>
+                    </tr>
+                </form>
+            </div>
+        </table>
+        -->
+
+</div>
 </body>
 </html>

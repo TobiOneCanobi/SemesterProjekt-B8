@@ -8,112 +8,93 @@
 </head>
 <body>
 
-<div class="login-logo">
-    <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
-</div>
-
-<header>
-
-    <div class="return">
-        <form th:action="@{/backtoindex}" method="get">
-            <button class="button-blue" type="submit">Tilbage</button>
-        </form>
-    </div>
-
-    <div class="button-same-row">
-        <div class="user_email_bar"
-             th:if="${session.currentUser != null}" th:text="${session.userEmail}">
+<div class="login-form">
+    <header>
+        <div class="return">
+            <form th:action="@{/backtoindex}" method="get">
+                <button class="button-blue" type="submit">Tilbage</button>
+            </form>
         </div>
+    </header>
 
-
-        <div class="login_or_out">
-            <div class="login" th:if="${session.currentUser == null}">
-                <form th:action="@{/loginpage}" method="get">
-                    <button class="text-margin button-blue" type="submit">Login</button>
-                </form>
-            </div>
-
-            <div class="logout" th:if="${session.currentUser != null}">
-                <form th:action="@{/logout}" method="get">
-                    <button class="text-margin button-red" type="submit">Log ud</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</header>
-
-<div class="login_check" th:if="${session.currentUser == null}">
     <div class="login-box">
-        <p>Venligst login for adgang til design funktion</p>
-        <form th:action="@{/loginpage}" method="get">
-            <button type="submit" class="button-blue">Login</button>
-        </form>
-    </div>
-</div>
+        <div class="login-logo">
+            <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
+        </div>
 
-
-<div th:if="${session.currentUser != null}">
-    <h3>Her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
-
-
-    <hr>
-
-    <div class="requestform">
-        <form th:action="@{/sendRequest}" method="post">
-            <label for="firstname">Fornavn</label>
-            <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
-            <label for="lastname">Efternavn</label>
-            <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
-            <label for="address">Adresse</label>
-            <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
-            <label for="postcode">Post nummer</label>
-            <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
-            <label for="phone">Telefon nummer</label>
-            <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
-            <br>
-
-            <label for="bygSelv">Jeg bygger selv</label>
-            <input type="radio" id="bygSelv" name="installationFee"/>
-
-            <br><br>
-            <label for="installationFee">Få bygget af FOG (+5000-,)</label>
-            <input type="radio" id="installationFee" name="installationFee"/>
-            <br><br>
-
-            <div class="dropdown">
-                <p>Længde på din carport</p>
-                <label for="lengthdropdown"></label>
-                <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
-                    <option value="" disabled selected>Vælg længde</option>
-                    <th:block th:each="carportLength : ${session.carportLengthList}">
-                        <option th:value="${carportLength}" th:text="${carportLength}"></option>
-                    </th:block>
-                </select>
+        <div class="login_check" th:if="${session.currentUser == null}">
+            <div class="login-box">
+                <p>Venligst login for adgang til design funktion</p>
+                <form th:action="@{/loginpage}" method="get">
+                    <button type="submit" class="button-blue">Login</button>
+                </form>
             </div>
+        </div>
 
-            <div class="dropdown">
-                <p>Bredde på din carport</p>
-                <label for="widthdropdown"></label>
-                <select id="widthdropdown" name="selectedcarportwidth" onchange="updateTotalPrice()">
-                    <option value="" disabled selected>Vælg bredde</option>
-                    <th:block th:each="carportLength : ${session.carportLengthList}">
-                        <option th:value="${carportLength}" th:text="${carportLength}"></option>
-                    </th:block>
-                </select>
+
+        <div th:if="${session.currentUser != null}">
+            <h3>Bestill din egen skræddersyet carport</h3>
+
+            <hr>
+
+            <div class="requestform">
+                <form th:action="@{/sendRequest}" method="post">
+                    <label for="firstname">Fornavn</label>
+                    <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
+                    <label for="lastname">Efternavn</label>
+                    <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
+                    <label for="address">Adresse</label>
+                    <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
+                    <label for="postcode">Post nummer</label>
+                    <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
+                    <label for="phone">Telefon nummer</label>
+                    <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
+                    <br>
+
+                    <label for="bygSelv">Jeg bygger selv</label>
+                    <input type="radio" id="bygSelv" name="installationFee"/>
+
+                    <br><br>
+                    <label for="installationFee">Få bygget af FOG (+5000-,)</label>
+                    <input type="radio" id="installationFee" name="installationFee"/>
+                    <br><br>
+
+                    <div class="dropdown">
+                        <p>Længde på din carport</p>
+                        <label for="lengthdropdown"></label>
+                        <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
+                            <option value="" disabled selected>Vælg længde</option>
+                            <th:block th:each="carportLength : ${session.carportLengthList}">
+                                <option th:value="${carportLength}" th:text="${carportLength}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+
+                    <div class="dropdown">
+                        <p>Bredde på din carport</p>
+                        <label for="widthdropdown"></label>
+                        <select id="widthdropdown" name="selectedcarportwidth" onchange="updateTotalPrice()">
+                            <option value="" disabled selected>Vælg bredde</option>
+                            <th:block th:each="carportLength : ${session.carportLengthList}">
+                                <option th:value="${carportLength}" th:text="${carportLength}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <br><br>
+
+                    <button class="button-green" type="submit">Send forspørgelse</button>
+                </form>
+
+                <form th:action="@{/generateSvg}" method="get">
+                    <button class="button-green" type="submit">Se skitse</button>
+                    <div class="carport-svg-topview">
+                        <div th:utext="${svg}"></div>
+                    </div>
+                </form>
             </div>
-            <br><br>
-
-            <button class="button-green" type="submit">Send forspørgelse</button>
-        </form>
-
-        <form th:action="@{/generateSvg}" method="get">
-            <button class="button-green" type="submit">Se skitse</button>
-            <div class="carport-svg-topview">
-                <div th:utext="${svg}"></div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 </body>

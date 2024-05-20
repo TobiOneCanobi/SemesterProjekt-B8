@@ -9,7 +9,6 @@
 
 <body class="create-user-form">
 
-
 <div class="return">
     <form th:action="@{/backtologinfromcreateuser}" method="get">
         <button type="submit" class="button-red">Tilbage</button>
@@ -17,11 +16,8 @@
 </div>
 
 <div class="create-user-box">
-    <div class="login-logo">
         <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
-    </div>
 
-    <div class="create_user_input">
         <form method="post">
             <h2>Opret din bruger her</h2>
 
@@ -35,21 +31,20 @@
             <div class="password-input-box">
                 <label for="password1"> Indtast dit password:</label><br>
                 <input type="password" id="password1" name="password1" placeholder="Password">
-                <img src="images/PasswordEye.png" id="eyeicon">
-                <br>
-
-                <label for="password2"> Indtast dit password igen:</label><br>
-                <input type="password" id="password2" name="password2" placeholder="Password">
-                <img src="images/PasswordEye.png" id="eyeicon2">
-
-                <br>
+                <img src="images/PasswordEye.png" id="eyeicon" class="password-eye-position">
+                <br><br>
             </div>
 
+            <div class="password-input-box">
+                <label for="password2"> Indtast dit password igen:</label><br>
+                <input type="password" id="password2" name="password2" placeholder="Password">
+                <img src="images/PasswordEye.png" id="eyeicon2" class="password-eye-position">
+                <br><br>
+            </div>
 
             <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'passwordmsg'}"
                th:text="${entry.value}"></p>
             <br><br>
-
 
             <label for="firstname">Indtast dit fornavn:</label><br>
             <input type="text" id="firstname" name="firstname" placeholder="Fornavn"
@@ -88,7 +83,6 @@
                th:text="${entry.value}"></p>
             <br><br>
 
-
             <button type="submit" class="button-green" id="submitbutton" formaction="/createuser">Opret bruger</button>
             <p class="error-message" th:each="entry : ${errormessages}" th:if="${entry.key == 'validinfomsg'}"
                th:text="${entry.value}"></p>
@@ -96,7 +90,6 @@
                th:text="${entry.value}"></p>
         </form>
     </div>
-</div>
 
 <script>
     const submitButton = document.getElementById("submitbutton");
@@ -234,11 +227,8 @@
             eyeicon.src = "images/PasswordEyeslash.png"
             eyeicon2.src = "images/PasswordEyeslash.png"
         }
-
-
     }
 </script>
-
 
 </body>
 </html>

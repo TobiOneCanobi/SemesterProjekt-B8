@@ -80,15 +80,17 @@ button[type=submit] {
 }
 
 .password-input-box {
-
-}
-
-.password-input-box input {
+    display: inline-block;
+    position: relative;
     width: 100%;
+
 }
 
-.password-input-box img {
-    width: 35px;
+.password-eye-position {
+    position: absolute;
+    top: 35px;
+    right: 10px;
+    width: 24px;
     cursor: pointer;
 }
 
@@ -100,7 +102,6 @@ button[type=submit] {
 .login-or-out {
     display: flex;
 }
-
 
 .login-form {
     background-color: #013d7a;

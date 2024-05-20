@@ -21,19 +21,18 @@
         <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
     </div>
 
-
     <div class="login-input">
         <form action="login" method="post">
             <h2>Log på</h2>
 
-            <label for="email">Indtast din email</label> <br>
+            <label for="email">Indtast din email</label><br>
             <input type="text" id="email" name="email" placeholder="Email"><br>
 
             <br>
             <div class="password-input-box">
-                <label for="password">Indtast dit password</label> <br>
+                <label for="password">Indtast dit password</label><br>
                 <input type="password" id="password" name="password" placeholder="Password">
-                <img src="images/PasswordEye.png" id="eyeicon">
+                <img src="images/PasswordEye.png" id="eyeicon" class="password-eye-position">
             </div>
 
             <script>

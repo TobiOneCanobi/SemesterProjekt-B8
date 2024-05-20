@@ -35,10 +35,9 @@ public class Calculator
     public void calcCarport(Order order) throws DatabaseException, InterruptedException
     {
         calcPosts(order);
-
         calcBeams(order);
-
         calcRafter(order);
+
     }
 
     // stolper
@@ -53,13 +52,6 @@ public class Calculator
         OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Stolper nedgraves 90 cm. i jord");
         orderItems.add(orderItem);
 
-        // tester
-        System.out.println("stolper:");
-        System.out.println(quantity);
-        for (MaterialVariant materialVariant1 : materialVariants)
-        {
-            System.out.println(materialVariant1.toString());
-        }
     }
 
     public int calcPostQuantity()
@@ -81,14 +73,6 @@ public class Calculator
 
         OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Remme i sider, sadles ned i stolper");
         orderItems.add(orderItem);
-
-        //test
-        System.out.println("remme:");
-        System.out.println(quantity);
-        for (MaterialVariant materialVariant1 : materialVariants)
-        {
-            System.out.println(materialVariant1.toString());
-        }
     }
 
     public int calcBeamQuantity()
@@ -98,7 +82,8 @@ public class Calculator
 
 
     //spær
-    private void calcRafter(Order order) throws DatabaseException {
+    private void calcRafter(Order order) throws DatabaseException
+    {
         double rafterWidth;
         List<MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(length, 2, connectionPool);
         MaterialVariant materialVariant = materialVariants.get(0);
@@ -106,7 +91,6 @@ public class Calculator
         String description = materialVariant.getMaterial().getName();
         // extract width from description
         rafterWidth = extractPartWidth(description);
-        System.out.println("spær:");
 
         int optimalNumberOfRafters = (int) calculateOptimalSpaceWidth(length);
         //int quantity = calcRafterQuantity(length, optimalSpaceWidth);
@@ -114,16 +98,10 @@ public class Calculator
         OrderItem orderItem = new OrderItem(0, order, materialVariant, optimalNumberOfRafters, "Spær, monteres på rem");
         orderItems.add(orderItem);
 
-        //test
-
-        //System.out.println(quantity);
-        for (MaterialVariant materialVariant1 : materialVariants) {
-            System.out.println(materialVariant1.toString());
-        }
-        System.out.println("Rafter Width: " + rafterWidth);
     }
 
-    public double calculateOptimalSpaceWidth(int totalLength) {
+    public double calculateOptimalSpaceWidth(int totalLength)
+    {
         double rafterWidth = 4.5; // Width of each rafter in cm
         int minSpacing = 45; // Minimum space between rafters in cm
         int maxSpacing = 60; // Maximum space between rafters in cm
@@ -136,40 +114,39 @@ public class Calculator
         int optimalNumberOfRafters = 0;
 
         // Iterate through possible number of rafters to find the optimal configuration
-        for (int n = minRafters; n <= maxRafters; n++) {
+        for (int n = minRafters; n <= maxRafters; n++)
+        {
             double totalRafterWidth = n * rafterWidth;
             int numberOfSpaces = n - 1;
             double spaceWidth = (totalLength - totalRafterWidth) / numberOfSpaces;
 
             // Check if the calculated space width is within the allowed range
-            if (spaceWidth >= minSpacing && spaceWidth <= maxSpacing) {
+            if (spaceWidth >= minSpacing && spaceWidth <= maxSpacing)
+            {
                 optimalSpaceWidth = spaceWidth;
                 optimalNumberOfRafters = n;
                 break; // Exit loop if a valid configuration is found
             }
         }
 
-        System.out.println("Optimal number of rafters: " + optimalNumberOfRafters);
-        System.out.println("Optimal space width: " + optimalSpaceWidth);
-
         return optimalNumberOfRafters;
     }
 
-    public int calcRafterQuantity(int length, double optimalSpaceWidth) {
+    /*public int calcRafterQuantity(int length, double optimalSpaceWidth) {
         int rafterQuantity = 0;
 
         double rafterWidthInCm = 45 / 10.0; // Convert width from mm to cm
-        //double availableLength = length - (2 * rafterWidthInCm); // Subtract the width of two end rafters
-        //double distanceBetweenRafters;
+        double availableLength = length - (2 * rafterWidthInCm); // Subtract the width of two end rafters
+        double distanceBetweenRafters;
 
-        // Calculate the number of gaps between rafters
-        //int numberOfGaps = (int) Math.floor(availableLength / (55 + rafterWidthInCm));
+         Calculate the number of gaps between rafters
+        int numberOfGaps = (int) Math.floor(availableLength / (55 + rafterWidthInCm));
 
-        // Calculate the dynamic distance between rafters
+         Calculate the dynamic distance between rafters
 
 
-        // Ensure we start and end with a rafter
-        /*for (double currentLength = rafterWidthInCm + optimalSpaceWidth;
+         Ensure we start and end with a rafter
+        for (double currentLength = rafterWidthInCm + optimalSpaceWidth;
              currentLength + rafterWidthInCm <= length - rafterWidthInCm;
              currentLength += optimalSpaceWidth + rafterWidthInCm) {
             rafterQuantity++;
@@ -178,7 +155,7 @@ public class Calculator
         double lastRafterPosition = rafterWidthInCm + (rafterQuantity - 1) * (optimalSpaceWidth + rafterWidthInCm);
         if (length - lastRafterPosition >= rafterWidthInCm) {
             rafterQuantity++;
-        }*/
+        }
 
         for (double i = 0; i < length; i += optimalSpaceWidth)
         {
@@ -190,19 +167,18 @@ public class Calculator
         System.out.println("dist: " + optimalSpaceWidth);
         System.out.println("quantity: " + rafterQuantity);
         return rafterQuantity + 1; // Add 1 to include the final rafter at the end
-    }
+    }*/
 
-
-
-
-
-    private int extractPartWidth(String description) {
+    private int extractPartWidth(String description)
+    {
         String regex = "(\\d+)x\\d+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(description);
-        if (matcher.find()) {
+        if (matcher.find())
+        {
             return Integer.parseInt(matcher.group(1));
-        } else {
+        } else
+        {
             throw new IllegalArgumentException("Invalid material description format: " + description);
         }
     }

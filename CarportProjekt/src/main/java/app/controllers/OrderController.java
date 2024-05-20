@@ -22,7 +22,6 @@ public class OrderController
         app.get("adminoverview", ctx -> orderOverviewAdmin(ctx, connectionPool));
         app.post("showPartsList", ctx -> showPartsList(ctx, connectionPool));
         app.get("orderoverviewcustomer", ctx -> orderOverviewCustommer(ctx, connectionPool));
-        // app.post("CreateOrder", ctx -> CreateOrder(ctx, connectionPool));
         app.get("generateSvg", ctx -> showCarport(ctx));
         app.post("updateOrder", ctx -> updateOrder(ctx, connectionPool));
         app.post("editOrder", ctx -> editOrder(ctx, connectionPool));
@@ -30,8 +29,6 @@ public class OrderController
         app.post("sendRequest", ctx -> sendRequest(ctx, connectionPool));
         app.get("carportLengthOptionsList", ctx -> carportLengthList(ctx, connectionPool));
         app.get("designcarport", ctx -> carportLengthList(ctx, connectionPool));
-
-
         app.post("updateStatusOnOrder", ctx -> updateStatusOnOrder(ctx, connectionPool));
     }
 
@@ -67,31 +64,10 @@ public class OrderController
         }
     }
 
-
-    /*
-        public static void orderOverviewCustomer(Context ctx, ConnectionPool connectionPool)
-        {
-            User user = ctx.sessionAttribute("currentUser");
-            try
-            {
-                int userId = user.getUserId();
-                List<Order> orderListCustommer = OrderMapper.loadOrdersForCustomer(connectionPool, userId);
-                ctx.attribute("customerorders", orderListCustommer);
-                ctx.render("customeroverview.html");
-            } catch (Exception e)
-            {
-                ctx.attribute("message", "Failed to get orders");
-                e.printStackTrace();
-                ctx.render("custommeroverview.html");
-            }
-        }
-    */
-
     private static void carportLengthList(Context ctx, ConnectionPool connectionPool)
     {
         try
         {
-
             List<Integer> carportLengthOptionsList = OrderMapper.getMaterialVariantFromMaterialId(connectionPool);
 
             ctx.sessionAttribute("carportLengthList", carportLengthOptionsList);
@@ -108,7 +84,6 @@ public class OrderController
         int orderId = Integer.parseInt(ctx.formParam("orderIdChosen"));
         try
         {
-
             List<OrderItem> orderItemList = OrderMapper.getOrderItemsByOrderId(orderId, connectionPool);
 
             if (orderItemList.isEmpty())
@@ -125,7 +100,6 @@ public class OrderController
 
         } catch (DatabaseException e)
         {
-            // måske også en numberformat exception??
             throw new RuntimeException();
         }
     }
@@ -142,20 +116,18 @@ public class OrderController
         Order order = new Order(100, width, length, false, status, totalPrice, user);
         try
         {
-
+            // lav order
             order = OrderMapper.insertOrder(order, connectionPool);
 
-            //to do
-            // calculate order items (parts list)
-
+            //beregn stykliste til orderitems
             Calculator calculator = new Calculator(width, length, connectionPool);
             calculator.calcCarport(order);
 
-            // save parts in db
+            //hent orderitems
+            List<OrderItem> orderItems = calculator.getOrderItems();
 
-            // create message to customer and render order / send confirmation
-            // er for test skal render en anden side
-            System.out.println("test succes");
+            //insert orderitems
+            OrderMapper.insertOrderItems(orderItems, connectionPool);
             ctx.render("requestsentpage.html");
 
         } catch (DatabaseException e)
@@ -166,8 +138,6 @@ public class OrderController
         {
             throw new RuntimeException(e);
         }
-
-
     }
 
     private static void deleteOrder(Context ctx, ConnectionPool connectionPool)
@@ -186,31 +156,13 @@ public class OrderController
         }
     }
 
-
-    /*
-            public static int calculateTotalPrice(Context ctx)
-            {
-                List<OrderItem> orderItemList = ctx.sessionAttribute("orderItemList");
-                if (orderItemList == null)
-                {
-                    return 0;
-                }
-                int totalPrice = 0;
-                for (OrderItem orderItem : orderItemList)
-                {
-                    int orderItemsListTotal = orderItem.getMaterial().getQuantity() * orderItem.getMaterial().getPrice();
-                    totalPrice += orderItemsListTotal;
-                }
-                return totalPrice;
-            }
-        */
     public static void showCarport(Context ctx)
     {
         Locale.setDefault(Locale.US);
         try
         {
-            int length = Integer.parseInt(ctx.queryParam("length"));
-            int width = Integer.parseInt(ctx.queryParam("width"));
+            int length = Integer.parseInt(ctx.queryParam("selectedcarportlength"));
+            int width = Integer.parseInt(ctx.queryParam("selectedcarportwidth"));
             if (length < 300 || length > 600 || width < 300 || width > 600)
             {
                 ctx.attribute("message1", "Ugyldig længde eller bredde. <br>" +
@@ -301,7 +253,8 @@ public class OrderController
             if (currentUser.getRole().equals("customer"))
             {
                 ctx.render("confirmationpage.html");
-            } else {
+            } else
+            {
                 ctx.render("adminoverview.html");
             }
         } catch (DatabaseException | NumberFormatException e)

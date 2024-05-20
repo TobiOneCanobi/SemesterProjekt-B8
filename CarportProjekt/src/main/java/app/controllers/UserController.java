@@ -61,7 +61,8 @@ public class UserController
         ctx.redirect("/");
     }
 
-    private static void invalidateSession(Context ctx) {
+    private static void invalidateSession(Context ctx)
+    {
         ctx.req().getSession().invalidate();
         ctx.render("loginpage.html");
     }

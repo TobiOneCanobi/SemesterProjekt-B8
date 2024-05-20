@@ -9,7 +9,6 @@ import java.util.List;
 
 public class OrderMapper
 {
-
     public static List<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException
     {
         List<Order> orderList = new ArrayList<>();
@@ -50,6 +49,7 @@ public class OrderMapper
         }
         return orderList;
     }
+
     public static List<Integer> getMaterialVariantFromMaterialId(ConnectionPool connectionPool) throws DatabaseException
     {
         List<Integer> carportLengthList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class OrderMapper
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                )
+        )
         {
             var rs = preparedStatement.executeQuery();
             while (rs.next())
@@ -221,22 +221,22 @@ public class OrderMapper
 
     public static void delete(int orderId, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "DELETE FROM order_item WHERE order_id = ?";
+        String sql1 = "DELETE FROM order_item WHERE order_id = ?";
 
         try (
                 Connection connection = connectionPool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql)
+                PreparedStatement ps = connection.prepareStatement(sql1)
         )
         {
             ps.setInt(1, orderId);
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 1)
+            if (rowsAffected < 1)
             {
-                throw new DatabaseException("Fejl ved sletning af en ordre!");
+                throw new DatabaseException("Fejl ved sletning af en orderitem!");
             }
         } catch (SQLException e)
         {
-            throw new DatabaseException("Fejl ved sletning af en ordre", e.getMessage());
+            throw new DatabaseException("Fejl ved sletning af en orderitem", e.getMessage());
         }
 
         String sql2 = "DELETE FROM orders WHERE order_id = ?";
@@ -258,57 +258,6 @@ public class OrderMapper
         }
     }
 
-    /*
-    public static List<Order> loadOrdersForCustomer(ConnectionPool connectionPool, int userId) throws DatabaseException
-    {
-        List<Order> loadOrdersForCustomerList = new ArrayList<>();
-        String sql = "SELECT\n" +
-                "    users.user_id,\n" +
-                "    users.email,\n" +
-                "    users.first_name,\n" +
-                "    users.last_name,\n" +
-                "    users.address,\n" +
-                "    users.phone_number,\n" +
-                "    users.zip_code,\n" +
-                "    orders.order_id,\n" +
-                "    orders.total_price,\n" +
-                "    orders.installation_fee,\n" +
-                "    orders.status\n" +
-                "FROM\n" +
-                "    public.users\n" +
-                "JOIN\n" +
-                "    public.orders ON users.user_id = orders.user_id\n" +
-                "WHERE\n" +
-                "    users.user_id = ?";
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql))
-        {
-            ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next())
-            {
-                int orderId = rs.getInt("order_id");
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                String email = rs.getString("email");
-                String phoneNumber = rs.getString("phone_number");
-                String address = rs.getString("address");
-                int zipCode = rs.getInt("zip_code");
-                int totalPrice = rs.getInt("total_price");
-                String status = rs.getString("status");
-
-                Order order = new Order(orderId, firstName, lastName, email, phoneNumber, address, zipCode, totalPrice, status);
-                loadOrdersForCustomerList.add(order);
-            }
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-            throw new DatabaseException("Fejl ved indlæsning af ordrer.", e.getMessage());
-        }
-        return loadOrdersForCustomerList;
-    }
-
-*/
     public static void updateOrder(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "UPDATE orders " +
@@ -389,5 +338,4 @@ public class OrderMapper
             throw new DatabaseException("Fejl i opdatering af en status på en order", e.getMessage());
         }
     }
-
 }

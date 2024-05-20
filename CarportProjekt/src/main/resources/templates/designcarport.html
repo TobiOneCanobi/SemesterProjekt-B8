@@ -55,26 +55,11 @@
 <div th:if="${session.currentUser != null}">
     <h3>Her kan du designe din HELT EGEN MEGA SEJE CARPORT</h3>
 
-    <div class="design_input" th:if="${session.currentUser != null}">
-        <form action="generateSvg" method="get">
-            <label for="length">Carportens længde:</label><br>
-            <input type="text" id="length" name="length" placeholder="Længde i cm"><br>
-            <label for="width">Carportens bredde:</label><br>
-            <input type="text" id="width" name="width" placeholder="Bredde i cm"><br><br>
-            <button type="submit" class="button-green">Generér carport</button>
-            <p class="error" th:if="${message1 != null}" th:utext="${message1}"></p>
-        </form>
-    </div>
-
-    <p>Din Carport:</p>
-    <div class="carport-svg-topview">
-        <div th:utext="${svg}"></div>
-    </div>
 
     <hr>
 
     <div class="requestform">
-        <form action="sendRequest" method="post">
+        <form th:action="@{/sendRequest}" method="post">
             <label for="firstname">Fornavn</label>
             <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
             <label for="lastname">Efternavn</label>
@@ -120,7 +105,14 @@
             </div>
             <br><br>
 
-            <button class="button-green" type="submit" value="">Send forspørgelse</button>
+            <button class="button-green" type="submit">Send forspørgelse</button>
+        </form>
+
+        <form th:action="@{/generateSvg}" method="get">
+            <button class="button-green" type="submit">Se skitse</button>
+            <div class="carport-svg-topview">
+                <div th:utext="${svg}"></div>
+            </div>
         </form>
     </div>
 </div>

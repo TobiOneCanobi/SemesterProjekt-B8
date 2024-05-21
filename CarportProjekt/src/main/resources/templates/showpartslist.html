@@ -7,7 +7,7 @@
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
-<div class="login-form">
+<div class="partslist-form">
 
     <div class="return" th:if="${session.userRole == 'admin'}">
         <form th:action="@{/adminoverview}" method="get">
@@ -22,8 +22,7 @@
     </div>
 
 
-
-
+    <div class="partslist-box">
         <h2><b> <i> Din stykliste.</i> </b></h2>
         <table class="table-border-stykliste">
 
@@ -98,7 +97,7 @@
             </div>
         </table>
         -->
-
+    </div>
 </div>
 </body>
 </html>

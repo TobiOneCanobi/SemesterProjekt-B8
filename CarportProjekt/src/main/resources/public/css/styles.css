@@ -2,6 +2,8 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -120,6 +122,30 @@ button[type=submit] {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.partslist-form {
+    background-color: #013d7a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: auto;
+    padding: 0;
+}
+
+.partslist-box {
+    position: revert;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -256,7 +282,7 @@ select {
     border-radius: 8px;
     width: 300px;
     color: white;
-    margin: auto; /* Center horizontally */
+    margin: auto;
 }
 
 .requestform {
@@ -268,8 +294,8 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto; /* Center horizontally */
-    margin-top: 20px; /* Adjust top margin as needed */
+    margin: auto;
+    margin-top: 20px;
 }
 
 .updateorderform {
@@ -281,7 +307,7 @@ select {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Use percentage for width */
+    width: 300px;
     margin-top: 10vh;
 }
 

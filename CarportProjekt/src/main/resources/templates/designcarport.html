@@ -17,85 +17,79 @@
         </div>
     </header>
 
-    <div class="login-box">
-        <div class="login-logo">
-            <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
-        </div>
 
-        <div class="login_check" th:if="${session.currentUser == null}">
-            <div class="login-box">
-                <p>Venligst login for adgang til design funktion</p>
-                <form th:action="@{/loginpage}" method="get">
-                    <button type="submit" class="button-blue">Login</button>
-                </form>
+    <div class="login-logo">
+        <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
+    </div>
+
+    <div class="login_check" th:if="${session.currentUser == null}">
+
+        <p>Venligst login for adgang til design funktion</p>
+        <form th:action="@{/loginpage}" method="get">
+            <button type="submit" class="button-blue">Login</button>
+        </form>
+    </div>
+
+
+    <div class="requestform" th:if="${session.currentUser != null}">
+        <h3>Bestill din egen skræddersyet carport</h3>
+        <hr>
+        <form th:action="@{/sendRequest}" method="post">
+            <label for="firstname">Fornavn</label>
+            <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
+            <label for="lastname">Efternavn</label>
+            <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
+            <label for="address">Adresse</label>
+            <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
+            <label for="postcode">Post nummer</label>
+            <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
+            <label for="phone">Telefon nummer</label>
+            <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
+            <br>
+
+            <label for="bygSelv">Jeg bygger selv</label>
+            <input type="radio" id="bygSelv" name="installationFee" value="false"/>
+
+            <br><br>
+            <label for="installationFee">Bygget af FOG (+5000 kr.)</label>
+            <input type="radio" id="installationFee" name="installationFee" value="true"/>
+            <br><br>
+
+            <div class="dropdown">
+                <p>Længde på din carport</p>
+                <label for="lengthdropdown"></label>
+                <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
+                    <option disabled selected>Vælg længde</option>
+                    <th:block th:each="carportLength : ${session.carportLengthList}">
+                        <option th:value="${carportLength}" th:text="${carportLength}"></option>
+                    </th:block>
+                </select>
             </div>
-        </div>
 
-
-        <div th:if="${session.currentUser != null}">
-            <h3>Bestill din egen skræddersyet carport</h3>
-
-            <hr>
-
-            <div class="requestform">
-                <form th:action="@{/sendRequest}" method="post">
-                    <label for="firstname">Fornavn</label>
-                    <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
-                    <label for="lastname">Efternavn</label>
-                    <input type="text" id="lastname" name="lastname" th:value="${session.currentUser.lastName}"/>
-                    <label for="address">Adresse</label>
-                    <input type="text" id="address" name="address" th:value="${session.currentUser.address}"/>
-                    <label for="postcode">Post nummer</label>
-                    <input type="text" id="postcode" name="postcode" th:value="${session.currentUser.zipCode}"/>
-                    <label for="phone">Telefon nummer</label>
-                    <input type="text" id="phone" name="phone" th:value="${session.currentUser.phoneNumber}"/>
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" th:value="${session.userEmail}"/>
-                    <br>
-
-                    <label for="bygSelv">Jeg bygger selv</label>
-                    <input type="radio" id="bygSelv" name="installationFee" value="false"/>
-
-                    <br><br>
-                    <label for="installationFee">Bygget af FOG (+5000 kr.)</label>
-                    <input type="radio" id="installationFee" name="installationFee" value="true"/>
-                    <br><br>
-
-                    <div class="dropdown">
-                        <p>Længde på din carport</p>
-                        <label for="lengthdropdown"></label>
-                        <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
-                            <option disabled selected>Vælg længde</option>
-                            <th:block th:each="carportLength : ${session.carportLengthList}">
-                                <option th:value="${carportLength}" th:text="${carportLength}"></option>
-                            </th:block>
-                        </select>
-                    </div>
-
-                    <div class="dropdown">
-                        <p>Bredde på din carport</p>
-                        <label for="widthdropdown"></label>
-                        <select id="widthdropdown" name="selectedcarportwidth" onchange="updateTotalPrice()">
-                            <option disabled selected>Vælg bredde</option>
-                            <th:block th:each="carportLength : ${session.carportLengthList}">
-                                <option th:value="${carportLength}" th:text="${carportLength}"></option>
-                            </th:block>
-                        </select>
-                    </div>
-                    <br><br>
-
-                    <button class="button-green" type="submit">Send forspørgelse</button>
-                    <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
-                </form>
-
-                <form th:action="@{/generateSvg}" method="get">
-                    <button class="button-green" type="submit">Se skitse</button>
-                    <div class="carport-svg-topview">
-                        <div th:utext="${svg}"></div>
-                    </div>
-                </form>
+            <div class="dropdown">
+                <p>Bredde på din carport</p>
+                <label for="widthdropdown"></label>
+                <select id="widthdropdown" name="selectedcarportwidth" onchange="updateTotalPrice()">
+                    <option disabled selected>Vælg bredde</option>
+                    <th:block th:each="carportLength : ${session.carportLengthList}">
+                        <option th:value="${carportLength}" th:text="${carportLength}"></option>
+                    </th:block>
+                </select>
             </div>
-        </div>
+            <br><br>
+
+            <button class="button-green" type="submit">Send forspørgelse</button>
+            <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
+        </form>
+
+        <form th:action="@{/generateSvg}" method="get">
+            <button class="button-green" type="submit">Se skitse</button>
+            <div class="carport-svg-topview">
+                <div th:utext="${svg}"></div>
+            </div>
+        </form>
     </div>
 </div>
 </body>

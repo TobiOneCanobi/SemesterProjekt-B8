@@ -92,7 +92,7 @@ public class Calculator
         // extract width from description
         rafterWidth = extractPartWidth(description);
 
-        int optimalNumberOfRafters = (int) calculateOptimalSpaceWidth(length);
+        int optimalNumberOfRafters = (int) calcOptimalSpaceWidthAndQuantity(length);
         //int quantity = calcRafterQuantity(length, optimalSpaceWidth);
 
         OrderItem orderItem = new OrderItem(0, order, materialVariant, optimalNumberOfRafters, "Spær, monteres på rem");
@@ -100,13 +100,13 @@ public class Calculator
 
     }
 
-    public double calculateOptimalSpaceWidth(int totalLength)
+    public double calcOptimalSpaceWidthAndQuantity(int totalLength)
     {
-        double rafterWidth = 4.5; // Width of each rafter in cm
-        int minSpacing = 45; // Minimum space between rafters in cm
-        int maxSpacing = 60; // Maximum space between rafters in cm
+        double rafterWidth = 4.5;
+        int minSpacing = 45;
+        int maxSpacing = 60;
 
-        // Determine maximum and minimum number of rafters possible
+        // beregner en min og max antal spær
         int maxRafters = (int) ((totalLength + minSpacing) / (rafterWidth + minSpacing));
         int minRafters = (int) ((totalLength + maxSpacing) / (rafterWidth + maxSpacing));
 
@@ -114,6 +114,7 @@ public class Calculator
         int optimalNumberOfRafters = 0;
 
         // Iterate through possible number of rafters to find the optimal configuration
+        //
         for (int n = minRafters; n <= maxRafters; n++)
         {
             double totalRafterWidth = n * rafterWidth;
@@ -125,51 +126,14 @@ public class Calculator
             {
                 optimalSpaceWidth = spaceWidth;
                 optimalNumberOfRafters = n;
-                break; // Exit loop if a valid configuration is found
+                break;
             }
         }
 
         return optimalNumberOfRafters;
     }
 
-    /*public int calcRafterQuantity(int length, double optimalSpaceWidth) {
-        int rafterQuantity = 0;
-
-        double rafterWidthInCm = 45 / 10.0; // Convert width from mm to cm
-        double availableLength = length - (2 * rafterWidthInCm); // Subtract the width of two end rafters
-        double distanceBetweenRafters;
-
-         Calculate the number of gaps between rafters
-        int numberOfGaps = (int) Math.floor(availableLength / (55 + rafterWidthInCm));
-
-         Calculate the dynamic distance between rafters
-
-
-         Ensure we start and end with a rafter
-        for (double currentLength = rafterWidthInCm + optimalSpaceWidth;
-             currentLength + rafterWidthInCm <= length - rafterWidthInCm;
-             currentLength += optimalSpaceWidth + rafterWidthInCm) {
-            rafterQuantity++;
-        }
-
-        double lastRafterPosition = rafterWidthInCm + (rafterQuantity - 1) * (optimalSpaceWidth + rafterWidthInCm);
-        if (length - lastRafterPosition >= rafterWidthInCm) {
-            rafterQuantity++;
-        }
-
-        for (double i = 0; i < length; i += optimalSpaceWidth)
-        {
-            ++rafterQuantity;
-            i+= rafterWidthInCm;
-
-        }
-
-        System.out.println("dist: " + optimalSpaceWidth);
-        System.out.println("quantity: " + rafterQuantity);
-        return rafterQuantity + 1; // Add 1 to include the final rafter at the end
-    }*/
-
-    private int extractPartWidth(String description)
+    public int extractPartWidth(String description)
     {
         String regex = "(\\d+)x\\d+";
         Pattern pattern = Pattern.compile(regex);

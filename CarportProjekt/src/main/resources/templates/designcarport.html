@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <script>
+        function updateHiddenFields() {
+            const length = document.getElementById('lengthdropdown').value;
+            const width = document.getElementById('widthdropdown').value;
+
+            document.getElementById('hiddenLength').value = length;
+            document.getElementById('hiddenWidth').value = width;
+        }
+    </script>
 </head>
 <body class="design-carport-body">
 
@@ -29,14 +38,13 @@
         </div>
     </div>
 
-
     <div class="requestform" th:if="${session.currentUser != null}">
         <div class="login-logo">
             <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
         </div>
         <h3>Bestill din egen skræddersyet carport</h3>
         <hr>
-        <form th:action="@{/sendRequest}" method="post">
+        <form th:action="@{/sendRequest}" method="post" onsubmit="updateHiddenFields()">
             <label for="firstname">Fornavn</label>
             <input type="text" id="firstname" name="firstname" th:value="${session.currentUser.firstName}"/>
             <label for="lastname">Efternavn</label>
@@ -62,7 +70,7 @@
             <div class="dropdown">
                 <p>Længde på din carport</p>
                 <label for="lengthdropdown"></label>
-                <select id="lengthdropdown" name="selectedcarportlength" onchange="updateTotalPrice()">
+                <select id="lengthdropdown" name="selectedcarportlength" onchange="updateHiddenFields()">
                     <option disabled selected>Vælg længde</option>
                     <th:block th:each="carportLength : ${session.carportLengthList}">
                         <option th:value="${carportLength}" th:text="${carportLength}"></option>
@@ -73,7 +81,7 @@
             <div class="dropdown">
                 <p>Bredde på din carport</p>
                 <label for="widthdropdown"></label>
-                <select id="widthdropdown" name="selectedcarportwidth" onchange="updateTotalPrice()">
+                <select id="widthdropdown" name="selectedcarportwidth" onchange="updateHiddenFields()">
                     <option disabled selected>Vælg bredde</option>
                     <th:block th:each="carportLength : ${session.carportLengthList}">
                         <option th:value="${carportLength}" th:text="${carportLength}"></option>
@@ -86,7 +94,9 @@
             <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>
         </form>
 
-        <form th:action="@{/generateSvg}" method="get">
+        <form th:action="@{/generateSvg}" method="get" onsubmit="updateHiddenFields()">
+            <input type="hidden" id="hiddenLength" name="selectedcarportlength">
+            <input type="hidden" id="hiddenWidth" name="selectedcarportwidth">
             <button class="button-green" type="submit">Se skitse</button>
             <div class="carport-svg-topview">
                 <div th:utext="${svg}"></div>

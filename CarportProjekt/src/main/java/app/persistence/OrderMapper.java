@@ -230,7 +230,7 @@ public class OrderMapper
         {
             ps.setInt(1, orderId);
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected < 1)
+            if (rowsAffected <= 1)
             {
                 throw new DatabaseException("Fejl ved sletning af en orderitem!");
             }

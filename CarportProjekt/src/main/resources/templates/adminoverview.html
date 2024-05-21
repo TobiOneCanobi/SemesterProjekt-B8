@@ -60,10 +60,19 @@
             <tr>
                 <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">
                 </td>
-                <td th:text="${order.orderStatusId}"></td>
+                <td>
+                    <div th:switch="${order.orderStatusId}">
+                        <p class="yellow-text" th:case="'1'">Afventer tilbud</p>
+                        <p class="red-text" th:case="'2'">Afventer betaling</p>
+                        <p class="green-text" th:case="'3'">Betalt</p>
+                    </div>
+                </td>
                 <td th:text="${order.carportWidth}"></td>
                 <td th:text="${order.carportLength}"></td>
-                <td th:text="${order.installationFee}"></td>
+                <td th:switch="${order.installationFee}">
+                    <p th:case="false">Byg selv.</p>
+                    <p th:case="true">Bygget af Fog</p>
+                </td>
                 <td th:text="${order.User.email}"></td>
                 <td th:text="${order.totalPrice}"></td>
                 <td>

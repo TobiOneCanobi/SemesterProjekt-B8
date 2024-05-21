@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
-<body>
+<body class="design-carport-body">
 
-<div class="login-form">
+<div class="design-carport-form">
     <header>
         <div class="return">
             <form th:action="@{/backtoindex}" method="get">
@@ -17,21 +17,23 @@
         </div>
     </header>
 
-
-    <div class="login-logo">
-        <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
-    </div>
-
-    <div class="login_check" th:if="${session.currentUser == null}">
-
-        <p>Venligst login for adgang til design funktion</p>
-        <form th:action="@{/loginpage}" method="get">
-            <button type="submit" class="button-blue">Login</button>
-        </form>
+    <div class="design-carport-box" th:if="${session.currentUser == null}">
+        <div class="login_check" th:if="${session.currentUser == null}">
+            <div class="login-logo">
+                <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
+            </div>
+            <p>Venligst login for adgang til design funktion</p>
+            <form th:action="@{/loginpage}" method="get">
+                <button type="submit" class="button-blue">Login</button>
+            </form>
+        </div>
     </div>
 
 
     <div class="requestform" th:if="${session.currentUser != null}">
+        <div class="login-logo">
+            <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
+        </div>
         <h3>Bestill din egen skræddersyet carport</h3>
         <hr>
         <form th:action="@{/sendRequest}" method="post">
@@ -91,6 +93,7 @@
             </div>
         </form>
     </div>
+
 </div>
 </body>
 </html>

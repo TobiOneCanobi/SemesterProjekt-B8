@@ -4,6 +4,16 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+
+}
+
+.design-carport-body  {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #013d7a;
 }
 
 header {
@@ -243,11 +253,7 @@ body.create-user-form {
     margin: auto;
 }
 
-.login_check {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .table-border {
     border-collapse: collapse;
@@ -284,6 +290,32 @@ select {
     color: white;
     margin: auto;
 }
+
+.design-carport-form {
+    background-color: #013d7a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.design-carport-box {
+    position: revert;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 
 .requestform {
     position: relative;

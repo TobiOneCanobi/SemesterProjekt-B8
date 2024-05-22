@@ -37,7 +37,6 @@ public class Calculator
         calcPosts(order);
         calcBeams(order);
         calcRafter(order);
-
     }
 
     // stolper
@@ -51,7 +50,6 @@ public class Calculator
         MaterialVariant materialVariant = materialVariants.get(0);
         OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Stolper nedgraves 90 cm. i jord");
         orderItems.add(orderItem);
-
     }
 
     public int calcPostQuantity()
@@ -61,25 +59,28 @@ public class Calculator
         return 2 * (2 + (length - 130) / 340);
     }
 
-
     //remme
     private void calcBeams(Order order) throws DatabaseException
     {
         List<MaterialVariant> materialVariants = MaterialMapper.getVariantsByProductIdAndMinLength(length, 2, connectionPool);
         MaterialVariant materialVariant = materialVariants.get(0);
 
-
-        int quantity = calcBeamQuantity();
+        int quantity = calcBeamQuantity(length);
 
         OrderItem orderItem = new OrderItem(0, order, materialVariant, quantity, "Remme i sider, sadles ned i stolper");
         orderItems.add(orderItem);
     }
 
-    public int calcBeamQuantity()
+    public int calcBeamQuantity(int length)
     {
-        return 2;
+        if (length <= 600)
+        {
+            return 2;
+        } else
+        {
+            return 4;
+        }
     }
-
 
     //spær
     private void calcRafter(Order order) throws DatabaseException
@@ -89,47 +90,48 @@ public class Calculator
         MaterialVariant materialVariant = materialVariants.get(0);
 
         String description = materialVariant.getMaterial().getName();
-        // extract width from description
-        rafterWidth = extractPartWidth(description);
+        //extract width of material from description and convert it from mm to cm
+        rafterWidth = (double) extractPartWidth(description) / 10;
+        // get the same distance between all the rafters
+        double widthBetweenRafters = calculateOptimalSpaceWidth(length, rafterWidth);
+        // calc the quantity of rafters
+        int rafterQuantity = calculateNumberOfRafters(length, widthBetweenRafters, rafterWidth);
 
-        int optimalNumberOfRafters = (int) calcOptimalSpaceWidthAndQuantity(length);
-        //int quantity = calcRafterQuantity(length, optimalSpaceWidth);
-
-        OrderItem orderItem = new OrderItem(0, order, materialVariant, optimalNumberOfRafters, "Spær, monteres på rem");
+        OrderItem orderItem = new OrderItem(0, order, materialVariant, rafterQuantity, "Spær, monteres på rem");
         orderItems.add(orderItem);
-
     }
 
-    public double calcOptimalSpaceWidthAndQuantity(int totalLength)
+    public double calculateOptimalSpaceWidth(int totalLength, double rafterWidth)
     {
-        double rafterWidth = 4.5;
         int minSpacing = 45;
         int maxSpacing = 60;
 
-        // beregner en min og max antal spær
         int maxRafters = (int) ((totalLength + minSpacing) / (rafterWidth + minSpacing));
         int minRafters = (int) ((totalLength + maxSpacing) / (rafterWidth + maxSpacing));
 
-        double optimalSpaceWidth = 0;
-        int optimalNumberOfRafters = 0;
-
-        // loop igennem for at finde en løsning
         for (int n = minRafters; n <= maxRafters; n++)
         {
             double totalRafterWidth = n * rafterWidth;
             int numberOfSpaces = n - 1;
             double spaceWidth = (totalLength - totalRafterWidth) / numberOfSpaces;
 
-            //tjek om den beregende afstand overholder min og max afstand
             if (spaceWidth >= minSpacing && spaceWidth <= maxSpacing)
             {
-                optimalSpaceWidth = spaceWidth;
-                optimalNumberOfRafters = n;
-                break;
+                return spaceWidth;
             }
         }
+        // Return an invalid value if no solution is found
+        return -1;
+    }
 
-        return optimalNumberOfRafters;
+    public int calculateNumberOfRafters(int totalLength, double optimalSpaceWidth, double rafterWidth)
+    {
+        if (optimalSpaceWidth == -1)
+        {
+            // Return 0 if the space width is invalid
+            return 0;
+        }
+        return (int) ((totalLength + optimalSpaceWidth) / (rafterWidth + optimalSpaceWidth));
     }
 
     public int extractPartWidth(String description)

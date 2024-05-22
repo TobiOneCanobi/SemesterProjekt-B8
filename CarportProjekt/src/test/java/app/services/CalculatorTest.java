@@ -41,13 +41,32 @@ class CalculatorTest
         Calculator calculator = new Calculator(600,600, connectionPool);
         //expected
         int expected = 2;
+        int expected2 = 4;
         int unexpected = 4;
         //actual
-        int actual = calculator.calcBeamQuantity();
+        int actual = calculator.calcBeamQuantity(600);
+        int actual2 = calculator.calcBeamQuantity(800);
+        //assert
+        assertEquals(expected,actual);
+        assertNotEquals(unexpected,actual);
+        assertEquals(expected2,actual2);
+    }
+
+    @Test
+    void calculateOptimalSpaceWidth()
+    {
+        //setup
+        Calculator calculator = new Calculator(600,600, connectionPool);
+        //expected
+        double expected = 55.05;
+        double unexpected = 55;
+        //actual
+        double actual = calculator.calculateOptimalSpaceWidth(600,4.5);
         //assert
         assertEquals(expected,actual);
         assertNotEquals(unexpected,actual);
     }
+
     @Test
     void calcRafterQuantity()
     {
@@ -57,7 +76,7 @@ class CalculatorTest
         int expected = 11;
         int unexpected = 12;
         //actual
-        int actual = (int) calculator.calcOptimalSpaceWidthAndQuantity(600);
+        int actual = (int) calculator.calculateNumberOfRafters(600,55.05,4.5);
         //assert
         assertEquals(expected,actual);
         assertNotEquals(unexpected,actual);

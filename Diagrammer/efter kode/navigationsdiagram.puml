@@ -1,0 +1,53 @@
+@startuml
+
+[*]--> forside : start
+state forside
+forside --> login
+forside --> admin_oversigt
+forside --> bruger_oversigt
+forside --> design_din_egen
+forside --> carport_visning
+
+
+state login
+login --> forside
+login --> sign_up
+
+state sign_up
+sign_up --> login
+
+state carport_visning
+carport_visning --> forside
+
+state design_din_egen
+design_din_egen --> forside
+design_din_egen --> tilbuds_Anmodning_sendt
+
+state tilbuds_Anmodning_sendt
+tilbuds_Anmodning_sendt --> bruger_oversigt
+
+state bruger_oversigt
+bruger_oversigt --> forside
+bruger_oversigt --> køb_gennemført
+bruger_oversigt --> se_styklist
+
+
+state køb_gennemført
+køb_gennemført --> bruger_oversigt
+
+state se_styklist
+se_styklist --> bruger_oversigt
+se_styklist --> admin_oversigt
+
+state admin_oversigt
+admin_oversigt --> forside
+admin_oversigt --> admin_edit
+admin_oversigt --> se_styklist
+
+state admin_edit
+admin_edit --> forside
+admin_edit --> admin_oversigt
+
+køb_gennemført --> [*] : slut
+
+@enduml

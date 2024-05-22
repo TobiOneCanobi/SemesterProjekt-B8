@@ -113,15 +113,14 @@ public class Calculator
         double optimalSpaceWidth = 0;
         int optimalNumberOfRafters = 0;
 
-        // Iterate through possible number of rafters to find the optimal configuration
-        //
+        // loop igennem for at finde en løsning
         for (int n = minRafters; n <= maxRafters; n++)
         {
             double totalRafterWidth = n * rafterWidth;
             int numberOfSpaces = n - 1;
             double spaceWidth = (totalLength - totalRafterWidth) / numberOfSpaces;
 
-            // Check if the calculated space width is within the allowed range
+            //tjek om den beregende afstand overholder min og max afstand
             if (spaceWidth >= minSpacing && spaceWidth <= maxSpacing)
             {
                 optimalSpaceWidth = spaceWidth;

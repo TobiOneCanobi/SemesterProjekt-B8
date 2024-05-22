@@ -26,11 +26,14 @@ class CalculatorTest
         Calculator calculator = new Calculator(600,600, connectionPool);
         //expected
         int expected = 6;
+        int unexpected = 4;
         //actual
         int actual = calculator.calcPostQuantity();
         //assert
         assertEquals(expected,actual);
+        assertNotEquals(unexpected,actual);
     }
+
     @Test
     void calcBeamsQuantity()
     {
@@ -38,10 +41,12 @@ class CalculatorTest
         Calculator calculator = new Calculator(600,600, connectionPool);
         //expected
         int expected = 2;
+        int unexpected = 4;
         //actual
         int actual = calculator.calcBeamQuantity();
         //assert
         assertEquals(expected,actual);
+        assertNotEquals(unexpected,actual);
     }
     @Test
     void calcRafterQuantity()
@@ -50,10 +55,12 @@ class CalculatorTest
         Calculator calculator = new Calculator(600,600, connectionPool);
         //expected
         int expected = 11;
+        int unexpected = 12;
         //actual
         int actual = (int) calculator.calcOptimalSpaceWidthAndQuantity(600);
         //assert
         assertEquals(expected,actual);
+        assertNotEquals(unexpected,actual);
     }
     @Test
     void extractPartWidth()
@@ -62,10 +69,12 @@ class CalculatorTest
         Calculator calculator = new Calculator(600,600, connectionPool);
         //expected
         int expected = 45;
+        int unexpected = 40;
         //actual
         int actual = calculator.extractPartWidth("45x195 mm. spærtræ ubh.");
         //assert
         assertEquals(expected,actual);
+        assertNotEquals(unexpected,actual);
     }
 
 }

@@ -254,7 +254,7 @@ public class OrderMapper
             }
         } catch (SQLException e)
         {
-            throw new DatabaseException("Fejl ved sletning af en ordre", e.getMessage());
+            throw new DatabaseException("En fejl opstod: ", e.getMessage());
         }
     }
 

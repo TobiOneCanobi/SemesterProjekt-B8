@@ -2,51 +2,49 @@
 
 [*]--> forside : start
 state forside
-forside --> login
-forside --> admin_oversigt
-forside --> bruger_oversigt
-forside --> design_din_egen
-forside --> carport_visning
+forside --> login : /loginpage
+forside --> admin_oversigt : /adminoverview
+forside --> bruger_oversigt : /orderoverviewcustomer
+forside --> design_din_egen : /designcarport
+forside --> Færdige_carporte
 
 
 state login
-login --> forside
-login --> sign_up
+login --> forside : /backtoindex
+login --> sign_up : /creatuserpage
 
 state sign_up
-sign_up --> login
+sign_up --> login : /backtologinfromcreateuser
 
-state carport_visning
-carport_visning --> forside
+
 
 state design_din_egen
-design_din_egen --> forside
-design_din_egen --> tilbuds_Anmodning_sendt
+design_din_egen --> forside : /backtoindex
+design_din_egen --> tilbuds_Anmodning_sendt : /sendRequest
 
 state tilbuds_Anmodning_sendt
-tilbuds_Anmodning_sendt --> bruger_oversigt
+tilbuds_Anmodning_sendt --> bruger_oversigt : /orderoverviewcustomer
 
 state bruger_oversigt
-bruger_oversigt --> forside
-bruger_oversigt --> køb_gennemført
-bruger_oversigt --> se_styklist
+bruger_oversigt --> forside : /backtoindex
+bruger_oversigt --> køb_gennemført : /updateStatusOnOrder
+bruger_oversigt --> se_styklist : /showPartsList
 
 
 state køb_gennemført
-køb_gennemført --> bruger_oversigt
+køb_gennemført --> bruger_oversigt : /orderoverviewcustomer
 
 state se_styklist
-se_styklist --> bruger_oversigt
-se_styklist --> admin_oversigt
+se_styklist --> bruger_oversigt : /orderoverviewcustomer
+se_styklist --> admin_oversigt : /adminoverview
 
 state admin_oversigt
-admin_oversigt --> forside
-admin_oversigt --> admin_edit
-admin_oversigt --> se_styklist
+admin_oversigt --> forside : /backtoindex
+admin_oversigt --> admin_edit : /editOrder
+admin_oversigt --> se_styklist : /showPartsList
 
 state admin_edit
-admin_edit --> forside
-admin_edit --> admin_oversigt
+admin_edit --> admin_oversigt : /adminoverview
 
 køb_gennemført --> [*] : slut
 

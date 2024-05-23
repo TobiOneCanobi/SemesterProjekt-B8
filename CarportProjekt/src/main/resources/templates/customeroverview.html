@@ -56,7 +56,10 @@
                 </td>
                 <td th:text="${order.carportWidth}"></td>
                 <td th:text="${order.carportLength}"></td>
-                <td th:text="${order.installationFee}"></td>
+                <td th:switch="${order.installationFee}">
+                    <p th:case="false">Byg selv.</p>
+                    <p th:case="true">Bygget af Fog</p>
+                </td>
                 <td>
                     <div th:switch="${order.orderStatusId}">
                         <p class="yellow-text" th:case="'1'">Under gennemsyn</p>

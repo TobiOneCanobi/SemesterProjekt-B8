@@ -13,7 +13,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Integrationstest for OrderMapper
 class OrderMapperTest
 {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -75,7 +74,6 @@ class OrderMapperTest
                 stmt.execute("SELECT setval('test.order_item_order_item_id_seq', COALESCE((SELECT MAX(order_item_id) + 1 FROM test.order_item), 1), false)");
                 stmt.execute("SELECT setval('test.orders_order_id_seq', COALESCE((SELECT MAX(order_id) + 1 FROM test.orders), 1), false)");
                 stmt.execute("SELECT setval('test.users_user_id_seq', COALESCE((SELECT MAX(user_id) + 1 FROM test.users), 1), false)");
-
             }
         } catch (SQLException e)
         {
@@ -98,14 +96,14 @@ class OrderMapperTest
         }
     }
 
-   /* @Test
+    @Test
     void insertOrder()
     {
         try
         {
             User user = new User(1, "pepande", "pandestejsen", "pepandevej 20", 2600, 12341234, "pepande@pepande.dk", "Pepande2!", "customer");
-            Order newOrder = new Order(4, 4, true, 2, 40, user);
-            newOrder = OrderMapper.insertOrder(newOrder, connectionPool);
+            Order newOrder = new Order(44, 44, true, 2, 40, user.getUserId());
+            newOrder = OrderMapper.insertOrder(newOrder, user, connectionPool);
             Order actualOrder = OrderMapper.getOrderById(newOrder.getOrderId(), connectionPool);
             assertEquals(newOrder, actualOrder);
         } catch (DatabaseException e)
@@ -132,7 +130,20 @@ class OrderMapperTest
     @Test
     void delete()
     {
-       
+        try
+        {
+            List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
+            boolean actualOrder = actualOrders.stream().anyMatch(order -> order.getOrderId() == 1);
+            assertTrue(actualOrder);
+            OrderMapper.delete(1, connectionPool);
+            List<Order> deletedOrders = OrderMapper.getAllOrders(connectionPool);
+            boolean deletedOrder = deletedOrders.stream().noneMatch(order -> order.getOrderId() == 1);
+            assertTrue(deletedOrder);
+            assertEquals(actualOrders.size() - 1, deletedOrders.size());
+        } catch (DatabaseException e)
+        {
+            fail("Database fejl: " + e.getMessage());
+        }
     }
 
     @Test
@@ -148,5 +159,5 @@ class OrderMapperTest
         {
             fail("Database fejl: " + e.getMessage());
         }
-    }*/
+    }
 }

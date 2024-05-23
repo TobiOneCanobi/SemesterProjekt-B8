@@ -11,6 +11,19 @@ public class Order
     private int orderStatusId;
     private int totalPrice;
     private User user;
+    private int userId;
+
+
+    public Order(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, int userId)
+    {
+        this.orderId = orderId;
+        this.carportWidth = carportWidth;
+        this.carportLength = carportLength;
+        this.installationFee = installationFee;
+        this.orderStatusId = orderStatusId;
+        this.totalPrice = totalPrice;
+        this.userId = userId;
+    }
 
     public Order(int orderId, int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice)
     {
@@ -41,6 +54,25 @@ public class Order
         this.orderStatusId = orderStatusId;
         this.totalPrice = totalPrice;
         this.user = user;
+    }
+
+    public Order(int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice)
+    {
+        this.carportWidth = carportWidth;
+        this.carportLength = carportLength;
+        this.installationFee = installationFee;
+        this.orderStatusId = orderStatusId;
+        this.totalPrice = totalPrice;
+    }
+
+    public Order(int carportWidth, int carportLength, boolean installationFee, int orderStatusId, int totalPrice, int userId)
+    {
+        this.carportWidth = carportWidth;
+        this.carportLength = carportLength;
+        this.installationFee = installationFee;
+        this.orderStatusId = orderStatusId;
+        this.totalPrice = totalPrice;
+        this.userId = userId;
     }
 
     public int getOrderId()

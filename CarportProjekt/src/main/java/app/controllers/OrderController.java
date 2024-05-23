@@ -131,7 +131,7 @@ public class OrderController
             }
 
             // lav order
-            order = OrderMapper.insertOrder(order, connectionPool);
+            order = OrderMapper.insertOrder(order, user, connectionPool);
 
             //beregn stykliste til orderitems
             Calculator calculator = new Calculator(width, length, connectionPool);

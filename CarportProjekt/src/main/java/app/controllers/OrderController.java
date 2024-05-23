@@ -183,8 +183,8 @@ public class OrderController
             int width = Integer.parseInt(ctx.queryParam("selectedcarportwidth"));
             if (length < 300 || length > 600 || width < 300 || width > 600)
             {
-                ctx.attribute("message1", "Ugyldig længde eller bredde. <br>" +
-                        "Indtast venligst gyldige tal. <br>" +
+                ctx.attribute("message1", "Ugyldig længde eller bredde." +
+                        "Indtast venligst gyldige tal." +
                         "Længde og bredde skal være mellem 300 og 600 cm.");
                 ctx.attribute("svg", "");
                 ctx.render("designcarport.html");

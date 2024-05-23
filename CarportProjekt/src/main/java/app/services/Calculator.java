@@ -90,7 +90,7 @@ public class Calculator
         //extract width of material from description and convert it from mm to cm
         rafterWidth = (double) extractPartWidth(description) / 10;
         // get the same distance between all the rafters
-        double widthBetweenRafters = calculateOptimalSpaceWidth(length, rafterWidth);
+        double widthBetweenRafters = calculateOptimalRafterSpaceWidth(length, rafterWidth);
         // calc the quantity of rafters
         int rafterQuantity = calculateNumberOfRafters(length, widthBetweenRafters, rafterWidth);
 
@@ -98,7 +98,7 @@ public class Calculator
         orderItems.add(orderItem);
     }
 
-    public double calculateOptimalSpaceWidth(int totalLength, double rafterWidth)
+    public double calculateOptimalRafterSpaceWidth(int totalLength, double rafterWidth)
     {
         int minSpacing = 45;
         int maxSpacing = 60;

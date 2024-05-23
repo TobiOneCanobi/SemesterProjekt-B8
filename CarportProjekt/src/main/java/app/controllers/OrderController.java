@@ -196,8 +196,8 @@ public class OrderController
             }
         } catch (NumberFormatException e)
         {
-            ctx.attribute("message", "Ugyldig længde eller bredde. <br>" +
-                    "Indtast venligst gyldige tal. <br>" +
+            ctx.attribute("message", "Ugyldig længde eller bredde. " +
+                    "Indtast venligst gyldige tal." +
                     "Længde og bredde skal være mellem 300 og 600 cm.");
             ctx.attribute("svg", "");
         }

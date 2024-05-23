@@ -1,7 +1,6 @@
 package app.services;
 
 import app.persistence.ConnectionPool;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +48,7 @@ class CalculatorTest
     }
 
     @Test
-    void calculateOptimalSpaceWidth()
+    void calculateOptimalRafterSpaceWidth()
     {
         //setup
         Calculator calculator = new Calculator(600, 600, connectionPool);
@@ -57,7 +56,7 @@ class CalculatorTest
         double expected = 55.05;
         double unexpected = 55;
         //actual
-        double actual = calculator.calculateOptimalSpaceWidth(600, 4.5);
+        double actual = calculator.calculateOptimalRafterSpaceWidth(600, 4.5);
         //assert
         assertEquals(expected, actual);
         assertNotEquals(unexpected, actual);

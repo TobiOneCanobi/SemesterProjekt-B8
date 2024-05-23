@@ -11,7 +11,6 @@ import io.javalin.http.Context;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class UserController
 {
@@ -128,7 +127,6 @@ public class UserController
                 {
                     errorMessages.put("addressmsg", "Angiv venligst mellemrum mellem vejnavn og husnummer ");
                 }
-
             }
             // zip code must only contain 4 numbers
             if (!Validation.validateFourNumbersOnly(zipCode))

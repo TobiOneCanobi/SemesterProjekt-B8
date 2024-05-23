@@ -130,7 +130,6 @@ public class OrderController
                 order = new Order(100, width, length, installationFee, status, totalPrice, user);
             }
 
-
             // lav order
             order = OrderMapper.insertOrder(order, connectionPool);
 
@@ -202,7 +201,6 @@ public class OrderController
                     "Længde og bredde skal være mellem 300 og 600 cm.");
             ctx.attribute("svg", "");
         }
-        // Render the HTML template
         ctx.render("designcarport.html");
     }
 

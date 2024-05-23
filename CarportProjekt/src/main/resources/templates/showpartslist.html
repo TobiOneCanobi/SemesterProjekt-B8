@@ -21,11 +21,9 @@
         </form>
     </div>
 
-
     <div class="partslist-box">
         <h2><b> <i> Din stykliste.</i> </b></h2>
         <table class="table-border-stykliste">
-
             <thead>
             <tr>
                 <td>Carport bredde:</td>
@@ -60,43 +58,6 @@
             </tr>
             </tbody>
         </table>
-
-
-        <!--
-        <table class="table-border">
-            <thead>
-            <tr>
-                <th>Order id</th>
-                <th>status</th>
-                <th>Width</th>
-                <th>Length</th>
-                <th>Installation fee</th>
-                <th>User id</th>
-                <th>Price</th>
-                <th>strykliste</th>
-            </tr>
-            </thead>
-
-            <div th:each="order : ${orderList}">
-                <form th:action="@{/showPartsList}" method="post">
-
-                    <tr>
-                        <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">
-                        </td>
-                        <td th:text="${order.orderStatusId}"></td>
-                        <td th:text="${order.carportWidth}"></td>
-                        <td th:text="${order.carportLength}"></td>
-                        <td th:text="${order.installationFee}"></td>
-                        <td th:text="${order.User.email}"></td>
-                        <td th:text="${order.totalPrice}"></td>
-                        <td>
-                            <button type="submit">Se strykliste</button>
-                        </td>
-                    </tr>
-                </form>
-            </div>
-        </table>
-        -->
     </div>
 </div>
 </body>

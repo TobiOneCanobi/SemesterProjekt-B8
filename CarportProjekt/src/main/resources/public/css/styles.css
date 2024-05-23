@@ -4,10 +4,9 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-
 }
 
-.design-carport-body  {
+.design-carport-body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -35,7 +34,6 @@ h4 {
     color: #369;
     font-family: Arial, Helvetica, sans-serif;
 }
-
 
 input[type=text] {
     width: 100%;
@@ -76,7 +74,6 @@ button[type=submit] {
 .button-green {
     background-color: #378a43;
     color: #ffffff;
-
 }
 
 .button-red {
@@ -173,7 +170,6 @@ button[type=submit] {
     display: block;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 .return {
@@ -254,7 +250,6 @@ body.create-user-form {
 }
 
 
-
 .table-border {
     border-collapse: collapse;
     width: 90%;
@@ -265,7 +260,6 @@ body.create-user-form {
     flex: auto;
     flex-direction: column;
     align-items: center;
-
 }
 
 .table-border-stykliste {
@@ -315,7 +309,6 @@ select {
     margin-top: auto;
     margin-bottom: auto;
 }
-
 
 .requestform {
     position: revert;

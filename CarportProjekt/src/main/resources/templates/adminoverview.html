@@ -20,7 +20,6 @@
         </form>
     </div>
 
-
     <div class="button-same-row">
         <div class="user_email_bar"
              th:if="${session.currentUser != null}" th:text="${session.userEmail}">
@@ -35,7 +34,6 @@
         </div>
     </div>
 </header>
-
 
 <h2><b> <i> Du er nu på adminoverblik-siden.</i> </b></h2>
 <p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p>

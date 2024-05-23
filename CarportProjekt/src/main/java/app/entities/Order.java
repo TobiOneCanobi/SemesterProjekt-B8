@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class Order
 {
-    //Order fields
     private int orderId;
     private int carportWidth;
     private int carportLength;

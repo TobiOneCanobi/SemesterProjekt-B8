@@ -26,6 +26,7 @@ public class User
         this.password = password;
         this.role = role;
     }
+
     public User(int userId, String email, String password, String role)
     {
         this.userId = userId;
@@ -33,6 +34,7 @@ public class User
         this.password = password;
         this.role = role;
     }
+
     public User(String firstName, String lastName, String address, int zipCode, int phoneNumber, String email)
     {
         this.firstName = firstName;
@@ -44,42 +46,52 @@ public class User
         this.password = password;
         this.role = role;
     }
+
     public int getUserId()
     {
         return userId;
     }
+
     public String getFirstName()
     {
         return firstName;
     }
+
     public String getLastName()
     {
         return lastName;
     }
+
     public String getAddress()
     {
         return address;
     }
+
     public int getZipCode()
     {
         return zipCode;
     }
+
     public int getPhoneNumber()
     {
         return phoneNumber;
     }
+
     public String getEmail()
     {
         return email;
     }
+
     public String getPassword()
     {
         return password;
     }
+
     public String getRole()
     {
         return role;
     }
+
     @Override
     public String toString()
     {

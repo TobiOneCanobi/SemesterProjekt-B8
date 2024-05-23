@@ -76,7 +76,6 @@ class OrderMapperTest
                 stmt.execute("SELECT setval('test.order_item_order_item_id_seq', COALESCE((SELECT MAX(order_item_id) + 1 FROM test.order_item), 1), false)");
                 stmt.execute("SELECT setval('test.orders_order_id_seq', COALESCE((SELECT MAX(order_id) + 1 FROM test.orders), 1), false)");
                 stmt.execute("SELECT setval('test.users_user_id_seq', COALESCE((SELECT MAX(user_id) + 1 FROM test.users), 1), false)");
-
             }
         } catch (SQLException e)
         {
@@ -135,8 +134,6 @@ class OrderMapperTest
     {
         try
         {
-
-
             Order expectedOrder = new Order(1, 1, 1, false, 1, 10);
 
         OrderItem expectedOrderItem = new OrderItem(1, expectedOrder, 1, "hej med dig");

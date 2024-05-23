@@ -24,9 +24,10 @@ public class ConnectionPool
     private ConnectionPool()
     {
     }
+
     public static ConnectionPool getInstance()
     {
-        return getInstance("","","","");
+        return getInstance("", "", "", "");
     }
 
     /***

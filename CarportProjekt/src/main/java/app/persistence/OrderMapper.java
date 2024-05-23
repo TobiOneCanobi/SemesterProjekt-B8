@@ -41,7 +41,6 @@ public class OrderMapper
                 User user = new User(userId, firstName, lastName, address, zipCode, phoneNumber, email, password, role);
                 Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice, user);
                 orderList.add(order);
-
             }
         } catch (SQLException e)
         {
@@ -70,9 +69,7 @@ public class OrderMapper
         {
             throw new DatabaseException("Could not get material variant from the database", e.getMessage());
         }
-
         return carportLengthList;
-
     }
 
 
@@ -100,7 +97,6 @@ public class OrderMapper
                     int status = resultSet.getInt("status");
                     int totalPrice = resultSet.getInt("total_price");
 
-
                     Order order = new Order(orderId, carportWidth, carportLength, installationFee, status, totalPrice);
                     orderList.add(order);
                 }
@@ -111,7 +107,6 @@ public class OrderMapper
         }
         return orderList;
     }
-
 
     public static List<OrderItem> getOrderItemsByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException
     {
@@ -153,7 +148,6 @@ public class OrderMapper
         {
             throw new DatabaseException("Could not get users from the database", e.getMessage());
         }
-
         return orderItemList;
     }
 

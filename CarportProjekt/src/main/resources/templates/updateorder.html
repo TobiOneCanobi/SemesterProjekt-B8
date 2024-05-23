@@ -27,21 +27,15 @@
         <input type="text" name="status" th:value="${order.orderStatusId}"/>
         <label>Total pris</label>
         <input type="text" name="totalPrice" th:value="${order.totalPrice}"/>
-
-    <br>
-
-    <button type="submit" name="orderId" th:value="${order.orderId}" formaction="/updateOrder">Update</button>
-
-</form>
+        <br>
+        <button type="submit" name="orderId" th:value="${order.orderId}" formaction="/updateOrder">Update</button>
+    </form>
 
     <p> Eller </p>
 
-<form method="post">
-<button type="submit" name="orderid" th:value="${order.orderId}" formaction="deleteorder">Slet</button>
-</form>
-
-
-
+    <form method="post">
+        <button type="submit" name="orderid" th:value="${order.orderId}" formaction="deleteorder">Slet</button>
+    </form>
 </div>
 </body>
 

@@ -31,7 +31,6 @@ public class UserMapper
                 int phoneNumber = rs.getInt("phone_number");
 
 
-
                 return new User(userId, firstname, lastname, address, zipCode, phoneNumber, email, password, role);
             } else
             {
@@ -64,8 +63,6 @@ public class UserMapper
     }
 
 
-
-
     public static boolean phoneNumberExists(int phoneNumber, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT COUNT(*) AS COUNT FROM users WHERE phone_number = ?";
@@ -85,11 +82,6 @@ public class UserMapper
         }
         return false;
     }
-
-
-
-
-
 
 
     public static void createUser(String firstName, String lastName, String address, int zipCode, int phoneNumber, String email, String password, String role, ConnectionPool connectionPool) throws DatabaseException

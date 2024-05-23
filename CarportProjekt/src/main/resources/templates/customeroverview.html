@@ -12,10 +12,7 @@
 <div class="login-logo">
     <img src="../public/images/fog-banner-logo.png" th:src="@{/images/fog-banner-logo.png}"/>
 </div>
-
 <header>
-
-
     <div class="return">
         <form th:action="@{/backtoindex}" method="get">
             <button class="button-blue" type="submit">Tilbage</button>
@@ -35,7 +32,6 @@
             </div>
         </div>
     </div>
-    <div></div>
 </header>
 
 <h2><b> <i> Du er nu på Kundeoverblik-siden.</i> </b></h2>
@@ -55,11 +51,9 @@
 
     <div th:each="order : ${orderListCustomer}">
         <form th:action="@{showPartsList}" method="post">
-
             <tr>
                 <td><input type="hidden" name="orderIdChosen" th:value="${order.orderId}" th:text="${order.orderId}">
                 </td>
-
                 <td th:text="${order.carportWidth}"></td>
                 <td th:text="${order.carportLength}"></td>
                 <td th:text="${order.installationFee}"></td>
@@ -74,24 +68,22 @@
 
                 <td>
                     <div th:if="${order.orderStatusId == 3}">
-                    <button type="submit">Se stykliste</button>
+                        <button type="submit">Se stykliste</button>
                     </div>
                 </td>
         </form>
-                <td>
-                    <div th:if="${order.orderStatusId == 2}">
-                        <form th:action="@{/updateStatusOnOrder}" method="post">
-                            <input type="hidden" name="orderId" th:value="${order.orderId}">
-                            <input type="hidden" name="status" th:value="${order.orderStatusId}">
-                            <button type="submit">Betal Ordre</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
+        <td>
+            <div th:if="${order.orderStatusId == 2}">
+                <form th:action="@{/updateStatusOnOrder}" method="post">
+                    <input type="hidden" name="orderId" th:value="${order.orderId}">
+                    <input type="hidden" name="status" th:value="${order.orderStatusId}">
+                    <button type="submit">Betal Ordre</button>
+                </form>
+            </div>
+        </td>
+        </tr>
         </form>
-
     </div>
 </table>
-
 </body>
 </html>

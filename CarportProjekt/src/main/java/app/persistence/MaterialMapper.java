@@ -19,7 +19,7 @@ public class MaterialMapper
         String sql = "SELECT * FROM material_variant " +
                 "INNER join material m USING(material_id) " +
                 "WHERE material_id = ? AND length >= ?";
-        try(Connection connection = connectionPool.getConnection())
+        try (Connection connection = connectionPool.getConnection())
         {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, materialId);
@@ -33,13 +33,12 @@ public class MaterialMapper
                 String name = resultSet.getString("name");
                 String unit = resultSet.getString("unit");
                 int price = resultSet.getInt("price");
-                Material material = new Material(materialId,name,unit);
+                Material material = new Material(materialId, name, unit);
                 MaterialVariant materialVariant = new MaterialVariant(variantId, length, material, price);
                 materialVariantList.add(materialVariant);
             }
             ps.close();
-        }
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException("Could not get users from the database", e.getMessage());
         }

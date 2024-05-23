@@ -11,7 +11,7 @@
         <h3>betaling bekræftet, din styklist er nu tilgængelig.</h3>
 
         <div th:if="${session.userRole == 'customer'}">
-            <form th:action="@{/orderoverviewcustomer}" method="get" >
+            <form th:action="@{/orderoverviewcustomer}" method="get">
                 <button class="button-blue" type="submit">Gå til mit overblik</button>
             </form>
         </div>

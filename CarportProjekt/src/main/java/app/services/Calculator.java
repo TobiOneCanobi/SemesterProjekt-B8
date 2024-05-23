@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 public class Calculator
 {
-
     private static final int Posts = 1;
     private static final int Rafters = 2;
     private static final int beams = 2;
@@ -54,8 +53,6 @@ public class Calculator
 
     public int calcPostQuantity()
     {
-        int maxDist;
-        int firstPost;
         return 2 * (2 + (length - 130) / 340);
     }
 

@@ -151,7 +151,7 @@ public class OrderMapper
         return orderItemList;
     }
 
-    public static Order insertOrder(Order order, ConnectionPool connectionPool) throws DatabaseException
+    public static Order insertOrder(Order order, User user, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "INSERT INTO orders (carport_width, carport_length, installation_fee, status, user_id, total_price)" +
                 " VALUES (?, ?, ?, ?, ?, ?)";
@@ -162,8 +162,9 @@ public class OrderMapper
             ps.setInt(2, order.getCarportLength());
             ps.setBoolean(3, order.isInstallationFee());
             ps.setInt(4, 1);  // Ensure '1' is the correct status ID
-            ps.setInt(5, order.getUser().getUserId());
+            ps.setInt(5, user.getUserId());
             ps.setInt(6, order.getTotalPrice());
+
 
             int affectedRows = ps.executeUpdate(); // Use executeUpdate for INSERT, UPDATE, DELETE
             if (affectedRows == 0)
@@ -224,9 +225,9 @@ public class OrderMapper
         {
             ps.setInt(1, orderId);
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected <= 1)
+            if (rowsAffected < 1)
             {
-                throw new DatabaseException("Fejl ved sletning af en orderitem!");
+                throw new DatabaseException("Fejl ved sletning af en orderitem! Ingen rækker blev slettet");
             }
         } catch (SQLException e)
         {
@@ -244,7 +245,7 @@ public class OrderMapper
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 1)
             {
-                throw new DatabaseException("Fejl ved sletning af en ordre!");
+                throw new DatabaseException("Fejl ved sletning af en ordre! Ingen rækker blev slettet");
             }
         } catch (SQLException e)
         {
@@ -299,7 +300,8 @@ public class OrderMapper
                 boolean installationFee = rs.getBoolean("installation_fee");
                 int status = rs.getInt("status");
                 int totalPrice = rs.getInt("total_price");
-                order = new Order(id, carportWidth, carportLength, installationFee, status, totalPrice);
+                int userId = rs.getInt("user_id");
+                order = new Order(id, carportWidth, carportLength, installationFee, status, totalPrice, userId);
             }
         } catch (SQLException e)
         {
